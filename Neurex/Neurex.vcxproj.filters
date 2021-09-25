@@ -1,27 +1,46 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Neurex">
+      <UniqueIdentifier>{7C2B37C5-68CD-619B-5188-75EF3DC9E8EB}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Neurex\Events">
+      <UniqueIdentifier>{15f88a21-0ca1-4726-b70a-0119a88a2e70}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Test.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\Neurex.h" />
+    <ClInclude Include="src\Neurex\Application.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Neurex\Logger.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Neurex\NXCore.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Neurex\NXEntryPoint.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Neurex\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEvent.h">
+      <Filter>Neurex\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ApplicationEvent.h">
+      <Filter>Neurex\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseEvent.h">
+      <Filter>Neurex\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Test.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Neurex\Application.cpp">
+      <Filter>Neurex</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Neurex\Logger.cpp">
+      <Filter>Neurex</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

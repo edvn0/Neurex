@@ -1,0 +1,3 @@
+[submodule "Neurex/vendor/spdlog"]
+	path = Neurex/vendor/spdlog
+	url = https://github.com/gabime/spdlog.git
