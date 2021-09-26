@@ -9,3 +9,6 @@
 #else
 	#error We only support Windows.
 #endif
+
+
+constexpr auto BIT(int x) { return 1 << x; }

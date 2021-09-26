@@ -5,6 +5,11 @@ workspace "Neurex"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+includeDir = {}
+includeDir["GLFW"] = "Neurex/vendor/GLFW/include"
+
+include "Neurex/vendor/GLFW"
+
 project "Neurex"
 	location "Neurex"
 	kind "SharedLib"
@@ -13,16 +18,26 @@ project "Neurex"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "nxpch.h"
+	pchsource "Neurex/src/nxpch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.hpp",
 		"%{prj.name}/src/**.cpp"
 	}
 
 	includedirs
 	{
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/src",
+		"%{prj.name}/vendor/spdlog/include",
+		"%{includeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -66,7 +81,6 @@ project "NXSandbox"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.hpp",
 		"%{prj.name}/src/**.cpp"
 	}
 
@@ -86,10 +100,7 @@ project "NXSandbox"
 		staticruntime "On"
 		systemversion "latest"
 
-		defines 
-		{
-			"NX_PT_WIN"
-		}
+		defines { "NX_PT_WIN" }
 
 	filter "configurations:Debug"
 		defines "NX_DEBUG"

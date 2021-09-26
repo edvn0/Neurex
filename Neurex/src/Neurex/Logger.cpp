@@ -1,3 +1,5 @@
+#include "nxpch.h"
+
 #include "Logger.h"
 
 namespace Neurex {

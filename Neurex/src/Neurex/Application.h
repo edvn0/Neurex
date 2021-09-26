@@ -1,6 +1,10 @@
 #pragma once
 
-#include "NXCore.h"
+#include "Core.h"
+#include "Neurex/events/ApplicationEvent.h"
+#include "Neurex/events/KeyEvent.h"
+#include "Neurex/events/MouseEvent.h"
+#include "Neurex/Logger.h"
 
 namespace Neurex {
 

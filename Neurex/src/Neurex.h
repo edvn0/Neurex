@@ -5,7 +5,7 @@
 #include "Neurex/Logger.h"
 
 // Entry Point
-#include "Neurex/NXEntryPoint.h"
+#include "Neurex/EntryPoint.h"
 
 // Standard includes
 #include <iostream>

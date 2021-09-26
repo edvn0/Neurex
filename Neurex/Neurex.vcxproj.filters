@@ -4,8 +4,14 @@
     <Filter Include="Neurex">
       <UniqueIdentifier>{7C2B37C5-68CD-619B-5188-75EF3DC9E8EB}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Neurex\Events">
-      <UniqueIdentifier>{15f88a21-0ca1-4726-b70a-0119a88a2e70}</UniqueIdentifier>
+    <Filter Include="Neurex\events">
+      <UniqueIdentifier>{00A81676-6C68-92AC-35A3-DB29A122D788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{fe961668-41c6-4137-a105-311fa0c29478}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{20d1bbcf-5ad6-4b30-95b9-313a01313fe4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -13,26 +19,33 @@
     <ClInclude Include="src\Neurex\Application.h">
       <Filter>Neurex</Filter>
     </ClInclude>
+    <ClInclude Include="src\Neurex\Core.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Neurex\EntryPoint.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
     <ClInclude Include="src\Neurex\Logger.h">
       <Filter>Neurex</Filter>
     </ClInclude>
-    <ClInclude Include="src\Neurex\NXCore.h">
+    <ClInclude Include="src\Neurex\events\ApplicationEvent.h">
+      <Filter>Neurex\events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Neurex\events\Event.h">
+      <Filter>Neurex\events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Neurex\events\KeyEvent.h">
+      <Filter>Neurex\events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Neurex\events\MouseEvent.h">
+      <Filter>Neurex\events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nxpch.h" />
+    <ClInclude Include="Window.h">
       <Filter>Neurex</Filter>
     </ClInclude>
-    <ClInclude Include="src\Neurex\NXEntryPoint.h">
-      <Filter>Neurex</Filter>
-    </ClInclude>
-    <ClInclude Include="Event.h">
-      <Filter>Neurex\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEvent.h">
-      <Filter>Neurex\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="ApplicationEvent.h">
-      <Filter>Neurex\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseEvent.h">
-      <Filter>Neurex\Events</Filter>
+    <ClInclude Include="WindowsWindow.h">
+      <Filter>Platform\Windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +54,10 @@
     </ClCompile>
     <ClCompile Include="src\Neurex\Logger.cpp">
       <Filter>Neurex</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nxpch.cpp" />
+    <ClCompile Include="WindowsWindow.cpp">
+      <Filter>Platform\Windows</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
