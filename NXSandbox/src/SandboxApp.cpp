@@ -7,10 +7,18 @@ public:
 	}
 
 	void updated() override {
+		if (Neurex::Input::is_key_pressed(NX_KC_TAB))
+		{
+			NX_INFO("Tab was pressed!");
+		}
 	}
 
 	void on_event(Neurex::Event& event)
 	{
+		if (event.get_event_type() == Neurex::EventType::KeyPressed) {
+			auto& e = static_cast<Neurex::KeyPressedEvent&>(event);
+			NX_TRACE("{0}", e.get_key_code());
+		}
 	}
 };
 

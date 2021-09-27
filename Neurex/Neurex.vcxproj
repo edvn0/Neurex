@@ -154,9 +154,11 @@
     <ClInclude Include="src\Neurex\Application.h" />
     <ClInclude Include="src\Neurex\Core.h" />
     <ClInclude Include="src\Neurex\EntryPoint.h" />
+    <ClInclude Include="src\Neurex\KeyCodes.h" />
     <ClInclude Include="src\Neurex\Layer.h" />
     <ClInclude Include="src\Neurex\LayerStack.h" />
     <ClInclude Include="src\Neurex\Logger.h" />
+    <ClInclude Include="src\Neurex\MouseCodes.h" />
     <ClInclude Include="src\Neurex\Window.h" />
     <ClInclude Include="src\Neurex\events\ApplicationEvent.h" />
     <ClInclude Include="src\Neurex\events\Event.h" />

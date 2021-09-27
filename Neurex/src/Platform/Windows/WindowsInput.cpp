@@ -25,13 +25,13 @@ namespace Neurex {
 	float WindowsInput::mouse_x_impl()
 	{
 		auto [x, y] = mouse_pos_impl();
-		return static_cast<float>(x);
+		return y;
 	}
 
 	float WindowsInput::mouse_y_impl()
 	{
 		auto [x, y] = mouse_pos_impl();
-		return static_cast<float>(y);
+		return y;
 	}
 
 	std::pair<float, float> WindowsInput::mouse_pos_impl()
