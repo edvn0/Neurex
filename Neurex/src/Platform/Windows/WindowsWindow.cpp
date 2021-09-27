@@ -149,6 +149,12 @@ namespace Neurex
 			}
 		});
 
+		glfwSetCharCallback(win_window, [](GLFWwindow* window, unsigned int c) {
+			auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
+			KeyTypedEvent event(c);
+			user_ptr.callback(event);
+		});
+
 		glfwSetScrollCallback(win_window, [](GLFWwindow* window, double xo, double yo) {
 			auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
 			MouseScrolledEvent event((float)xo, (float)yo);

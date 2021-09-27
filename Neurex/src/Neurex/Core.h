@@ -11,6 +11,10 @@
 	#error We only support Windows.
 #endif
 
+#ifdef NX_DEBUG
+	#define NX_ALLOW_ASSERTS
+#endif
+
 #ifdef NX_ALLOW_ASSERTS
 	#define NX_ASSERT(x, ...) { if (!(x)) { NX_ERROR("User: Assertion fail. {0}", __VA_ARGS__); __debugbreak(); } }
 	#define NX_CORE_ASSERT(x, ...) { if (!(x)) { NX_CORE_ERROR("Core: Assertion fail. {0}", __VA_ARGS__); __debugbreak(); } }

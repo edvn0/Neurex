@@ -1,14 +1,20 @@
 #include "nxpch.h"
 
 #include "Application.h"
+#include "Input.h"
 
 #include <glad/glad.h>
 
 namespace Neurex {
 
+	Application* Application::instance = nullptr;
 
-	Application::Application() : window(Window::create())
+	Application::Application()
 	{
+		NX_CORE_ASSERT(!instance, "Application already exists.");
+		instance = this;
+
+		window = std::unique_ptr<Window>(Window::create());
 		window->set_event_callback(BEFn(Application::on_event));
 	};
 
@@ -24,6 +30,10 @@ namespace Neurex {
 		while (is_running) {
 			for (auto* l : stack) {
 				l->updated();
+			}
+
+			if (Input::is_mouse_button_pressed(1)) {
+				NX_CORE_INFO("{0}", "Clicked");
 			}
 
 			window->on_update();
@@ -55,11 +65,13 @@ namespace Neurex {
 	void Application::add_layer(Layer* layer)
 	{
 		stack.push(layer);
+		layer->attached();
 	}
 
 	void Application::add_overlay(Layer* overlay)
 	{
 		stack.push_overlay(overlay);
+		overlay->attached();
 	}
 
 }

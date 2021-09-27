@@ -31,6 +31,8 @@ namespace Neurex {
 		virtual bool is_vsync() = 0;
 		virtual void resize_window(size_t w, size_t h) const = 0;
 
+		virtual void* get_natively() const = 0;
+
 		static Window* create(const WindowProps& props = WindowProps());
 	};
 }

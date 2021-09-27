@@ -21,10 +21,16 @@ namespace Neurex {
 
 		void add_layer(Layer* layer);
 		void add_overlay(Layer* overlay);
+
+		static inline Application& the() { return *instance; }
+		inline Window& get_window() { return *window; }
 	private:
 		std::unique_ptr<Window> window;
 		bool is_running = true;
 		LayerStack stack;
+
+	private:
+		static Application* instance;
 	};
 
 	Application* create_application();

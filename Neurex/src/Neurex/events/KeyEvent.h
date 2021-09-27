@@ -10,6 +10,8 @@ namespace Neurex
 	protected:
 		KeyEvent(int keycode) : key_code(keycode) {}
 	public:
+		inline const int get_key_code() const { return key_code; }
+
 		EVENT_CLASS_CATEGORY(EventCategoryApplication | EventCategoryInput)
 	protected:
 		int key_code;
@@ -40,5 +42,20 @@ namespace Neurex
 		KeyReleasedEvent(int keycode) : KeyEvent(keycode) {};
 
 		EVENT_CLASS_TYPE(KeyReleased)
+	};
+
+	class NX_API KeyTypedEvent : public KeyEvent
+	{
+	public:
+		KeyTypedEvent(int keycode) : KeyEvent(keycode) {};
+
+		std::string to_string() const override
+		{
+			std::stringstream ss;
+			ss << "KeyTypedEvent: " << key_code;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped)
 	};
 }

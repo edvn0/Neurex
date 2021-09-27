@@ -7,11 +7,10 @@ public:
 	}
 
 	void updated() override {
-		NX_INFO("ExampleLayer::updated");
 	}
 
-	void on_event(Neurex::Event& event) {
-		NX_TRACE("{0}", event);
+	void on_event(Neurex::Event& event)
+	{
 	}
 };
 
@@ -21,6 +20,7 @@ class Sandbox : public Neurex::Application
 public:
 	Sandbox() {
 		add_layer(new ExampleLayer());
+		add_overlay(new Neurex::ImGuiLayer());
 	};
 	
 	~Sandbox() {};

@@ -3,21 +3,27 @@ workspace "Neurex"
 
 	configurations {"Debug", "Release", "Dist"}
 
+startproject "NXSandbox"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 includeDir = {}
 includeDir["GLFW"] = "Neurex/vendor/GLFW/include"
 includeDir["glad"] = "Neurex/vendor/glad/include"
-includeDir["imgui"] = "Neurex/vendor/imgui/include"
+includeDir["imgui"] = "Neurex/vendor/imgui"
 
-include "Neurex/vendor/GLFW"
-include "Neurex/vendor/glad"
-include "Neurex/vendor/imgui"
+
+group "Dependencies"
+	include "Neurex/vendor/GLFW"
+	include "Neurex/vendor/glad"
+	include "Neurex/vendor/imgui"
+group ""
+
 
 project "Neurex"
 	location "Neurex"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -44,13 +50,13 @@ project "Neurex"
 	{
 		"GLFW",
 		"glad",
+		"imgui",
 		"opengl32.lib",
 		"glu32.lib"
 	}
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines 
@@ -62,33 +68,23 @@ project "Neurex"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/NXSandbox")
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/NXSandbox/\"")
 		}
 
 	filter "configurations:Debug"
 		defines "NX_DEBUG"
 		symbols "On"
-		buildoptions "/MDd"
-
-		defines 
-		{
-			"NX_ALLOW_ASSERTS"
-		}
+		runtime "Debug"
 
 	filter "configurations:Release"
 		defines "NX_RELEASE"
 		optimize "On"
-		buildoptions "/MD"
-
-		defines 
-		{
-			"NX_ALLOW_ASSERTS"
-		}
+		runtime "Release"
 
 	filter "configurations:Dist"
 		defines "NX_DIST"
 		optimize "On"
-		buildoptions "/MD"
+		runtime "Release"
 
 
 
@@ -96,6 +92,7 @@ project "NXSandbox"
 	location "NXSandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -119,7 +116,6 @@ project "NXSandbox"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines { "NX_PT_WIN" }
@@ -127,14 +123,14 @@ project "NXSandbox"
 	filter "configurations:Debug"
 		defines "NX_DEBUG"
 		symbols "On"
-		buildoptions "/MDd"
+		runtime "Debug"
 
 	filter "configurations:Release"
 		defines "NX_RELEASE"
 		optimize "On"
-		buildoptions "/MD"
+		runtime "Release"
 
 	filter "configurations:Dist"
 		defines "NX_DIST"
 		optimize "On"
-		buildoptions "/MD"
+		runtime "Release"

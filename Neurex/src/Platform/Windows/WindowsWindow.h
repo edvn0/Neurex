@@ -21,6 +21,8 @@ namespace Neurex {
 		bool is_vsync() override;
 		void resize_window(size_t w, size_t h) const override;
 
+		inline virtual void* get_natively() const { return win_window; };
+
 	private:
 		virtual void init(const WindowProps& props);
 		virtual void shutdown();

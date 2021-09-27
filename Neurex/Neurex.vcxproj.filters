@@ -7,8 +7,14 @@
     <Filter Include="Neurex\events">
       <UniqueIdentifier>{00A81676-6C68-92AC-35A3-DB29A122D788}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Neurex\imgui">
+      <UniqueIdentifier>{E6E52C59-D248-BCFD-7BCE-F4B367108880}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform\Windows">
       <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
@@ -49,10 +55,21 @@
     <ClInclude Include="src\Neurex\events\MouseEvent.h">
       <Filter>Neurex\events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Neurex\imgui\ImGuiLayer.h">
+      <Filter>Neurex\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3_loader.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\nxpch.h" />
+    <ClInclude Include="src\Neurex\Input.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Neurex\Application.cpp">
@@ -67,9 +84,16 @@
     <ClCompile Include="src\Neurex\Logger.cpp">
       <Filter>Neurex</Filter>
     </ClCompile>
+    <ClCompile Include="src\Neurex\imgui\ImGuiLayer.cpp">
+      <Filter>Neurex\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\nxpch.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>
