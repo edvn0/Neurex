@@ -8,6 +8,9 @@
 #include "LayerStack.h"
 #include "imgui/ImGuiLayer.h"
 
+#include "Neurex/renderer/Shader.h"
+#include "Neurex/renderer/Buffer.h"
+
 namespace Neurex {
 
 	class NX_API Application
@@ -32,7 +35,12 @@ namespace Neurex {
 		bool is_running = true;
 		LayerStack stack;
 
-		unsigned int array_vertex, buffer_vertex, buffer_index;
+		unsigned int array_vertex;
+
+		std::unique_ptr<VertexBuffer> vertex_buffer;
+		std::unique_ptr<IndexBuffer> index_buffer;
+		std::unique_ptr<Shader> red_triangle_shader;
+
 	private:
 		static Application* instance;
 	};

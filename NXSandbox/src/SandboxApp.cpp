@@ -15,7 +15,6 @@ public:
 
 	void on_event(Neurex::Event& event)
 	{
-		NX_CORE_INFO("HELLO");
 	}
 };
 

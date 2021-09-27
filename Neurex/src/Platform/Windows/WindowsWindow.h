@@ -35,10 +35,10 @@ namespace Neurex {
 		GraphicsContext* window_context;
 
 		struct WindowData {
-			std::string title;
-			size_t width;
-			size_t height;
-			bool vsync;
+			std::string title = "Window";
+			size_t width = 1280;
+			size_t height = 720;
+			bool vsync = true;
 
 			EventCallback callback;
 		};

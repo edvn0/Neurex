@@ -28,9 +28,6 @@ namespace Neurex {
 		glBindVertexArray(array_vertex);
 
 		// Vertex Buffer
-		
-		glGenBuffers(1, &buffer_vertex);
-		glBindBuffer(GL_ARRAY_BUFFER, buffer_vertex);
 
 		float vertices[3 * 3] = {
 			-0.5f, -0.5f, 0.0f,
@@ -38,20 +35,48 @@ namespace Neurex {
 			0.0f, 0.5f, 0.0f
 		};
 
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		vertex_buffer.reset(VertexBuffer::create(vertices, sizeof(vertices)));
+
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 
 		// Index Buffer
 		
-		glGenBuffers(1, &buffer_index);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer_index);
-		
-		unsigned int indices[3] = { 0,1,2 };
-
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		uint32_t indices[3] = { 0, 1, 2 };
+		index_buffer.reset(IndexBuffer::create(indices, sizeof(indices)));
 
 		// Shader
+
+		std::string vertex_src, fragment_src;
+
+		vertex_src = R"(
+			#version 450 core
+			
+			layout(location = 0) in vec4 attrib_position;
+
+			out vec4 vertex_position;
+
+			void main() 
+			{
+				gl_Position = attrib_position;
+				vertex_position = attrib_position;
+			}
+		)";
+
+		fragment_src = R"(
+			#version 450 core
+			
+			layout(location = 0) out vec4 output_colour;
+
+			in vec4 vertex_position;
+
+			void main()
+			{
+				output_colour = vertex_position * 0.5 + 0.5;
+			}
+		)";
+
+		red_triangle_shader = std::make_unique<Shader>(vertex_src, fragment_src);
 	};
 
 	Application::~Application()
@@ -62,8 +87,9 @@ namespace Neurex {
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		red_triangle_shader->bind();
 		glBindVertexArray(array_vertex);
-		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES, index_buffer->get_count(), GL_UNSIGNED_INT, nullptr);
 
 		while (is_running) {
 			for (auto* l : stack) {
