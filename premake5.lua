@@ -8,9 +8,11 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 includeDir = {}
 includeDir["GLFW"] = "Neurex/vendor/GLFW/include"
 includeDir["glad"] = "Neurex/vendor/glad/include"
+includeDir["imgui"] = "Neurex/vendor/imgui/include"
 
 include "Neurex/vendor/GLFW"
 include "Neurex/vendor/glad"
+include "Neurex/vendor/imgui"
 
 project "Neurex"
 	location "Neurex"
@@ -34,7 +36,8 @@ project "Neurex"
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{includeDir.GLFW}",
-		"%{includeDir.glad}"
+		"%{includeDir.glad}",
+		"%{includeDir.imgui}"
 	}
 
 	links

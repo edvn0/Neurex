@@ -4,3 +4,6 @@
 [submodule "Neurex/vendor/GLFW"]
 	path = Neurex/vendor/GLFW
 	url = https://github.com/TheCherno/glfw.git
+[submodule "Neurex/vendor/imgui"]
+	path = Neurex/vendor/imgui
+	url = https://github.com/TheCherno/imgui
