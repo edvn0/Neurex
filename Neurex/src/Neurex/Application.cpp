@@ -16,6 +16,8 @@ namespace Neurex {
 
 		window = std::unique_ptr<Window>(Window::create());
 		window->set_event_callback(BEFn(Application::on_event));
+		imgui_layer = new ImGuiLayer();
+		add_overlay(imgui_layer);
 	};
 
 	Application::~Application()
@@ -32,10 +34,12 @@ namespace Neurex {
 				l->updated();
 			}
 
-			if (Input::is_mouse_button_pressed(1)) {
-				NX_CORE_INFO("{0}", "Clicked");
-			}
-
+			imgui_layer->begin();
+			for (auto* l : stack) {
+				l->on_imgui_render();
+			}			
+			imgui_layer->end();
+			
 			window->on_update();
 		}
 	}

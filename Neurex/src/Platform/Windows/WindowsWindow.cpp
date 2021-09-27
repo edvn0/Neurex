@@ -51,7 +51,7 @@ namespace Neurex
 		return window_data.vsync;
 	}
 
-	void WindowsWindow::resize_window(size_t w, size_t h) const
+	void WindowsWindow::resize_window(float w, float h) const
 	{
 		glfwSetWindowSize(win_window, (int) w, (int) h);
 	}
@@ -93,7 +93,7 @@ namespace Neurex
 		{
 			auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
 			
-			WindowResizeEvent event(width, height);
+			WindowResizeEvent event((float)width, (float)height);
 			user_ptr.width = width;
 			user_ptr.height = height;
 			user_ptr.callback(event);

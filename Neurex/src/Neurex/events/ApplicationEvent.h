@@ -8,10 +8,10 @@ namespace Neurex
 	class NX_API WindowResizeEvent : public Event
 	{
 	public:
-		WindowResizeEvent(size_t width_, size_t height_): width(width_), height(height_) {}
+		WindowResizeEvent(float width_, float height_): width(width_), height(height_) {}
 
-		inline size_t get_width() const { return width; }
-		inline size_t get_height() const { return height; }
+		inline float get_width() const { return width; }
+		inline float get_height() const { return height; }
 
 		std::string to_string() const override
 		{
@@ -23,7 +23,7 @@ namespace Neurex
 		EVENT_CLASS_TYPE(WindowResize)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	private:
-		size_t width, height;
+		float width, height;
 	};
 
 	class NX_API WindowCloseEvent : public Event

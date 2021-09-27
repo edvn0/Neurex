@@ -23,7 +23,7 @@ namespace Neurex {
 		stack::iterator end() { return layer_stack.end(); }
 	private:
 		stack layer_stack;
-		stack_it layer_stack_insert;
+		unsigned int layer_insert;
 	};
 
 }

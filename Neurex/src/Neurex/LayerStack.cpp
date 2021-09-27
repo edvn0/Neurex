@@ -5,7 +5,7 @@ namespace Neurex {
 
 	LayerStack::LayerStack()
 	{
-		layer_stack_insert = layer_stack.begin();
+		layer_insert = 0;
 	}
 
 	LayerStack::~LayerStack()
@@ -17,7 +17,8 @@ namespace Neurex {
 
 	void LayerStack::push(Layer* layer)
 	{
-		layer_stack_insert = layer_stack.emplace(layer_stack_insert, layer);
+		layer_stack.emplace(begin() + layer_insert, layer);
+		layer_insert++;
 	}
 
 	void LayerStack::push_overlay(Layer* overlay)
@@ -30,7 +31,7 @@ namespace Neurex {
 		auto found = std::find(begin(), end(), layer);
 		if (found != end()) {
 			layer_stack.erase(found);
-			layer_stack_insert--;
+			layer_insert--;
 		}
 	}
 

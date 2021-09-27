@@ -16,12 +16,12 @@ namespace Neurex {
 		client_logger->set_level(spdlog::level::trace);
 	}
 
-	inline std::shared_ptr<spdlog::logger> Logger::get_core_logger()
+	std::shared_ptr<spdlog::logger> Logger::get_core_logger()
 	{
 		return core_logger;
 	}
 
-	inline std::shared_ptr<spdlog::logger> Logger::get_client_logger()
+	std::shared_ptr<spdlog::logger> Logger::get_client_logger()
 	{
 		return client_logger;
 	}

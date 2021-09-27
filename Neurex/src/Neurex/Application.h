@@ -6,6 +6,7 @@
 #include "Events/KeyEvent.h"
 #include "Events/ApplicationEvent.h"
 #include "LayerStack.h"
+#include "imgui/ImGuiLayer.h"
 
 namespace Neurex {
 
@@ -26,6 +27,8 @@ namespace Neurex {
 		inline Window& get_window() { return *window; }
 	private:
 		std::unique_ptr<Window> window;
+		ImGuiLayer* imgui_layer;
+
 		bool is_running = true;
 		LayerStack stack;
 

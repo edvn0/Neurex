@@ -29,7 +29,7 @@ namespace Neurex {
 		virtual void set_event_callback(const EventCallback& callback) = 0;
 		virtual void set_vsync(bool enabled) = 0;
 		virtual bool is_vsync() = 0;
-		virtual void resize_window(size_t w, size_t h) const = 0;
+		virtual void resize_window(float w, float h) const = 0;
 
 		virtual void* get_natively() const = 0;
 

@@ -21,9 +21,10 @@ group ""
 
 project "Neurex"
 	location "Neurex"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -55,38 +56,32 @@ project "Neurex"
 		"glad",
 		"imgui",
 		"opengl32.lib",
-		"glu32.lib"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines 
 		{
 			"NX_PT_WIN",
 			"NX_BUILD_DLL",
-			"GLFW_INCLUDE_NONE"
-		}
-
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/NXSandbox/\"")
+			"GLFW_INCLUDE_NONE",
+			"_CRT_SECURE_NO_WARNINGS"
 		}
 
 	filter "configurations:Debug"
 		defines "NX_DEBUG"
-		symbols "On"
+		symbols "on"
 		runtime "Debug"
 
 	filter "configurations:Release"
 		defines "NX_RELEASE"
-		optimize "On"
+		optimize "on"
 		runtime "Release"
 
 	filter "configurations:Dist"
 		defines "NX_DIST"
-		optimize "On"
+		optimize "on"
 		runtime "Release"
 
 
@@ -95,7 +90,8 @@ project "NXSandbox"
 	location "NXSandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -110,7 +106,8 @@ project "NXSandbox"
 	{
 		"Neurex/vendor/spdlog/include",
 		"Neurex/src",
-		"%{includeDir.glm}"
+		"Neurex/vendor",
+		"%{includeDir.glm}",
 	}
 
 	links 
@@ -119,7 +116,6 @@ project "NXSandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines { "NX_PT_WIN" }

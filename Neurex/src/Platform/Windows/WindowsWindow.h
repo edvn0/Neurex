@@ -19,7 +19,7 @@ namespace Neurex {
 		void set_event_callback(const EventCallback& callback) override { window_data.callback = callback; };
 		void set_vsync(bool enabled) override;
 		bool is_vsync() override;
-		void resize_window(size_t w, size_t h) const override;
+		void resize_window(float w, float h) const override;
 
 		inline virtual void* get_natively() const { return win_window; };
 

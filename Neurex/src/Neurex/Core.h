@@ -2,11 +2,15 @@
 
 
 #ifdef NX_PT_WIN
+#if NX_DYNAMIC_LINK
 	#ifdef NX_BUILD_DLL
 		#define NX_API __declspec(dllexport)
 	#else
 		#define NX_API __declspec(dllimport)
 	#endif
+#else
+	#define NX_API
+#endif
 #else
 	#error We only support Windows.
 #endif

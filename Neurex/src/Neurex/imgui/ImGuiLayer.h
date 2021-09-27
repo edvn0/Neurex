@@ -12,11 +12,11 @@ namespace Neurex {
 
 		void attached() override;
 		void detached() override;
-		void updated() override;
 		void on_event(Event& event) override;
-    private:
+        void on_imgui_render() override;
 
-
+		void begin();
+		void end();
     private:
         float current_time = 0.0f;
     };
