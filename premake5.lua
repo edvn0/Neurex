@@ -10,7 +10,7 @@ includeDir = {}
 includeDir["GLFW"] = "Neurex/vendor/GLFW/include"
 includeDir["glad"] = "Neurex/vendor/glad/include"
 includeDir["imgui"] = "Neurex/vendor/imgui"
-
+includeDir["glm"] = "Neurex/vendor/glm"
 
 group "Dependencies"
 	include "Neurex/vendor/GLFW"
@@ -34,7 +34,9 @@ project "Neurex"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
 
 	includedirs
@@ -43,7 +45,8 @@ project "Neurex"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{includeDir.GLFW}",
 		"%{includeDir.glad}",
-		"%{includeDir.imgui}"
+		"%{includeDir.imgui}",
+		"%{includeDir.glm}"
 	}
 
 	links
@@ -106,7 +109,8 @@ project "NXSandbox"
 	includedirs
 	{
 		"Neurex/vendor/spdlog/include",
-		"Neurex/src"
+		"Neurex/src",
+		"%{includeDir.glm}"
 	}
 
 	links 

@@ -3,7 +3,6 @@
 class ExampleLayer : public Neurex::Layer {
 public:
 	ExampleLayer(): Layer("Sandbox") {
-
 	}
 
 	void updated() override {

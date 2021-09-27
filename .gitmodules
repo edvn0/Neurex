@@ -7,3 +7,6 @@
 [submodule "Neurex/vendor/imgui"]
 	path = Neurex/vendor/imgui
 	url = https://github.com/TheCherno/imgui
+[submodule "Neurex/Neurex/vendor/glm"]
+	path = Neurex/Neurex/vendor/glm
+	url = https://github.com/g-truc/glm.git
