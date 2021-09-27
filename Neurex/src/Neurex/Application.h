@@ -32,6 +32,7 @@ namespace Neurex {
 		bool is_running = true;
 		LayerStack stack;
 
+		unsigned int array_vertex, buffer_vertex, buffer_index;
 	private:
 		static Application* instance;
 	};

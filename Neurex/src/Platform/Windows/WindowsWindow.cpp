@@ -4,8 +4,7 @@
 #include "Neurex/events/KeyEvent.h"
 #include "Neurex/events/MouseEvent.h"
 #include "Neurex/events/ApplicationEvent.h"
-
-#include <glad/glad.h>
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace Neurex
 {
@@ -32,7 +31,7 @@ namespace Neurex
 	void WindowsWindow::on_update()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(win_window);
+		window_context->swap_buffers();
 	};
 
 	void WindowsWindow::set_vsync(bool enabled)
@@ -53,7 +52,7 @@ namespace Neurex
 
 	void WindowsWindow::resize_window(float w, float h) const
 	{
-		glfwSetWindowSize(win_window, (int) w, (int) h);
+		glfwSetWindowSize(win_window, (int)w, (int)h);
 	}
 
 	void WindowsWindow::init(const WindowProps& props)
@@ -74,10 +73,10 @@ namespace Neurex
 		}
 
 		win_window = glfwCreateWindow((int)props.width, (int)props.height, window_data.title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(win_window);
-		int glad_status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		NX_CORE_INFO("Glad initialized with status {0}", glad_status);
-		NX_CORE_ASSERT(glad_status, "Failed to initialize glad.");
+
+		window_context = new OpenGLContext(win_window);
+		window_context->init();
+
 		glfwSetWindowUserPointer(win_window, &window_data);
 		set_vsync(true);
 		setup_events();

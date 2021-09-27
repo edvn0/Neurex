@@ -140,6 +140,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Neurex.h" />
     <ClInclude Include="src\Neurex\Application.h" />
     <ClInclude Include="src\Neurex\Core.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="src\Neurex\LayerStack.h" />
     <ClInclude Include="src\Neurex\Logger.h" />
     <ClInclude Include="src\Neurex\MouseCodes.h" />
+    <ClInclude Include="src\Neurex\renderer\GraphicsContext.h" />
     <ClInclude Include="src\Neurex\Window.h" />
     <ClInclude Include="src\Neurex\events\ApplicationEvent.h" />
     <ClInclude Include="src\Neurex\events\Event.h" />
@@ -576,6 +578,7 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Neurex\Application.cpp" />
     <ClCompile Include="src\Neurex\Layer.cpp" />
     <ClCompile Include="src\Neurex\LayerStack.cpp" />

@@ -2,10 +2,12 @@
 
 #include "nxpch.h"
 #include "Neurex/Window.h"
+#include "Neurex/renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
 
 namespace Neurex {
+
 	class WindowsWindow : public Window {
 	public:
 		WindowsWindow(const WindowProps& props);
@@ -30,6 +32,8 @@ namespace Neurex {
 	private:
 		GLFWwindow* win_window;
 
+		GraphicsContext* window_context;
+
 		struct WindowData {
 			std::string title;
 			size_t width;
@@ -41,4 +45,5 @@ namespace Neurex {
 
 		WindowData window_data;
 	};
+
 }
