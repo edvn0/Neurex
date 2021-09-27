@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Core.h"
-#include "Neurex/events/ApplicationEvent.h"
-#include "Neurex/events/KeyEvent.h"
-#include "Neurex/events/MouseEvent.h"
-#include "Neurex/Logger.h"
+#include "Window.h"
+#include "Events/MouseEvent.h"
+#include "Events/KeyEvent.h"
+#include "Events/ApplicationEvent.h"
+#include "LayerStack.h"
 
 namespace Neurex {
 
@@ -15,6 +16,15 @@ namespace Neurex {
 		virtual ~Application();
 
 		void start();
+
+		void on_event(Event& event);
+
+		void add_layer(Layer* layer);
+		void add_overlay(Layer* overlay);
+	private:
+		std::unique_ptr<Window> window;
+		bool is_running = true;
+		LayerStack stack;
 	};
 
 	Application* create_application();

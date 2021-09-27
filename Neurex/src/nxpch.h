@@ -12,6 +12,8 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Neurex/Logger.h"
+
 #ifdef NX_PT_WIN
 	#include <Windows.h>
 #endif

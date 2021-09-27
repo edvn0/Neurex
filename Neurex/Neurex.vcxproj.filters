@@ -8,10 +8,10 @@
       <UniqueIdentifier>{00A81676-6C68-92AC-35A3-DB29A122D788}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform">
-      <UniqueIdentifier>{fe961668-41c6-4137-a105-311fa0c29478}</UniqueIdentifier>
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform\Windows">
-      <UniqueIdentifier>{20d1bbcf-5ad6-4b30-95b9-313a01313fe4}</UniqueIdentifier>
+      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -25,7 +25,16 @@
     <ClInclude Include="src\Neurex\EntryPoint.h">
       <Filter>Neurex</Filter>
     </ClInclude>
+    <ClInclude Include="src\Neurex\Layer.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Neurex\LayerStack.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
     <ClInclude Include="src\Neurex\Logger.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Neurex\Window.h">
       <Filter>Neurex</Filter>
     </ClInclude>
     <ClInclude Include="src\Neurex\events\ApplicationEvent.h">
@@ -40,24 +49,27 @@
     <ClInclude Include="src\Neurex\events\MouseEvent.h">
       <Filter>Neurex\events</Filter>
     </ClInclude>
-    <ClInclude Include="src\nxpch.h" />
-    <ClInclude Include="Window.h">
-      <Filter>Neurex</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowsWindow.h">
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="src\nxpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Neurex\Application.cpp">
       <Filter>Neurex</Filter>
     </ClCompile>
+    <ClCompile Include="src\Neurex\Layer.cpp">
+      <Filter>Neurex</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Neurex\LayerStack.cpp">
+      <Filter>Neurex</Filter>
+    </ClCompile>
     <ClCompile Include="src\Neurex\Logger.cpp">
       <Filter>Neurex</Filter>
     </ClCompile>
-    <ClCompile Include="src\nxpch.cpp" />
-    <ClCompile Include="WindowsWindow.cpp">
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
+    <ClCompile Include="src\nxpch.cpp" />
   </ItemGroup>
 </Project>

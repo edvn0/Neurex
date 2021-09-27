@@ -7,8 +7,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 includeDir = {}
 includeDir["GLFW"] = "Neurex/vendor/GLFW/include"
+includeDir["glad"] = "Neurex/vendor/glad/include"
 
 include "Neurex/vendor/GLFW"
+include "Neurex/vendor/glad"
 
 project "Neurex"
 	location "Neurex"
@@ -31,13 +33,16 @@ project "Neurex"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{includeDir.GLFW}"
+		"%{includeDir.GLFW}",
+		"%{includeDir.glad}"
 	}
 
 	links
 	{
 		"GLFW",
-		"opengl32.lib"
+		"glad",
+		"opengl32.lib",
+		"glu32.lib"
 	}
 
 	filter "system:windows"
@@ -48,7 +53,8 @@ project "Neurex"
 		defines 
 		{
 			"NX_PT_WIN",
-			"NX_BUILD_DLL"
+			"NX_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
@@ -59,14 +65,27 @@ project "Neurex"
 	filter "configurations:Debug"
 		defines "NX_DEBUG"
 		symbols "On"
+		buildoptions "/MDd"
+
+		defines 
+		{
+			"NX_ALLOW_ASSERTS"
+		}
 
 	filter "configurations:Release"
 		defines "NX_RELEASE"
 		optimize "On"
+		buildoptions "/MD"
+
+		defines 
+		{
+			"NX_ALLOW_ASSERTS"
+		}
 
 	filter "configurations:Dist"
 		defines "NX_DIST"
 		optimize "On"
+		buildoptions "/MD"
 
 
 
@@ -105,11 +124,14 @@ project "NXSandbox"
 	filter "configurations:Debug"
 		defines "NX_DEBUG"
 		symbols "On"
+		buildoptions "/MDd"
 
 	filter "configurations:Release"
 		defines "NX_RELEASE"
 		optimize "On"
+		buildoptions "/MD"
 
 	filter "configurations:Dist"
 		defines "NX_DIST"
 		optimize "On"
+		buildoptions "/MD"

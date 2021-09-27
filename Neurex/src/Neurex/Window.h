@@ -2,8 +2,8 @@
 
 #include "nxpch.h"
 
-#include "Neurex/Core.h"
-#include "Neurex/events/Event.h"
+#include "Core.h"
+#include "Events/Event.h"
 
 namespace Neurex {
 
@@ -19,16 +19,17 @@ namespace Neurex {
 	public:
 		using EventCallback = std::function<void(Event&)>;
 
-		virtual ~Window();
+		virtual ~Window() = default;
 
 		virtual size_t get_width() const = 0;
 		virtual size_t get_height() const = 0;
 
-		virtual void OnUpdate() = 0;
+		virtual void on_update() = 0;
 
 		virtual void set_event_callback(const EventCallback& callback) = 0;
 		virtual void set_vsync(bool enabled) = 0;
 		virtual bool is_vsync() = 0;
+		virtual void resize_window(size_t w, size_t h) const = 0;
 
 		static Window* create(const WindowProps& props = WindowProps());
 	};

@@ -1,5 +1,6 @@
 #pragma once
 
+
 #ifdef NX_PT_WIN
 	#ifdef NX_BUILD_DLL
 		#define NX_API __declspec(dllexport)
@@ -10,5 +11,13 @@
 	#error We only support Windows.
 #endif
 
+#ifdef NX_ALLOW_ASSERTS
+	#define NX_ASSERT(x, ...) { if (!(x)) { NX_ERROR("User: Assertion fail. {0}", __VA_ARGS__); __debugbreak(); } }
+	#define NX_CORE_ASSERT(x, ...) { if (!(x)) { NX_CORE_ERROR("Core: Assertion fail. {0}", __VA_ARGS__); __debugbreak(); } }
+#else
+	#define NX_ASSERT(x, ...)
+	#define NX_CORE_ASSERT(x, ...)
+#endif
 
-constexpr auto BIT(int x) { return 1 << x; }
+#define BEFn(x) std::bind(&x, this, std::placeholders::_1)
+#define BIT(x) (1 << x)
