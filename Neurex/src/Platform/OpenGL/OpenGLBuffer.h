@@ -1,4 +1,4 @@
-#pragma onc
+#pragma once
 
 #include "Neurex/renderer/Buffer.h"
 
@@ -11,8 +11,13 @@ namespace Neurex {
 
 		virtual void bind() override;
 		virtual void unbind() override;
+
+		void set_layout(const BufferLayout& layout) override;
+		const BufferLayout& get_layout() const override;
+
 	private:
 		uint32_t renderer_id;
+		BufferLayout layout;
 	};
 
 	class OpenGLIndexBuffer : public IndexBuffer {

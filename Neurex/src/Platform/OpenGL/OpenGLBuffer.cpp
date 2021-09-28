@@ -27,6 +27,16 @@ namespace Neurex {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
+	void OpenGLVertexBuffer::set_layout(const BufferLayout& layout_)
+	{
+		layout = layout_;
+	}
+
+	const Neurex::BufferLayout& OpenGLVertexBuffer::get_layout() const
+	{
+		return layout;
+	}
+
 	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count_) : count(count_)
 	{
 		auto size = count * sizeof(uint32_t);

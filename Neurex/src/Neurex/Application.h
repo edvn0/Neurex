@@ -10,6 +10,7 @@
 
 #include "Neurex/renderer/Shader.h"
 #include "Neurex/renderer/Buffer.h"
+#include "Neurex/renderer/VertexArray.h"
 
 namespace Neurex {
 
@@ -37,10 +38,11 @@ namespace Neurex {
 
 		unsigned int array_vertex;
 
-		std::unique_ptr<VertexBuffer> vertex_buffer;
-		std::unique_ptr<IndexBuffer> index_buffer;
-		std::unique_ptr<Shader> red_triangle_shader;
+		std::shared_ptr<Shader> triangle_shader;
+		std::shared_ptr<VertexArray> triangle_vertex_array;
 
+		std::shared_ptr<Shader> square_shader;
+		std::shared_ptr<VertexArray> square_vertex_array;
 	private:
 		static Application* instance;
 	};

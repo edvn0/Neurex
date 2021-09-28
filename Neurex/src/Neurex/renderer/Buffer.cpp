@@ -8,7 +8,7 @@
 namespace Neurex
 {
 
-	VertexBuffer* VertexBuffer::create(float* vertices, size_t size)
+	VertexBuffer* VertexBuffer::create(float* vertices, uint32_t size)
 	{
 		switch (Renderer::get_api())
 		{
@@ -37,9 +37,10 @@ namespace Neurex
 			return nullptr;
 		}
 		}
+		return nullptr;
 	}
 
-	IndexBuffer* IndexBuffer::create(uint32_t* indices, uint32_t size)
+	IndexBuffer* IndexBuffer::create(uint32_t* indices, uint32_t count)
 	{
 		switch (Renderer::get_api())
 		{
@@ -50,7 +51,7 @@ namespace Neurex
 		}
 		case RendererAPI::OpenGL:
 		{
-			return new OpenGLIndexBuffer(indices, size);
+			return new OpenGLIndexBuffer(indices, count);
 		}
 		case RendererAPI::Vulkan:
 		{
@@ -68,6 +69,7 @@ namespace Neurex
 			return nullptr;
 		}
 		}
+		return nullptr;
 	}
 
 }
