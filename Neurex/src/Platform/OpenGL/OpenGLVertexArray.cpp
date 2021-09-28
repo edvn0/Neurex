@@ -42,6 +42,11 @@ namespace Neurex
 		glCreateVertexArrays(1, &renderer_id);
 	}
 
+	OpenGLVertexArray::~OpenGLVertexArray()
+	{
+		glDeleteVertexArrays(1, &renderer_id);
+	}
+
 	void OpenGLVertexArray::bind()
 	{
 		glBindVertexArray(renderer_id);

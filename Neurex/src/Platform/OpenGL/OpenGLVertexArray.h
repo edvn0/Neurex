@@ -9,7 +9,7 @@ namespace Neurex
     {
     public:
         OpenGLVertexArray();
-        ~OpenGLVertexArray() = default;
+        ~OpenGLVertexArray();
 
         void bind() override;
         void unbind() override;

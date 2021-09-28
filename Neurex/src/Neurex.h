@@ -7,6 +7,7 @@
 #include "Neurex/MouseCodes.h"
 #include "Neurex/KeyCodes.h"
 #include "Neurex/Input.h"
+#include "Neurex/renderer/Renderer.h"
 #include "Neurex/imgui/ImGuiLayer.h"
 
 // Entry Point

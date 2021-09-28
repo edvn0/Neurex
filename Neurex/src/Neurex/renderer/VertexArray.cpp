@@ -11,26 +11,26 @@ namespace Neurex
 	{
 		switch (Renderer::get_api())
 		{
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 		{
 			NX_CORE_ASSERT(false, "No Rendering API is not supported.");
 			return nullptr;
 		}
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 		{
 			return new OpenGLVertexArray();
 		}
-		case RendererAPI::Vulkan:
+		case RendererAPI::API::Vulkan:
 		{
 			NX_CORE_ASSERT(false, "Vulkan is not supported.");
 			return nullptr;
 		}
-		case RendererAPI::Metal:
+		case RendererAPI::API::Metal:
 		{
 			NX_CORE_ASSERT(false, "Metal is not supported.");
 			return nullptr;
 		}
-		case RendererAPI::DirectX:
+		case RendererAPI::API::DirectX:
 		{
 			NX_CORE_ASSERT(false, "DirectX is not supported.");
 			return nullptr;

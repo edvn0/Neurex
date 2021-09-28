@@ -20,7 +20,7 @@ namespace Neurex {
 		Application();
 		virtual ~Application();
 
-		void start();
+		void run();
 
 		void on_event(Event& event);
 
@@ -36,13 +36,6 @@ namespace Neurex {
 		bool is_running = true;
 		LayerStack stack;
 
-		unsigned int array_vertex;
-
-		std::shared_ptr<Shader> triangle_shader;
-		std::shared_ptr<VertexArray> triangle_vertex_array;
-
-		std::shared_ptr<Shader> square_shader;
-		std::shared_ptr<VertexArray> square_vertex_array;
 	private:
 		static Application* instance;
 	};

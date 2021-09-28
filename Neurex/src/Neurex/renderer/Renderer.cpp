@@ -3,6 +3,20 @@
 
 namespace Neurex {
 	
-	RendererAPI Renderer::renderer_api = RendererAPI::OpenGL;
+	void Renderer::begin_scene()
+	{
+
+	}
+
+	void Renderer::submit(const std::shared_ptr<VertexArray>& va)
+	{
+		va->bind();
+		RenderCommand::draw_indexed(va);
+	}
+
+	void Renderer::end_scene()
+	{
+
+	}
 
 }

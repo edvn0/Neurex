@@ -1352,6 +1352,9 @@
     <ClInclude Include="src\Neurex\renderer\Renderer.h" />
     <ClInclude Include="src\Neurex\renderer\VertexArray.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
+    <ClInclude Include="src\Neurex\renderer\RendererAPI.h" />
+    <ClInclude Include="src\Neurex\renderer\RenderCommand.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Neurex\Application.cpp">
@@ -1388,5 +1391,8 @@
     <ClCompile Include="src\Neurex\renderer\Renderer.cpp" />
     <ClCompile Include="src\Neurex\renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
+    <ClCompile Include="src\Neurex\renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\Neurex\renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
   </ItemGroup>
 </Project>

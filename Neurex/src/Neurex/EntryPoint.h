@@ -10,7 +10,7 @@ int main(int argc, char** argv)
 	NX_CORE_WARN("test-core");
 	NX_WARN("test-client");
 	auto app = Neurex::create_application();
-	app->start();
+	app->run();
 	delete app;
 }
 
