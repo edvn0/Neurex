@@ -1355,6 +1355,7 @@
     <ClInclude Include="src\Neurex\renderer\RendererAPI.h" />
     <ClInclude Include="src\Neurex\renderer\RenderCommand.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Neurex\renderer\OrthographicCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Neurex\Application.cpp">
@@ -1394,5 +1395,6 @@
     <ClCompile Include="src\Neurex\renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Neurex\renderer\RenderCommand.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Neurex\renderer\OrthographicCamera.cpp" />
   </ItemGroup>
 </Project>

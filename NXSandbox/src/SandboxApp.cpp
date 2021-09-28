@@ -4,7 +4,7 @@ using namespace Neurex;
 
 class ExampleLayer : public Layer {
 public:
-	ExampleLayer(): Layer("Sandbox") 
+	ExampleLayer(): Layer("Sandbox"), camera(-1.0f, 1.0f, -1.0f, 1.0f)
 	{
 		triangle_vertex_array.reset(VertexArray::create());
 
@@ -69,12 +69,14 @@ public:
 			
 			layout(location = 0) in vec3 attrib_position;
 
+			uniform mat4 uniform_view_projection;
+
 			out vec3 vertex_position;
 
 			void main() 
 			{
 				vertex_position = attrib_position;
-				gl_Position = vec4(attrib_position, 1.0);
+				gl_Position = uniform_view_projection * vec4(attrib_position, 1.0);
 			}
 		)";
 
@@ -107,6 +109,8 @@ public:
 			layout(location = 0) in vec3 attrib_position;
 			layout(location = 1) in vec4 attrib_colour;
 
+			uniform mat4 uniform_view_projection;
+
 			out vec3 vertex_position;
 			out vec4 vertex_colour;
 
@@ -114,7 +118,7 @@ public:
 			{
 				vertex_position = attrib_position;
 				vertex_colour = attrib_colour;
-				gl_Position = vec4(attrib_position, 1.0);
+				gl_Position = uniform_view_projection * vec4(attrib_position, 1.0);
 			}
 		)";
 
@@ -143,8 +147,10 @@ public:
 		{
 			Renderer::begin_scene();
 			square_shader->bind();
+			square_shader->upload_uniform_mat4("uniform_view_projection", camera.get_view_projection_matrix());
 			Renderer::submit(square_vertex_array);
 			triangle_shader->bind();
+			triangle_shader->upload_uniform_mat4("uniform_view_projection", camera.get_view_projection_matrix());
 			Renderer::submit(triangle_vertex_array);
 			Renderer::end_scene();
 		}
@@ -162,6 +168,8 @@ private:
 
 	std::shared_ptr<Shader> square_shader;
 	std::shared_ptr<VertexArray> square_vertex_array;
+
+	OrthographicCamera camera;
 };
 
 
