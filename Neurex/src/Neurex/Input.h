@@ -5,7 +5,7 @@
 namespace Neurex
 {
 
-	class NX_API Input
+	class Input
 	{
 	public:
 		inline static bool is_key_pressed(int keycode) { return instance->is_key_pressed_impl(keycode); };

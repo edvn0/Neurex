@@ -6,15 +6,19 @@ namespace Neurex
 {
 	class OrthographicCamera {
 	public:
-		OrthographicCamera(float left, float right, float bottom, float top, float zn = -1.0f, float zf = 1.0f);
+		OrthographicCamera(float left, float right, 
+			float bottom, float top, 
+			float zn = -1.0f, float zf = 1.0f);
 		
 		const glm::vec3& get_position() const { return position; };
+
 		void set_position(const glm::vec3& pos) {
 			position = pos; 
 			recalculate_view_matrix();
 		};
 
 		float get_rotation() const { return rotation_angle; }
+		
 		void set_rotation(float angle) {
 			rotation_angle = angle; 
 			recalculate_view_matrix(); 
@@ -27,11 +31,11 @@ namespace Neurex
 		void recalculate_view_matrix();
 
 	private:
-		glm::mat4 proj_matrix;
-		glm::mat4 view_matrix;
-		glm::mat4 view_proj_matrix;
+		glm::mat4 proj_matrix = glm::mat4(0.0f);
+		glm::mat4 view_matrix = glm::mat4(0.0f);
+		glm::mat4 view_proj_matrix = glm::mat4(0.0f);
 
-		glm::vec3 position;
+		glm::vec3 position = glm::vec3(0.0f);
 		float rotation_angle = 0.0f;
 	};
 }

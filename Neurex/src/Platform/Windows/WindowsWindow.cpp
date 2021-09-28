@@ -78,7 +78,7 @@ namespace Neurex
 		window_context->init();
 
 		glfwSetWindowUserPointer(win_window, &window_data);
-		set_vsync(true);
+		set_vsync(false);
 		setup_events();
 	};
 

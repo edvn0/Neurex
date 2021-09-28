@@ -7,6 +7,7 @@
 #include "Events/ApplicationEvent.h"
 #include "LayerStack.h"
 #include "imgui/ImGuiLayer.h"
+#include "Neurex/core/Timestep.h"
 
 #include "Neurex/renderer/Shader.h"
 #include "Neurex/renderer/Buffer.h"
@@ -35,6 +36,8 @@ namespace Neurex {
 
 		bool is_running = true;
 		LayerStack stack;
+
+		Timestep::TimeDelta last_time = 0.0f;
 
 	private:
 		static Application* instance;

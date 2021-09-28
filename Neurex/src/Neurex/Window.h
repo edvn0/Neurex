@@ -15,7 +15,7 @@ namespace Neurex {
 		WindowProps(const std::string& title_ = "Neurex Engine", size_t w = 1280, size_t h = 720) : title(title_), width(w), height(h) {}
 	};
 
-	class NX_API Window {
+	class Window {
 	public:
 		using EventCallback = std::function<void(Event&)>;
 

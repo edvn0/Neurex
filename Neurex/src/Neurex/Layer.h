@@ -2,6 +2,7 @@
 
 #include "Neurex/Core.h"
 #include "Neurex/events/Event.h"
+#include "Neurex/core/Timestep.h"
 
 namespace Neurex {
 
@@ -13,7 +14,7 @@ namespace Neurex {
 
 		virtual void attached() {};
 		virtual void detached() {};
-		virtual void updated() {};
+		virtual void updated(Timestep ts) {};
 		virtual void on_event(Event& event) {};
 		virtual void on_imgui_render() {};
 		

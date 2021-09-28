@@ -25,7 +25,7 @@ namespace Neurex {
 	};
 	
 
-	class NX_API Event
+	class Event
 	{
 		friend class EventDispatcher;
 	public:

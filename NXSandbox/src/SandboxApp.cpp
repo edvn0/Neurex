@@ -4,10 +4,10 @@ using namespace Neurex;
 
 class ExampleLayer : public Layer {
 public:
-	ExampleLayer(): Layer("Sandbox"), camera(-1.0f, 1.0f, -1.0f, 1.0f)
+	ExampleLayer() : Layer("Sandbox"),
+		camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 		triangle_vertex_array.reset(VertexArray::create());
-
 
 		// Vertex Buffer
 
@@ -35,14 +35,13 @@ public:
 		triangle_index_buffer.reset(IndexBuffer::create(indices, sizeof(indices) / sizeof(uint32_t)));
 		triangle_vertex_array->set_index_buffer(triangle_index_buffer);
 
-
 		// SQUARE
 
 		float square_vertices[3 * 4] = {
-			-0.85f, -0.85f, 0.0f,
-			0.85f, -0.85f, 0.0f,
-			0.85f, 0.85f, 0.0f,
-			-0.85f, 0.85f, 0.0f
+			-0.75f, -0.75f, 0.0f,
+			0.75f, -0.75f, 0.0f,
+			0.75f, 0.75f, 0.0f,
+			-0.75f, 0.75f, 0.0f
 		};
 
 		square_vertex_array.reset(VertexArray::create());
@@ -61,19 +60,18 @@ public:
 		square_index_buffer.reset(IndexBuffer::create(square_indices, sizeof(square_indices) / sizeof(uint32_t)));
 		square_vertex_array->set_index_buffer(square_index_buffer);
 
-
 		std::string vertex_src_square, fragment_src_square;
 
 		vertex_src_square = R"(
 			#version 330 core
-			
+
 			layout(location = 0) in vec3 attrib_position;
 
 			uniform mat4 uniform_view_projection;
 
 			out vec3 vertex_position;
 
-			void main() 
+			void main()
 			{
 				vertex_position = attrib_position;
 				gl_Position = uniform_view_projection * vec4(attrib_position, 1.0);
@@ -82,7 +80,7 @@ public:
 
 		fragment_src_square = R"(
 			#version 330 core
-			
+
 			layout(location = 0) out vec4 output_colour;
 
 			in vec3 vertex_position;
@@ -98,14 +96,13 @@ public:
 
 		// END SQUARE
 
-
 		// Shader
 
 		std::string vertex_src, fragment_src;
 
 		vertex_src = R"(
 			#version 330 core
-			
+
 			layout(location = 0) in vec3 attrib_position;
 			layout(location = 1) in vec4 attrib_colour;
 
@@ -114,7 +111,7 @@ public:
 			out vec3 vertex_position;
 			out vec4 vertex_colour;
 
-			void main() 
+			void main()
 			{
 				vertex_position = attrib_position;
 				vertex_colour = attrib_colour;
@@ -124,7 +121,7 @@ public:
 
 		fragment_src = R"(
 			#version 330 core
-			
+
 			layout(location = 0) out vec4 output_colour;
 
 			in vec3 vertex_position;
@@ -140,20 +137,15 @@ public:
 		triangle_shader = std::make_shared<Shader>(vertex_src, fragment_src);
 	}
 
-	void updated() override {
+	virtual void updated(Timestep ts) override
+	{
+		NX_TRACE("dt: {0}s, {1}ms", ts.get_seconds(), ts.get_milli_seconds());
 		RenderCommand::set_clear_colour({ 0.2f, 0.2f, 0.2f, 1 });
 		RenderCommand::clear();
-
-		{
-			Renderer::begin_scene();
-			square_shader->bind();
-			square_shader->upload_uniform_mat4("uniform_view_projection", camera.get_view_projection_matrix());
-			Renderer::submit(square_vertex_array);
-			triangle_shader->bind();
-			triangle_shader->upload_uniform_mat4("uniform_view_projection", camera.get_view_projection_matrix());
-			Renderer::submit(triangle_vertex_array);
-			Renderer::end_scene();
-		}
+		Renderer::begin_scene(camera);
+		Renderer::submit(square_vertex_array, square_shader);
+		Renderer::submit(triangle_vertex_array, triangle_shader);
+		Renderer::end_scene();
 	}
 
 	virtual void on_imgui_render() override {
@@ -161,7 +153,37 @@ public:
 
 	void on_event(Event& event)
 	{
+		EventDispatcher dispatcher(event);
+		
+		dispatcher.dispatch_event<KeyPressedEvent>([&](KeyPressedEvent& ev) {
+			if (ev.get_key_code() == NX_KC_Q) {
+				camera.set_rotation(camera.get_rotation() + 2.5f);
+			}
+
+			if (ev.get_key_code() == NX_KC_E) {
+				camera.set_rotation(camera.get_rotation() - 2.5f);
+			}
+
+			if (ev.get_key_code() == NX_KC_W) {
+				camera.set_position(camera.get_position() - glm::vec3(0, 0.1, 0));
+			}
+
+			if (ev.get_key_code() == NX_KC_S) {
+				camera.set_position(camera.get_position() + glm::vec3(0, 0.1, 0));
+			}
+
+			if (ev.get_key_code() == NX_KC_A) {
+				camera.set_position(camera.get_position() + glm::vec3(0.1, 0, 0));
+			}
+
+			if (ev.get_key_code() == NX_KC_D) {
+				camera.set_position(camera.get_position() - glm::vec3(0.1, 0, 0));
+			}
+
+			return false;
+		});
 	}
+
 private:
 	std::shared_ptr<Shader> triangle_shader;
 	std::shared_ptr<VertexArray> triangle_vertex_array;
@@ -172,14 +194,13 @@ private:
 	OrthographicCamera camera;
 };
 
-
 class Sandbox : public Application
 {
 public:
 	Sandbox() {
 		add_layer(new ExampleLayer());
 	};
-	
+
 	~Sandbox() {};
 };
 

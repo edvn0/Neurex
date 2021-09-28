@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "Input.h"
 #include "renderer/Renderer.h"
+#include "core/Clock.h"
 
 namespace Neurex {
 
@@ -27,8 +28,12 @@ namespace Neurex {
 	void Application::run()
 	{
 		while (is_running) {
+			auto time = Clock::get_time();
+			Timestep step = time - last_time;
+			last_time = time;
+
 			for (auto* l : stack) {
-				l->updated();
+				l->updated(step);
 			}
 
 			imgui_layer->begin();
