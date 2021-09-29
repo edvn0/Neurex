@@ -4,7 +4,7 @@
 
 namespace Neurex {
     
-    class NX_API ImGuiLayer : public Layer
+    class ImGuiLayer : public Layer
     {
     public:
         ImGuiLayer();

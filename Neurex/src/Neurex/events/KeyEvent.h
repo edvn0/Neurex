@@ -5,19 +5,19 @@
 namespace Neurex 
 {
 
-	class NX_API KeyEvent : public Event
+	class KeyEvent : public Event
 	{
 	protected:
 		KeyEvent(int keycode) : key_code(keycode) {}
 	public:
 		inline const int get_key_code() const { return key_code; }
 
-		EVENT_CLASS_CATEGORY(EventCategoryApplication | EventCategoryInput)
+		virtual int get_category() const { return EventCategory::EventCategoryKeyboard | EventCategory::EventCategoryInput; };
 	protected:
 		int key_code;
 	};
 
-	class NX_API KeyPressedEvent : public KeyEvent
+	class KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int keycode, int repeats = 0) : KeyEvent(keycode), repeat_count(repeats) {};
@@ -31,20 +31,25 @@ namespace Neurex
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(KeyPressed)
+		static EventType get_static_type() { return EventType::KeyPressed; };
+		virtual EventType get_event_type() const override { return get_static_type(); };
+		virtual const char *get_name() const override { return "KeyPressed"; };
+
 	private:
 		int repeat_count;
 	};
 
-	class NX_API KeyReleasedEvent : public KeyEvent
+	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(int keycode) : KeyEvent(keycode) {};
 
-		EVENT_CLASS_TYPE(KeyReleased)
+		static EventType get_static_type() { return EventType::KeyReleased; };
+		virtual EventType get_event_type() const override { return get_static_type(); };
+		virtual const char *get_name() const override { return "KeyReleased"; };
 	};
 
-	class NX_API KeyTypedEvent : public KeyEvent
+	class KeyTypedEvent : public KeyEvent
 	{
 	public:
 		KeyTypedEvent(int keycode) : KeyEvent(keycode) {};
@@ -56,6 +61,8 @@ namespace Neurex
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(KeyTyped)
+		static EventType get_static_type() { return EventType::KeyTyped; };
+		virtual EventType get_event_type() const override { return get_static_type(); };
+		virtual const char *get_name() const override { return "KeyTyped"; };
 	};
 }

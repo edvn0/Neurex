@@ -9,6 +9,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 includeDir = {}
 includeDir["GLFW"] = "Neurex/vendor/GLFW/include"
 includeDir["glad"] = "Neurex/vendor/glad/include"
+includeDir["spdlog"] = "Neurex/vendor/spdlog/include"
 includeDir["imgui"] = "Neurex/vendor/imgui"
 includeDir["glm"] = "Neurex/vendor/glm"
 
@@ -43,30 +44,47 @@ project "Neurex"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include",
+		"%{includeDir.spdlog}",
 		"%{includeDir.GLFW}",
 		"%{includeDir.glad}",
 		"%{includeDir.imgui}",
 		"%{includeDir.glm}"
 	}
 
-	links
-	{
-		"GLFW",
-		"glad",
-		"imgui",
-		"opengl32.lib",
-	}
 
 	filter "system:windows"
 		systemversion "latest"
 
+		links
+		{
+			"GLFW",
+			"glad",
+			"imgui",
+			"opengl32.lib",
+		}
+
 		defines 
 		{
 			"NX_PT_WIN",
-			"NX_BUILD_DLL",
 			"GLFW_INCLUDE_NONE",
 			"_CRT_SECURE_NO_WARNINGS"
+		}
+
+	filter "system:macosx"
+		links {
+			"GLFW",
+			"glad",
+			"imgui",
+			"Cocoa",
+			"CoreVideo",
+			"OpenGL",
+			"IOKit"
+		}
+
+		defines {
+			"NX_PT_OSX",
+			"GLFW_INCLUDE_NONE",
+			"_CRT_SECURE_NO_WARNINGS"	
 		}
 
 	filter "configurations:Debug"
@@ -96,22 +114,19 @@ project "NXSandbox"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	files
-	{
+	files {
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp"
 	}
 
-	includedirs
-	{
+	includedirs	{
 		"Neurex/vendor/spdlog/include",
 		"Neurex/src",
 		"Neurex/vendor",
 		"%{includeDir.glm}",
 	}
 
-	links 
-	{
+	links {
 		"Neurex"
 	}
 
@@ -119,6 +134,20 @@ project "NXSandbox"
 		systemversion "latest"
 
 		defines { "NX_PT_WIN" }
+
+	filter "system:macosx"
+		links {
+			"Cocoa",
+			"IOKit",
+			"OpenGL",
+			"CoreVideo"
+		}
+
+		defines {
+			"NX_PT_OSX",
+			"GLFW_INCLUDE_NONE",
+			"_CRT_SECURE_NO_WARNINGS"
+		}
 
 	filter "configurations:Debug"
 		defines "NX_DEBUG"

@@ -1,0 +1,10 @@
+{
+  "files.associations": {
+    "*.module": "php",
+    "functional": "cpp",
+    "*.tcc": "cpp",
+    "chrono": "cpp",
+    "string_view": "cpp",
+    "variant": "cpp"
+  }
+}

@@ -2,9 +2,9 @@
 
 #include "Core.h"
 #include "Window.h"
-#include "Events/MouseEvent.h"
-#include "Events/KeyEvent.h"
-#include "Events/ApplicationEvent.h"
+#include "events/MouseEvent.h"
+#include "events/KeyEvent.h"
+#include "events/ApplicationEvent.h"
 #include "LayerStack.h"
 #include "imgui/ImGuiLayer.h"
 #include "Neurex/core/Timestep.h"
@@ -15,7 +15,7 @@
 
 namespace Neurex {
 
-	class NX_API Application
+	class Application
 	{
 	public:
 		Application();

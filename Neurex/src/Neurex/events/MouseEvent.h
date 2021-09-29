@@ -4,7 +4,7 @@
 
 namespace Neurex
 {
-	class NX_API MouseMovedEvent : public Event
+	class MouseMovedEvent : public Event
 	{
 	public:
 		MouseMovedEvent(float x, float y) : mouse_x(x), mouse_y(y) {}
@@ -18,14 +18,16 @@ namespace Neurex
 			ss << "MouseMovedEvent: " << mouse_x << ", " << mouse_y;
 			return ss.str();
 		}
-
-		EVENT_CLASS_TYPE(MouseMoved)
-		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+		
+		static EventType get_static_type() { return EventType::MouseMoved; };
+		virtual EventType get_event_type() const override { return get_static_type(); };
+		virtual const char* get_name() const override { return "MouseMoved"; };
+		virtual int get_category() const override { return EventCategory::EventCategoryMouse | EventCategory::EventCategoryInput; }
 	private:
 		float mouse_x, mouse_y;
 	};
 
-	class NX_API MouseScrolledEvent : public Event
+	class MouseScrolledEvent : public Event
 	{
 	public:
 		MouseScrolledEvent(float x, float y) : offset_x(x), offset_y(y) {}
@@ -39,14 +41,16 @@ namespace Neurex
 			ss << "MouseScrolledEvent: " << offset_x << ", " << offset_y;
 			return ss.str();
 		}
-
-		EVENT_CLASS_TYPE(MouseScrolled)
-		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+		
+		static EventType get_static_type() { return EventType::MouseScrolled; };
+		virtual EventType get_event_type() const override { return get_static_type(); };
+		virtual const char* get_name() const override { return "MouseScrolled"; };
+		virtual int get_category() const override { return EventCategory::EventCategoryMouse | EventCategory::EventCategoryInput; }
 	private:
 		float offset_x, offset_y;
 	};
 
-	class NX_API MouseButtonPressedEvent : public Event
+	class MouseButtonPressedEvent : public Event
 	{
 	public:
 		MouseButtonPressedEvent(int mouse_button_): mouse_button(mouse_button_) {};
@@ -59,14 +63,16 @@ namespace Neurex
 			ss << "MouseButtonPressedEvent: " << mouse_button;
 			return ss.str();
 		}
-
-		EVENT_CLASS_TYPE(MouseButtonPressed)
-		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+		
+		static EventType get_static_type() { return EventType::MouseButtonPressed; };
+		virtual EventType get_event_type() const override { return get_static_type(); };
+		virtual const char* get_name() const override { return "MouseButtonPressed"; };
+		virtual int get_category() const override { return EventCategory::EventCategoryMouseButton | EventCategory::EventCategoryInput; }
 	private:
 		int mouse_button;
 	};
 
-	class NX_API MouseButtonReleasedEvent : public Event
+	class MouseButtonReleasedEvent : public Event
 	{
 	public:
 		MouseButtonReleasedEvent(int mouse_button_) : mouse_button(mouse_button_) {};
@@ -79,9 +85,11 @@ namespace Neurex
 			ss << "MouseButtonReleasedEvent: " << mouse_button;
 			return ss.str();
 		}
-
-		EVENT_CLASS_TYPE(MouseButtonReleased)
-		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+		
+		static EventType get_static_type() { return EventType::MouseButtonReleased; };
+		virtual EventType get_event_type() const override { return get_static_type(); };
+		virtual const char* get_name() const override { return "MouseButtonReleased"; };
+		virtual int get_category() const override { return EventCategory::EventCategoryMouseButton | EventCategory::EventCategoryInput; }
 	private:
 		int mouse_button;
 	};

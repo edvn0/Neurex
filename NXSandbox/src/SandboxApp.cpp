@@ -151,7 +151,7 @@ public:
 	virtual void on_imgui_render() override {
 	}
 
-	void on_event(Event& event)
+	virtual void on_event(Event& event) override
 	{
 		EventDispatcher dispatcher(event);
 		

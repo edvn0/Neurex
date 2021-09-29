@@ -1,5 +1,5 @@
 #pragma once
-#include "Neurex/Renderer/VertexArray.h"
+#include "Neurex/renderer/VertexArray.h"
 
 namespace Neurex
 {

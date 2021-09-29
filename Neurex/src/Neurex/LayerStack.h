@@ -5,7 +5,7 @@
 
 namespace Neurex {
 
-	class NX_API LayerStack
+	class LayerStack
 	{
 		typedef std::vector<Layer*> stack;
 		typedef std::vector<Layer*>::iterator stack_it;

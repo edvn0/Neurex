@@ -31,6 +31,11 @@ namespace Neurex
 			return GL_INT;
 		case Neurex::ShaderDataType::Bool:
 			return GL_BOOL;
+		case Neurex::ShaderDataType::None:
+		{
+			NX_CORE_ASSERT(false, "Unknown data type.");
+			return GL_INT;
+		}
 		}
 
 		NX_CORE_ASSERT(false, "Unknown data type.");

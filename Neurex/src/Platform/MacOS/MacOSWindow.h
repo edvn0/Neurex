@@ -8,10 +8,10 @@
 
 namespace Neurex {
 
-	class WindowsWindow : public Window {
+	class MacOSWindow : public Window {
 	public:
-		WindowsWindow(const WindowProps& props);
-		virtual ~WindowsWindow();
+		MacOSWindow(const WindowProps& props);
+		virtual ~MacOSWindow();
 
 		void on_update() override;
 

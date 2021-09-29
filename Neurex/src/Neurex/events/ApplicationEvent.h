@@ -5,7 +5,7 @@
 namespace Neurex
 {
 
-	class NX_API WindowResizeEvent : public Event
+	class WindowResizeEvent : public Event
 	{
 	public:
 		WindowResizeEvent(float width_, float height_): width(width_), height(height_) {}
@@ -20,46 +20,53 @@ namespace Neurex
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(WindowResize)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		static EventType get_static_type() { return EventType::WindowResize; };
+		virtual EventType get_event_type() const override { return get_static_type(); };
+		virtual const char* get_name() const override { return "WindowResize"; };
+		virtual int get_category() const override { return EventCategory::EventCategoryApplication; };
+
 	private:
 		float width, height;
 	};
 
-	class NX_API WindowCloseEvent : public Event
+	class WindowCloseEvent : public Event
 	{
 	public:
 		WindowCloseEvent() {}
-		
-		EVENT_CLASS_TYPE(WindowClose)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		static EventType get_static_type() { return EventType::WindowClose; };
+		virtual EventType get_event_type() const override { return get_static_type(); };
+		virtual const char* get_name() const override { return "WindowClose"; };
+		virtual int get_category() const override { return EventCategory::EventCategoryApplication; };
 	};
 
-	class NX_API AppTickEvent : public Event
+	class AppTickEvent : public Event
 	{
 	public:
 		AppTickEvent() {};
-
-		EVENT_CLASS_TYPE(AppTick)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		static EventType get_static_type() { return EventType::AppTick; };
+		virtual EventType get_event_type() const override { return get_static_type(); };
+		virtual const char* get_name() const override { return "AppTick"; };
+		virtual int get_category() const override { return EventCategory::EventCategoryApplication; };
 	};
 
-	class NX_API AppRenderEvent : public Event
+	class  AppRenderEvent : public Event
 	{
 	public:
 		AppRenderEvent() {};
-
-		EVENT_CLASS_TYPE(AppRender)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		static EventType get_static_type() { return EventType::AppRender; };
+		virtual EventType get_event_type() const override { return get_static_type(); };
+		virtual const char* get_name() const override { return "AppRender"; };
+		virtual int get_category() const override { return EventCategory::EventCategoryApplication; };
 	};
 
-	class NX_API AppUpdateEvent : public Event
+	class  AppUpdateEvent : public Event
 	{
 	public:
 		AppUpdateEvent() {};
-
-		EVENT_CLASS_TYPE(AppUpdate)
-		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+		static EventType get_static_type() { return EventType::AppUpdate; };
+		virtual EventType get_event_type() const override { return get_static_type(); };
+		virtual const char* get_name() const override { return "AppUpdate"; };
+		virtual int get_category() const override { return EventCategory::EventCategoryApplication; };
 	};
 
 }

@@ -3,7 +3,7 @@
 #include "nxpch.h"
 
 #include "Core.h"
-#include "Events/Event.h"
+#include "events/Event.h"
 
 namespace Neurex {
 

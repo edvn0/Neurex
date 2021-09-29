@@ -7,7 +7,7 @@
 
 namespace Neurex {
 
-	class NX_API Logger
+	class Logger
 	{
 	public:
 		static void init();
