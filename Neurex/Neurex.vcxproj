@@ -167,6 +167,8 @@
     <ClInclude Include="src\Neurex\renderer\Shader.h" />
     <ClInclude Include="src\Neurex\renderer\VertexArray.h" />
     <ClInclude Include="src\Platform\GLFW\GLFWClock.h" />
+    <ClInclude Include="src\Platform\MacOS\MacOSInput.h" />
+    <ClInclude Include="src\Platform\MacOS\MacOSWindow.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
@@ -606,6 +608,8 @@
     <ClCompile Include="src\Neurex\renderer\Shader.cpp" />
     <ClCompile Include="src\Neurex\renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\GLFW\GLFWClock.cpp" />
+    <ClCompile Include="src\Platform\MacOS\MacOSInput.cpp" />
+    <ClCompile Include="src\Platform\MacOS\MacOSWindow.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />

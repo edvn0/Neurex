@@ -25,6 +25,9 @@
     <Filter Include="src\Platform\GLFW">
       <UniqueIdentifier>{0002C6D8-6C18-C46E-B58F-4F9021E594F6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Platform\MacOS">
+      <UniqueIdentifier>{A3D3FEF1-8FB7-BF47-F817-BA9AE41AAAC9}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform\OpenGL">
       <UniqueIdentifier>{35A49437-A105-7245-2A73-B8F796D3A804}</UniqueIdentifier>
     </Filter>
@@ -134,6 +137,12 @@
     </ClInclude>
     <ClInclude Include="src\Platform\GLFW\GLFWClock.h">
       <Filter>src\Platform\GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\MacOS\MacOSInput.h">
+      <Filter>src\Platform\MacOS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\MacOS\MacOSWindow.h">
+      <Filter>src\Platform\MacOS</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1447,6 +1456,12 @@
     </ClCompile>
     <ClCompile Include="src\Platform\GLFW\GLFWClock.cpp">
       <Filter>src\Platform\GLFW</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\MacOS\MacOSInput.cpp">
+      <Filter>src\Platform\MacOS</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\MacOS\MacOSWindow.cpp">
+      <Filter>src\Platform\MacOS</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
