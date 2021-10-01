@@ -8,17 +8,17 @@ namespace Neurex {
 
 	Timestep::TimeDelta GLFWClock::get_time_milli_impl()
 	{
-		return glfwGetTime() * 1e3f;
+		return (float) (glfwGetTime() * 1e3f);
 	}
 
 	Timestep::TimeDelta GLFWClock::get_time_impl()
 	{
-		return glfwGetTime();
+		return (float) glfwGetTime();
 	}
 
 	Timestep::TimeDelta GLFWClock::get_time_nano_impl()
 	{
-		return glfwGetTime() * 1e6f;
+		return (float) (glfwGetTime() * 1e6f);
 	}
 
 }

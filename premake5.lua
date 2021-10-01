@@ -10,13 +10,13 @@ includeDir = {}
 includeDir["GLFW"] = "Neurex/vendor/GLFW/include"
 includeDir["glad"] = "Neurex/vendor/glad/include"
 includeDir["spdlog"] = "Neurex/vendor/spdlog/include"
-includeDir["imgui"] = "Neurex/vendor/imgui"
+includeDir["ImGui"] = "Neurex/vendor/ImGui"
 includeDir["glm"] = "Neurex/vendor/glm"
 
 group "Dependencies"
 	include "Neurex/vendor/GLFW"
 	include "Neurex/vendor/glad"
-	include "Neurex/vendor/imgui"
+	include "Neurex/vendor/ImGui"
 group ""
 
 
@@ -25,7 +25,7 @@ project "Neurex"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "on"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -47,7 +47,7 @@ project "Neurex"
 		"%{includeDir.spdlog}",
 		"%{includeDir.GLFW}",
 		"%{includeDir.glad}",
-		"%{includeDir.imgui}",
+		"%{includeDir.ImGui}",
 		"%{includeDir.glm}"
 	}
 
@@ -59,8 +59,8 @@ project "Neurex"
 		{
 			"GLFW",
 			"glad",
-			"imgui",
-			"opengl32.lib",
+			"ImGui",
+			"opengl32",
 		}
 
 		defines 
@@ -75,10 +75,10 @@ project "Neurex"
 			"GLFW",
 			"glad",
 			"imgui",
-			"Cocoa",
-			"CoreVideo",
-			"OpenGL",
-			"IOKit"
+			"Cocoa.framework",
+			"CoreVideo.framework",
+			"OpenGL.framework",
+			"IOKit.framework"
 		}
 
 		defines {
@@ -109,7 +109,7 @@ project "NXSandbox"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
-	staticruntime "on"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -136,17 +136,8 @@ project "NXSandbox"
 		defines { "NX_PT_WIN" }
 
 	filter "system:macosx"
-		links {
-			"Cocoa",
-			"IOKit",
-			"OpenGL",
-			"CoreVideo"
-		}
-
 		defines {
-			"NX_PT_OSX",
-			"GLFW_INCLUDE_NONE",
-			"_CRT_SECURE_NO_WARNINGS"
+			"NX_PT_OSX"
 		}
 
 	filter "configurations:Debug"
