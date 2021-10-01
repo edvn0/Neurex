@@ -76,11 +76,11 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>nxpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>NX_PT_WIN;NX_BUILD_DLL;GLFW_INCLUDE_NONE;_CRT_SECURE_NO_WARNINGS;NX_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\glad\include;vendor\imgui;vendor\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NX_PT_WIN;GLFW_INCLUDE_NONE;_CRT_SECURE_NO_WARNINGS;NX_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\glad\include;vendor\ImGui;vendor\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -96,14 +96,14 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>nxpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>NX_PT_WIN;NX_BUILD_DLL;GLFW_INCLUDE_NONE;_CRT_SECURE_NO_WARNINGS;NX_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\glad\include;vendor\imgui;vendor\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NX_PT_WIN;GLFW_INCLUDE_NONE;_CRT_SECURE_NO_WARNINGS;NX_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\glad\include;vendor\ImGui;vendor\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -120,14 +120,14 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>nxpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>NX_PT_WIN;NX_BUILD_DLL;GLFW_INCLUDE_NONE;_CRT_SECURE_NO_WARNINGS;NX_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\glad\include;vendor\imgui;vendor\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NX_PT_WIN;GLFW_INCLUDE_NONE;_CRT_SECURE_NO_WARNINGS;NX_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\glad\include;vendor\ImGui;vendor\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -140,19 +140,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Platform\GLFW\GLFWClock.h" />
-    <ClInclude Include="src\Neurex\core\Clock.h" />
-    <ClInclude Include="src\Neurex\renderer\OrthographicCamera.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
-    <ClInclude Include="src\Neurex\renderer\RenderCommand.h" />
-    <ClInclude Include="src\Neurex\renderer\RendererAPI.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
-    <ClInclude Include="src\Neurex\renderer\Buffer.h" />
-    <ClInclude Include="src\Neurex\renderer\Renderer.h" />
-    <ClInclude Include="src\Neurex\renderer\Shader.h" />
-    <ClInclude Include="src\Neurex\renderer\VertexArray.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Neurex.h" />
     <ClInclude Include="src\Neurex\Application.h" />
     <ClInclude Include="src\Neurex\Core.h" />
@@ -163,17 +150,30 @@
     <ClInclude Include="src\Neurex\LayerStack.h" />
     <ClInclude Include="src\Neurex\Logger.h" />
     <ClInclude Include="src\Neurex\MouseCodes.h" />
-    <ClInclude Include="src\Neurex\renderer\GraphicsContext.h" />
     <ClInclude Include="src\Neurex\Window.h" />
+    <ClInclude Include="src\Neurex\core\Clock.h" />
+    <ClInclude Include="src\Neurex\core\Timestep.h" />
     <ClInclude Include="src\Neurex\events\ApplicationEvent.h" />
     <ClInclude Include="src\Neurex\events\Event.h" />
     <ClInclude Include="src\Neurex\events\KeyEvent.h" />
     <ClInclude Include="src\Neurex\events\MouseEvent.h" />
     <ClInclude Include="src\Neurex\imgui\ImGuiLayer.h" />
+    <ClInclude Include="src\Neurex\renderer\Buffer.h" />
+    <ClInclude Include="src\Neurex\renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Neurex\renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\Neurex\renderer\RenderCommand.h" />
+    <ClInclude Include="src\Neurex\renderer\Renderer.h" />
+    <ClInclude Include="src\Neurex\renderer\RendererAPI.h" />
+    <ClInclude Include="src\Neurex\renderer\Shader.h" />
+    <ClInclude Include="src\Neurex\renderer\VertexArray.h" />
+    <ClInclude Include="src\Platform\GLFW\GLFWClock.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\nxpch.h" />
-    <ClInclude Include="src\Neurex\core\Timestep.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_features.hpp" />
     <ClInclude Include="vendor\glm\glm\detail\_fixes.hpp" />
@@ -591,25 +591,25 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Platform\GLFW\GLFWClock.cpp" />
-    <ClCompile Include="src\Neurex\core\Clock.cpp" />
-    <ClCompile Include="src\Neurex\renderer\OrthographicCamera.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="src\Neurex\renderer\RenderCommand.cpp" />
-    <ClCompile Include="src\Neurex\renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
-    <ClCompile Include="src\Neurex\renderer\Buffer.cpp" />
-    <ClCompile Include="src\Neurex\renderer\Renderer.cpp" />
-    <ClCompile Include="src\Neurex\renderer\Shader.cpp" />
-    <ClCompile Include="src\Neurex\renderer\VertexArray.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Neurex\Application.cpp" />
     <ClCompile Include="src\Neurex\Layer.cpp" />
     <ClCompile Include="src\Neurex\LayerStack.cpp" />
     <ClCompile Include="src\Neurex\Logger.cpp" />
+    <ClCompile Include="src\Neurex\core\Clock.cpp" />
     <ClCompile Include="src\Neurex\imgui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Neurex\imgui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Neurex\renderer\Buffer.cpp" />
+    <ClCompile Include="src\Neurex\renderer\OrthographicCamera.cpp" />
+    <ClCompile Include="src\Neurex\renderer\RenderCommand.cpp" />
+    <ClCompile Include="src\Neurex\renderer\Renderer.cpp" />
+    <ClCompile Include="src\Neurex\renderer\RendererAPI.cpp" />
+    <ClCompile Include="src\Neurex\renderer\Shader.cpp" />
+    <ClCompile Include="src\Neurex\renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Platform\GLFW\GLFWClock.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\nxpch.cpp">
@@ -623,8 +623,8 @@
     <ProjectReference Include="vendor\glad\glad.vcxproj">
       <Project>{DD62977C-C999-980D-7286-7E105E9C140F}</Project>
     </ProjectReference>
-    <ProjectReference Include="vendor\imgui\imgui.vcxproj">
-      <Project>{0098A80F-6CAC-D0C0-352E-7420A101CDF1}</Project>
+    <ProjectReference Include="vendor\ImGui\ImGui.vcxproj">
+      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

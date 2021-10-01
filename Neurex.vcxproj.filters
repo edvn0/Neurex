@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Neurex">
+      <UniqueIdentifier>{7C2B37C5-68CD-619B-5188-75EF3DC9E8EB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Neurex\core">
+      <UniqueIdentifier>{74693412-E01E-AD07-6913-A7DED5C7A30B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Neurex\events">
+      <UniqueIdentifier>{00A81676-6C68-92AC-35A3-DB29A122D788}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Neurex\imgui">
+      <UniqueIdentifier>{E6E52C59-D248-BCFD-7BCE-F4B367108880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Neurex\renderer">
+      <UniqueIdentifier>{C2B65B4D-2E42-C911-3753-4C06A35D2512}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\GLFW">
+      <UniqueIdentifier>{A98C9061-154D-0C98-DE87-55154A075174}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Neurex\src\Neurex.h" />
+    <ClInclude Include="Neurex\src\Neurex\Application.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\Core.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\EntryPoint.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\Input.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\KeyCodes.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\Layer.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\LayerStack.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\Logger.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\MouseCodes.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\Window.h">
+      <Filter>Neurex</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\core\Clock.h">
+      <Filter>Neurex\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\core\Timestep.h">
+      <Filter>Neurex\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\events\ApplicationEvent.h">
+      <Filter>Neurex\events</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\events\Event.h">
+      <Filter>Neurex\events</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\events\KeyEvent.h">
+      <Filter>Neurex\events</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\events\MouseEvent.h">
+      <Filter>Neurex\events</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\imgui\ImGuiLayer.h">
+      <Filter>Neurex\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\renderer\Buffer.h">
+      <Filter>Neurex\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\renderer\GraphicsContext.h">
+      <Filter>Neurex\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\renderer\OrthographicCamera.h">
+      <Filter>Neurex\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\renderer\RenderCommand.h">
+      <Filter>Neurex\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\renderer\Renderer.h">
+      <Filter>Neurex\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\renderer\RendererAPI.h">
+      <Filter>Neurex\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\renderer\Shader.h">
+      <Filter>Neurex\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Neurex\renderer\VertexArray.h">
+      <Filter>Neurex\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Platform\GLFW\GLFWClock.h">
+      <Filter>Platform\GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Platform\OpenGL\OpenGLBuffer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Platform\OpenGL\OpenGLRendererAPI.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Platform\OpenGL\OpenGLVertexArray.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Platform\Windows\WindowsInput.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\Platform\Windows\WindowsWindow.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Neurex\src\nxpch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Neurex\src\Neurex\Application.cpp">
+      <Filter>Neurex</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Neurex\Layer.cpp">
+      <Filter>Neurex</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Neurex\LayerStack.cpp">
+      <Filter>Neurex</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Neurex\Logger.cpp">
+      <Filter>Neurex</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Neurex\core\Clock.cpp">
+      <Filter>Neurex\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Neurex\imgui\ImGuiBuild.cpp">
+      <Filter>Neurex\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Neurex\imgui\ImGuiLayer.cpp">
+      <Filter>Neurex\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Neurex\renderer\Buffer.cpp">
+      <Filter>Neurex\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Neurex\renderer\OrthographicCamera.cpp">
+      <Filter>Neurex\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Neurex\renderer\RenderCommand.cpp">
+      <Filter>Neurex\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Neurex\renderer\Renderer.cpp">
+      <Filter>Neurex\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Neurex\renderer\RendererAPI.cpp">
+      <Filter>Neurex\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Neurex\renderer\Shader.cpp">
+      <Filter>Neurex\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Neurex\renderer\VertexArray.cpp">
+      <Filter>Neurex\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Platform\GLFW\GLFWClock.cpp">
+      <Filter>Platform\GLFW</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Platform\OpenGL\OpenGLBuffer.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Platform\OpenGL\OpenGLRendererAPI.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Platform\OpenGL\OpenGLVertexArray.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Platform\Windows\WindowsInput.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\Platform\Windows\WindowsWindow.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Neurex\src\nxpch.cpp" />
+  </ItemGroup>
+</Project>
