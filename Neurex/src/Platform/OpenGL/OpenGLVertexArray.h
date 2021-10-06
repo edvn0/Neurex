@@ -23,7 +23,7 @@ namespace Neurex
     private:
         std::vector<std::shared_ptr<VertexBuffer>> vertex_buffers;
         std::shared_ptr<IndexBuffer> index_buffer;
-        unsigned int renderer_id;
+        unsigned int renderer_id = 0;
     };
 
 }

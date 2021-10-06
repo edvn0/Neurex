@@ -4,8 +4,9 @@ using namespace Neurex;
 
 class ExampleLayer : public Layer {
 public:
-	ExampleLayer() : Layer("Sandbox"),
-		camera(-1.6f, 1.6f, -0.9f, 0.9f)
+	ExampleLayer()
+		: Layer("Sandbox")
+		, camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 		triangle_vertex_array.reset(VertexArray::create());
 
@@ -139,7 +140,6 @@ public:
 
 	virtual void updated(Timestep ts) override
 	{
-		NX_TRACE("dt: {0}s, {1}ms", ts.get_seconds(), ts.get_milli_seconds());
 		RenderCommand::set_clear_colour({ 0.2f, 0.2f, 0.2f, 1 });
 		RenderCommand::clear();
 		Renderer::begin_scene(camera);
@@ -148,38 +148,42 @@ public:
 		Renderer::end_scene();
 	}
 
-	virtual void on_imgui_render() override {
+	virtual void on_imgui_render() override
+	{
 	}
 
 	virtual void on_event(Event& event) override
 	{
 		EventDispatcher dispatcher(event);
-		
+
 		dispatcher.dispatch_event<KeyPressedEvent>([&](KeyPressedEvent& ev) {
 			if (ev.get_key_code() == NX_KC_Q) {
-				camera.set_rotation(camera.get_rotation() + 2.5f);
+				camera.rotate(2.5f);
 			}
 
 			if (ev.get_key_code() == NX_KC_E) {
-				camera.set_rotation(camera.get_rotation() - 2.5f);
+				camera.rotate(-2.5f);
 			}
 
 			if (ev.get_key_code() == NX_KC_W) {
-				camera.set_position(camera.get_position() - glm::vec3(0, 0.1, 0));
+				camera.move(-glm::vec3(0, 0.1, 0));
 			}
 
 			if (ev.get_key_code() == NX_KC_S) {
-				camera.set_position(camera.get_position() + glm::vec3(0, 0.1, 0));
+				camera.move(glm::vec3(0, 0.1, 0));
 			}
 
 			if (ev.get_key_code() == NX_KC_A) {
-				camera.set_position(camera.get_position() + glm::vec3(0.1, 0, 0));
+				camera.move(glm::vec3(0.1, 0, 0));
 			}
 
 			if (ev.get_key_code() == NX_KC_D) {
-				camera.set_position(camera.get_position() - glm::vec3(0.1, 0, 0));
+				camera.move(-glm::vec3(0.1, 0, 0));
 			}
 
+			if (ev.get_key_code() == NX_KC_R) {
+				camera.set_position(glm::vec3(0, 0, 0));
+			}
 			return false;
 		});
 	}
@@ -194,16 +198,17 @@ private:
 	OrthographicCamera camera;
 };
 
-class Sandbox : public Application
-{
+class Sandbox : public Application {
 public:
-	Sandbox() {
+	Sandbox()
+	{
 		add_layer(new ExampleLayer());
 	};
 
-	~Sandbox() {};
+	~Sandbox(){};
 };
 
-Neurex::Application* Neurex::create_application() {
+Neurex::Application* Neurex::create_application()
+{
 	return new Sandbox();
 }

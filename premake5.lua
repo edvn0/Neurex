@@ -10,13 +10,13 @@ includeDir = {}
 includeDir["GLFW"] = "Neurex/vendor/GLFW/include"
 includeDir["glad"] = "Neurex/vendor/glad/include"
 includeDir["spdlog"] = "Neurex/vendor/spdlog/include"
-includeDir["ImGui"] = "Neurex/vendor/ImGui"
+includeDir["ImGui"] = "Neurex/vendor/imgui"
 includeDir["glm"] = "Neurex/vendor/glm"
 
 group "Dependencies"
 	include "Neurex/vendor/GLFW"
 	include "Neurex/vendor/glad"
-	include "Neurex/vendor/ImGui"
+	include "Neurex/vendor/imgui"
 group ""
 
 
@@ -54,17 +54,14 @@ project "Neurex"
 
 	filter "system:windows"
 		systemversion "latest"
-
-		links
-		{
+		links {
 			"GLFW",
 			"glad",
 			"ImGui",
 			"opengl32",
 		}
 
-		defines 
-		{
+		defines {
 			"NX_PT_WIN",
 			"GLFW_INCLUDE_NONE",
 			"_CRT_SECURE_NO_WARNINGS"
@@ -74,7 +71,7 @@ project "Neurex"
 		links {
 			"GLFW",
 			"glad",
-			"imgui",
+			"ImGui",
 			"Cocoa.framework",
 			"CoreVideo.framework",
 			"OpenGL.framework",
@@ -136,8 +133,20 @@ project "NXSandbox"
 		defines { "NX_PT_WIN" }
 
 	filter "system:macosx"
+		links {
+			"GLFW",
+			"glad",
+			"ImGui",
+			"Cocoa.framework",
+			"CoreVideo.framework",
+			"OpenGL.framework",
+			"IOKit.framework"
+		}
+
 		defines {
-			"NX_PT_OSX"
+			"NX_PT_OSX",
+			"GLFW_INCLUDE_NONE",
+			"_CRT_SECURE_NO_WARNINGS"	
 		}
 
 	filter "configurations:Debug"

@@ -5,6 +5,18 @@
     "*.tcc": "cpp",
     "chrono": "cpp",
     "string_view": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "ios": "cpp",
+    "istream": "cpp",
+    "locale": "cpp",
+    "numeric": "cpp",
+    "ostream": "cpp",
+    "random": "cpp",
+    "unordered_map": "cpp",
+    "fstream": "cpp",
+    "sstream": "cpp",
+    "__functional_03": "cpp",
+    "gl.h": "c",
+    "memory": "cpp"
   }
 }
