@@ -17,6 +17,7 @@
     "sstream": "cpp",
     "__functional_03": "cpp",
     "gl.h": "c",
-    "memory": "cpp"
+    "memory": "cpp",
+    "*.mm": "cpp"
   }
 }

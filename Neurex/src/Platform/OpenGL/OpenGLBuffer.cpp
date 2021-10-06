@@ -7,7 +7,7 @@ namespace Neurex {
 
 OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 {
-	glGenBuffers(1, &renderer_id);
+	glCreateVB(1, &renderer_id);
 	glBindBuffer(GL_ARRAY_BUFFER, renderer_id);
 	glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 }
@@ -41,7 +41,7 @@ OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count_)
 	: count(count_)
 {
 	auto size = count * sizeof(uint32_t);
-	glGenBuffers(1, &renderer_id);
+	glCreateVB(1, &renderer_id);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_id);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
 }

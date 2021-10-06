@@ -42,7 +42,7 @@ static GLenum nx_opengl_shader_type(ShaderDataType type)
 
 OpenGLVertexArray::OpenGLVertexArray()
 {
-	glGenVertexArrays(1, &renderer_id);
+	glCreateVA(1, &renderer_id);
 	// glCreateVertexArrays(1, &renderer_id);
 }
 

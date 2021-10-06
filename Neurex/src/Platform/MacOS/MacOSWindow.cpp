@@ -58,6 +58,14 @@ void MacOSWindow::resize_window(float w, float h) const
 	glfwSetWindowSize(win_window, (int)w, (int)h);
 }
 
+void MacOSWindow::resize_framebuffer(int w, int h) const
+{
+	int sizex, sizey;
+	glfwGetFramebufferSize((GLFWwindow*)get_natively(), &sizex, &sizey);
+	NX_CORE_INFO("{0}, {1}", sizex, sizey);
+	glViewport(0, 0, sizex, sizey);
+}
+
 void MacOSWindow::init(const WindowProps& props)
 {
 	window_data.title = props.title;
@@ -98,7 +106,12 @@ void MacOSWindow::shutdown()
 void MacOSWindow::setup_events()
 {
 	glfwSetFramebufferSizeCallback(win_window, [](GLFWwindow* window, int w, int h) {
-		glViewport(0, 0, w, h);
+		auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
+
+		WindowFramebufferEvent event(w, h);
+		user_ptr.height = h;
+		user_ptr.width = w;
+		user_ptr.callback(event);
 	});
 
 	glfwSetWindowSizeCallback(win_window, [](GLFWwindow* window, int width, int height) {

@@ -2,82 +2,87 @@
 
 #include "Application.h"
 #include "Input.h"
-#include "renderer/Renderer.h"
 #include "core/Clock.h"
+#include "renderer/Renderer.h"
+
 
 namespace Neurex {
 
-	Application* Application::instance = nullptr;
+Application* Application::instance = nullptr;
 
+Application::Application()
+{
+	NX_CORE_ASSERT(!instance, "Application already exists.");
+	instance = this;
 
-	Application::Application()
-	{
-		NX_CORE_ASSERT(!instance, "Application already exists.");
-		instance = this;
-		
-		window = std::unique_ptr<Window>(Window::create());
-		window->set_event_callback(BEFn(Application::on_event));
-		imgui_layer = new ImGuiLayer();
-		add_overlay(imgui_layer);
-	};
+	window = std::unique_ptr<Window>(Window::create());
+	window->set_event_callback(BEFn(Application::on_event));
+	imgui_layer = new ImGuiLayer();
+	add_overlay(imgui_layer);
+};
 
-	Application::~Application()
-	{
+Application::~Application()
+{
+}
+
+void Application::run()
+{
+	while (is_running) {
+		auto time = Clock::get_time();
+		Timestep step = time - last_time;
+		last_time = time;
+
+		for (auto* l : stack) {
+			l->updated(step);
+		}
+
+		imgui_layer->begin();
+		for (auto* l : stack) {
+			l->on_imgui_render();
+		}
+		imgui_layer->end();
+
+		window->on_update();
 	}
+}
 
-	void Application::run()
-	{
-		while (is_running) {
-			auto time = Clock::get_time();
-			Timestep step = time - last_time;
-			last_time = time;
+void Application::on_event(Event& event)
+{
+	EventDispatcher dispatcher(event);
 
-			for (auto* l : stack) {
-				l->updated(step);
-			}
+	dispatcher.dispatch_event<WindowCloseEvent>([&](WindowCloseEvent& e) {
+		is_running = false;
+		return true;
+	});
 
-			imgui_layer->begin();
-			for (auto* l : stack) {
-				l->on_imgui_render();
-			}			
-			imgui_layer->end();
-			
-			window->on_update();
+	dispatcher.dispatch_event<WindowResizeEvent>([&](WindowResizeEvent& e) {
+		window->resize_window(e.get_width(), e.get_height());
+		return true;
+	});
+
+	dispatcher.dispatch_event<WindowFramebufferEvent>([&](WindowFramebufferEvent& e) {
+		window->resize_framebuffer(e.get_width(), e.get_height());
+		return true;
+	});
+
+	for (auto it = stack.end(); it != stack.begin();) {
+		(*--it)->on_event(event);
+		if (event) {
+			break;
 		}
 	}
+}
 
-	void Application::on_event(Event& event)
-	{
-		EventDispatcher dispatcher(event);
+void Application::add_layer(Layer* layer)
+{
+	stack.push(layer);
+	layer->attached();
+}
 
-		dispatcher.dispatch_event<WindowCloseEvent>([&](WindowCloseEvent& e) {
-			is_running = false;
-			return true;
-		});
-
-		dispatcher.dispatch_event<WindowResizeEvent>([&](WindowResizeEvent& e) {
-			window->resize_window(e.get_width(), e.get_height());
-			return true;
-		});
-
-		for (auto it = stack.end(); it != stack.begin();) {
-			(*--it)->on_event(event);
-			if (event) {
-				break;
-			}
-		}
-	}
-
-	void Application::add_layer(Layer* layer)
-	{
-		stack.push(layer);
-		layer->attached();
-	}
-
-	void Application::add_overlay(Layer* overlay)
-	{
-		stack.push_overlay(overlay);
-		overlay->attached();
-	}
+void Application::add_overlay(Layer* overlay)
+{
+	stack.push_overlay(overlay);
+	overlay->attached();
+}
 
 }

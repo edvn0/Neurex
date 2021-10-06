@@ -116,7 +116,7 @@ project "NXSandbox"
 		"%{prj.name}/src/**.cpp"
 	}
 
-	includedirs	{
+	includedirs {
 		"Neurex/vendor/spdlog/include",
 		"Neurex/src",
 		"Neurex/vendor",
@@ -134,8 +134,8 @@ project "NXSandbox"
 
 	filter "system:macosx"
 		links {
-			"GLFW",
 			"glad",
+			"GLFW",
 			"ImGui",
 			"Cocoa.framework",
 			"CoreVideo.framework",

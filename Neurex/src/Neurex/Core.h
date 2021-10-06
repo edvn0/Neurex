@@ -12,6 +12,10 @@
 		#define NX_ASSERT(x, ...)
 		#define NX_CORE_ASSERT(x, ...)
 	#endif
+
+	#define glCreateVA(n, x) glCreateVertexArrays(n, x)
+	#define glCreateVB(n, x) glCreateVertexBuffers(n, x)
+
 #elif defined(NX_PT_OSX)
 	#ifdef NX_ALLOW_ASSERTS
 		#define NX_ASSERT(x, ...) { if (!(x)) { NX_ERROR("User: Assertion fail: {0}", __VA_ARGS__); } }
@@ -20,6 +24,10 @@
 		#define NX_ASSERT(x, ...)
 		#define NX_CORE_ASSERT(x, ...)
 	#endif
+
+	#define glCreateVA(n, x) glGenVertexArrays(n, x)
+	#define glCreateVB(n, x) glGenBuffers(n, x)
+
 #else
 	#define NX_ASSERT(x, ...)
 	#define NX_CORE_ASSERT(x, ...)	
