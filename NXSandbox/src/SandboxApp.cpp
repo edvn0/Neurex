@@ -7,6 +7,8 @@ public:
 	ExampleLayer()
 		: Layer("Sandbox")
 		, camera(-1.6f, 1.6f, -0.9f, 0.9f)
+		, square_position(0.0)
+		, triangle_position(0.0)
 	{
 		triangle_vertex_array.reset(VertexArray::create());
 
@@ -39,10 +41,10 @@ public:
 		// SQUARE
 
 		float square_vertices[3 * 4] = {
-			-0.75f, -0.75f, 0.0f,
-			0.75f, -0.75f, 0.0f,
-			0.75f, 0.75f, 0.0f,
-			-0.75f, 0.75f, 0.0f
+			-0.50f, -0.50f, 0.0f,
+			0.50f, -0.50f, 0.0f,
+			0.50f, 0.50f, 0.0f,
+			-0.50f, 0.50f, 0.0f
 		};
 
 		square_vertex_array.reset(VertexArray::create());
@@ -69,13 +71,14 @@ public:
 			layout(location = 0) in vec3 attrib_position;
 
 			uniform mat4 uniform_view_projection;
+			uniform mat4 uniform_transform;
 
 			out vec3 vertex_position;
 
 			void main()
 			{
 				vertex_position = attrib_position;
-				gl_Position = uniform_view_projection * vec4(attrib_position, 1.0);
+				gl_Position = uniform_view_projection * uniform_transform * vec4(attrib_position, 1.0);
 			}
 		)";
 
@@ -108,6 +111,7 @@ public:
 			layout(location = 1) in vec4 attrib_colour;
 
 			uniform mat4 uniform_view_projection;
+			uniform mat4 uniform_transform;
 
 			out vec3 vertex_position;
 			out vec4 vertex_colour;
@@ -116,7 +120,7 @@ public:
 			{
 				vertex_position = attrib_position;
 				vertex_colour = attrib_colour;
-				gl_Position = uniform_view_projection * vec4(attrib_position, 1.0);
+				gl_Position = uniform_view_projection * uniform_transform * vec4(attrib_position, 1.0);
 			}
 		)";
 
@@ -143,8 +147,17 @@ public:
 		RenderCommand::set_clear_colour({ 0.2f, 0.2f, 0.2f, 1 });
 		RenderCommand::clear();
 		Renderer::begin_scene(camera);
-		Renderer::submit(square_vertex_array, square_shader);
-		Renderer::submit(triangle_vertex_array, triangle_shader);
+
+		static auto scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+		for (int i = 0; i < num_squares; i++) {
+			for (int j = 0; j < num_squares; j++) {
+				auto pos = glm::vec3(i * 0.11, j * 0.11, 0.0f);
+				auto transform = glm::translate(glm::mat4(1.0), pos) * scale;
+				Renderer::submit(square_vertex_array, square_shader, transform);
+			}
+		}
+		Renderer::submit(triangle_vertex_array, triangle_shader, glm::translate(glm::mat4(1.0), triangle_position));
 		Renderer::end_scene();
 	}
 
@@ -184,6 +197,15 @@ public:
 			if (ev.get_key_code() == NX_KC_R) {
 				camera.set_position(glm::vec3(0, 0, 0));
 			}
+
+			if (ev.get_key_code() == NX_KC_X) {
+				num_squares++;
+			}
+
+			if (ev.get_key_code() == NX_KC_Y) {
+				num_squares--;
+			}
+
 			return false;
 		});
 	}
@@ -194,6 +216,11 @@ private:
 
 	std::shared_ptr<Shader> square_shader;
 	std::shared_ptr<VertexArray> square_vertex_array;
+
+	glm::vec3 square_position;
+	glm::vec3 triangle_position;
+
+	int num_squares = 20;
 
 	OrthographicCamera camera;
 };

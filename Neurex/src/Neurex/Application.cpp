@@ -16,7 +16,7 @@ Application::Application()
 	instance = this;
 
 	window = std::unique_ptr<Window>(Window::create());
-	window->set_event_callback(BEFn(Application::on_event));
+	window->set_event_callback([&](Event& event) { this->on_event(event); });
 	imgui_layer = new ImGuiLayer();
 	add_overlay(imgui_layer);
 };

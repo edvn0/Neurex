@@ -60,10 +60,7 @@ void MacOSWindow::resize_window(float w, float h) const
 
 void MacOSWindow::resize_framebuffer(int w, int h) const
 {
-	int sizex, sizey;
-	glfwGetFramebufferSize((GLFWwindow*)get_natively(), &sizex, &sizey);
-	NX_CORE_INFO("{0}, {1}", sizex, sizey);
-	glViewport(0, 0, sizex, sizey);
+	glViewport(0, 0, w, h);
 }
 
 void MacOSWindow::init(const WindowProps& props)
@@ -92,7 +89,7 @@ void MacOSWindow::init(const WindowProps& props)
 	window_context = new OpenGLContext(win_window);
 	window_context->init();
 
-	glViewport(0, 0, window_data.width, window_data.height);
+	glViewport(0, 0, props.width, props.height);
 	glfwSetWindowUserPointer(win_window, &window_data);
 	set_vsync(false);
 	setup_events();

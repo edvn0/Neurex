@@ -18,6 +18,10 @@
     "__functional_03": "cpp",
     "gl.h": "c",
     "memory": "cpp",
-    "*.mm": "cpp"
+    "*.mm": "cpp",
+    "limits": "cpp",
+    "__locale": "cpp",
+    "algorithm": "cpp",
+    "regex": "cpp"
   }
 }

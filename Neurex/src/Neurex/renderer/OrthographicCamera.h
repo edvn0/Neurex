@@ -5,9 +5,7 @@
 namespace Neurex {
 class OrthographicCamera {
 public:
-	OrthographicCamera(float left, float right,
-		float bottom, float top,
-		float zn = -1.0f, float zf = 1.0f);
+	OrthographicCamera(float left, float right, float bottom, float top, float zn = -1.0f, float zf = 1.0f);
 
 	const glm::vec3& get_position() const { return position; };
 
