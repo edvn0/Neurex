@@ -6,12 +6,13 @@ workspace "Neurex"
 startproject "NXSandbox"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-includeDir = {}
-includeDir["GLFW"] = "Neurex/vendor/GLFW/include"
-includeDir["glad"] = "Neurex/vendor/glad/include"
-includeDir["spdlog"] = "Neurex/vendor/spdlog/include"
-includeDir["ImGui"] = "Neurex/vendor/imgui"
-includeDir["glm"] = "Neurex/vendor/glm"
+include_dirs = {}
+include_dirs["GLFW"] = "Neurex/vendor/GLFW/include"
+include_dirs["glad"] = "Neurex/vendor/glad/include"
+include_dirs["spdlog"] = "Neurex/vendor/spdlog/include"
+include_dirs["ImGui"] = "Neurex/vendor/imgui"
+include_dirs["glm"] = "Neurex/vendor/glm"
+include_dirs["stb_image"] = "Neurex/vendor/stb_image"
 
 group "Dependencies"
 	include "Neurex/vendor/GLFW"
@@ -38,17 +39,20 @@ project "Neurex"
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
-		"%{prj.name}/vendor/glm/glm/**.inl"
+		"%{prj.name}/vendor/glm/glm/**.inl",
+		"%{prj.name}/vendor/stb_image/stb_image.h",
+		"%{prj.name}/vendor/stb_image/stb_image.cpp",
 	}
 
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{includeDir.spdlog}",
-		"%{includeDir.GLFW}",
-		"%{includeDir.glad}",
-		"%{includeDir.ImGui}",
-		"%{includeDir.glm}"
+		"%{include_dirs.spdlog}",
+		"%{include_dirs.GLFW}",
+		"%{include_dirs.glad}",
+		"%{include_dirs.ImGui}",
+		"%{include_dirs.glm}",
+		"%{include_dirs.stb_image}"
 	}
 
 
@@ -120,7 +124,7 @@ project "NXSandbox"
 		"Neurex/vendor/spdlog/include",
 		"Neurex/src",
 		"Neurex/vendor",
-		"%{includeDir.glm}",
+		"%{include_dirs.glm}",
 	}
 
 	links {

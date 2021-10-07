@@ -11,6 +11,7 @@
 #include "Neurex/imgui/ImGuiLayer.h"
 #include "Neurex/renderer/OrthographicCamera.h"
 #include "Neurex/renderer/Renderer.h"
+#include "Neurex/renderer/Texture.h"
 
 #include <glm/gtc/type_ptr.hpp>
 #include <imgui/imgui.h>

@@ -71,6 +71,48 @@ public:
 		)";
 
 		square_shader = std::shared_ptr<Shader>(Shader::create(vertex_src_square, fragment_src_square));
+
+		std::string vertex_src_texture, fragment_src_texture;
+
+		vertex_src_texture = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 attrib_position;
+			layout(location = 1) in vec2 attrib_tex_coords;
+
+			uniform mat4 uniform_view_projection;
+			uniform mat4 uniform_transform;
+
+			out vec2 vertex_tex_coords;
+
+			void main()
+			{
+				vertex_tex_coords = attrib_tex_coords;
+				gl_Position = uniform_view_projection * uniform_transform * vec4(attrib_position, 1.0);
+			}
+		)";
+
+		fragment_src_texture = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 output_colour;
+
+			in vec2 vertex_tex_coords;
+
+			uniform sampler2D tex_sampler;
+
+			void main()
+			{
+				output_colour = texture(tex_sampler, vertex_tex_coords);
+			}
+		)";
+
+		texture_shader = std::shared_ptr<Shader>(Shader::create(vertex_src_texture, fragment_src_texture));
+
+		texture = Texture2D::create("/Volumes/Toshiba/Programmering/Neurex/NXSandbox/assets/textures/checkerboard.png");
+		texture_shader->bind();
+		int slot = 0;
+		texture_shader->upload_uniform("tex_sampler", slot);
 	}
 
 	virtual void updated(Timestep ts) override
@@ -95,8 +137,8 @@ public:
 		}
 		*/
 
-		Renderer::submit(square_vertex_array, square_shader, glm::scale(glm::mat4(1.0), glm::vec3(1.5f)));
-
+		Renderer::submit(square_vertex_array, texture_shader, glm::scale(glm::mat4(1.0), glm::vec3(1.5f)));
+		texture->bind();
 		Renderer::end_scene();
 	}
 
@@ -159,6 +201,8 @@ private:
 
 	ref<Shader> square_shader;
 	ref<VertexArray> square_vertex_array;
+	ref<Shader> texture_shader;
+	ref<Texture2D> texture;
 
 	glm::vec3 square_position;
 
