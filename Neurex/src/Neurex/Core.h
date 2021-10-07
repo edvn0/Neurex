@@ -51,6 +51,7 @@
 
 #define glCreateVA(n, x) glGenVertexArrays(n, x)
 #define glCreateVB(n, x) glGenBuffers(n, x)
+#define glCreateTex(n, x) glGenTextures(n, x)
 
 #else
 #define NX_ASSERT(x, ...)

@@ -1,8 +1,8 @@
 #include "OpenGLTexture.h"
 #include "nxpch.h"
 
-#include <glad/glad.h>
 #include "stb_image.h"
+#include <glad/glad.h>
 
 namespace Neurex {
 
@@ -15,13 +15,12 @@ OpenGLTexture2D::OpenGLTexture2D(const std::string& path_)
 	width = twidth;
 	height = theight;
 
-	glCreateTextures(GL_TEXTURE_2D, 1, &renderer_id);
+	glCreateTex(1, &renderer_id);
 	glTextureStorage2D(renderer_id, 1, GL_RGB8, width, height);
 
 	glTextureParameteri(renderer_id, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTextureParameteri(renderer_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	glTextureSubImage2D(renderer_id, 0, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
 
 	stbi_image_free(data);
 };

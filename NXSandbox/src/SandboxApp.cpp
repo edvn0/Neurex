@@ -109,7 +109,7 @@ public:
 
 		texture_shader = std::shared_ptr<Shader>(Shader::create(vertex_src_texture, fragment_src_texture));
 
-		texture = Texture2D::create("/Volumes/Toshiba/Programmering/Neurex/NXSandbox/assets/textures/checkerboard.png");
+		texture = Texture2D::create("assets/textures/Checkerboard.png");
 		texture_shader->bind();
 		int slot = 0;
 		texture_shader->upload_uniform("tex_sampler", slot);
