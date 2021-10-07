@@ -8,43 +8,14 @@ public:
 		: Layer("Sandbox")
 		, camera(-1.6f, 1.6f, -0.9f, 0.9f)
 		, square_position(0.0)
-		, triangle_position(0.0)
 	{
-		triangle_vertex_array.reset(VertexArray::create());
-
-		// Vertex Buffer
-
-		float vertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 0.1f, 0.0f, 1.0f, 1.0f,
-			0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.1f, 1.0f,
-			0.0f, 0.5f, 0.0f, 1.0f, 0.5f, 0.2f, 1.0f
-		};
-
-		std::shared_ptr<VertexBuffer> triangle_vertex_buffer;
-		triangle_vertex_buffer.reset(VertexBuffer::create(vertices, sizeof(vertices)));
-
-		BufferLayout layout = {
-			{ ShaderDataType::Float3, "attrib_position" },
-			{ ShaderDataType::Float4, "attrib_colour" }
-		};
-		triangle_vertex_buffer->set_layout(layout);
-
-		// Index Buffer
-
-		triangle_vertex_array->add_vertex_buffer(triangle_vertex_buffer);
-
-		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<IndexBuffer> triangle_index_buffer;
-		triangle_index_buffer.reset(IndexBuffer::create(indices, sizeof(indices) / sizeof(uint32_t)));
-		triangle_vertex_array->set_index_buffer(triangle_index_buffer);
-
 		// SQUARE
 
-		float square_vertices[3 * 4] = {
-			-0.50f, -0.50f, 0.0f,
-			0.50f, -0.50f, 0.0f,
-			0.50f, 0.50f, 0.0f,
-			-0.50f, 0.50f, 0.0f
+		float square_vertices[5 * 4] = {
+			-0.50f, -0.50f, 0.0f, 0.0, 0.0,
+			0.50f, -0.50f, 0.0f, 1.0, 0.0,
+			0.50f, 0.50f, 0.0f, 1.0, 1.0,
+			-0.50f, 0.50f, 0.0f, 0.0, 1.0
 		};
 
 		square_vertex_array.reset(VertexArray::create());
@@ -54,6 +25,7 @@ public:
 
 		BufferLayout square_layout = {
 			{ ShaderDataType::Float3, "attrib_position" },
+			{ ShaderDataType::Float2, "attrib_tex_coords" }
 		};
 		square_vb->set_layout(square_layout);
 		square_vertex_array->add_vertex_buffer(square_vb);
@@ -88,58 +60,17 @@ public:
 			layout(location = 0) out vec4 output_colour;
 
 			in vec3 vertex_position;
-			in vec4 vertex_colour;
+			in vec3 vertex_colour;
+
+			uniform vec3 uniform_colour;
 
 			void main()
 			{
-				output_colour = vec4(0.2, 0.3, 0.8, 1.0);
+				output_colour = vec4(uniform_colour, 1.0);
 			}
 		)";
 
-		square_shader = std::make_shared<Shader>(vertex_src_square, fragment_src_square);
-
-		// END SQUARE
-
-		// Shader
-
-		std::string vertex_src, fragment_src;
-
-		vertex_src = R"(
-			#version 330 core
-
-			layout(location = 0) in vec3 attrib_position;
-			layout(location = 1) in vec4 attrib_colour;
-
-			uniform mat4 uniform_view_projection;
-			uniform mat4 uniform_transform;
-
-			out vec3 vertex_position;
-			out vec4 vertex_colour;
-
-			void main()
-			{
-				vertex_position = attrib_position;
-				vertex_colour = attrib_colour;
-				gl_Position = uniform_view_projection * uniform_transform * vec4(attrib_position, 1.0);
-			}
-		)";
-
-		fragment_src = R"(
-			#version 330 core
-
-			layout(location = 0) out vec4 output_colour;
-
-			in vec3 vertex_position;
-			in vec4 vertex_colour;
-
-			void main()
-			{
-				output_colour = vec4(vertex_position, 1.0) * 0.5 + 0.5;
-				output_colour = vertex_colour;
-			}
-		)";
-
-		triangle_shader = std::make_shared<Shader>(vertex_src, fragment_src);
+		square_shader = std::shared_ptr<Shader>(Shader::create(vertex_src_square, fragment_src_square));
 	}
 
 	virtual void updated(Timestep ts) override
@@ -149,7 +80,12 @@ public:
 		Renderer::begin_scene(camera);
 
 		static auto scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+		static auto red = glm::vec4(0.5f, 0.2f, 0.2f, 1.0f);
+		static auto blue = glm::vec4(0.2f, 0.2f, 0.5f, 1.0f);
 
+		square_shader->bind();
+		square_shader->upload_uniform("uniform_colour", square_colour);
+		/*
 		for (int i = 0; i < num_squares; i++) {
 			for (int j = 0; j < num_squares; j++) {
 				auto pos = glm::vec3(i * 0.11, j * 0.11, 0.0f);
@@ -157,12 +93,18 @@ public:
 				Renderer::submit(square_vertex_array, square_shader, transform);
 			}
 		}
-		Renderer::submit(triangle_vertex_array, triangle_shader, glm::translate(glm::mat4(1.0), triangle_position));
+		*/
+
+		Renderer::submit(square_vertex_array, square_shader, glm::scale(glm::mat4(1.0), glm::vec3(1.5f)));
+
 		Renderer::end_scene();
 	}
 
 	virtual void on_imgui_render() override
 	{
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Squares Colour", glm::value_ptr(square_colour));
+		ImGui::End();
 	}
 
 	virtual void on_event(Event& event) override
@@ -196,6 +138,7 @@ public:
 
 			if (ev.get_key_code() == NX_KC_R) {
 				camera.set_position(glm::vec3(0, 0, 0));
+				camera.set_rotation(0);
 			}
 
 			if (ev.get_key_code() == NX_KC_X) {
@@ -211,16 +154,17 @@ public:
 	}
 
 private:
-	std::shared_ptr<Shader> triangle_shader;
-	std::shared_ptr<VertexArray> triangle_vertex_array;
+	ref<Shader> triangle_shader;
+	ref<VertexArray> triangle_vertex_array;
 
-	std::shared_ptr<Shader> square_shader;
-	std::shared_ptr<VertexArray> square_vertex_array;
+	ref<Shader> square_shader;
+	ref<VertexArray> square_vertex_array;
 
 	glm::vec3 square_position;
-	glm::vec3 triangle_position;
 
 	int num_squares = 20;
+
+	glm::vec3 square_colour = glm::vec3(1.0f);
 
 	OrthographicCamera camera;
 };

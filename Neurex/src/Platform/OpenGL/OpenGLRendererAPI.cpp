@@ -15,7 +15,7 @@ namespace Neurex {
 		glClearColor(color.r, color.g, color.b, color.a);
 	}
 
-	void OpenGLRendererAPI::draw_indexed(const std::shared_ptr<VertexArray>& va)
+	void OpenGLRendererAPI::draw_indexed(const ref<VertexArray>& va)
 	{
 		glDrawElements(GL_TRIANGLES, va->get_index_buffer()->get_count(), GL_UNSIGNED_INT, nullptr);
 	}

@@ -61,7 +61,7 @@ void OpenGLVertexArray::unbind()
 	glBindVertexArray(0);
 }
 
-void OpenGLVertexArray::add_vertex_buffer(std::shared_ptr<VertexBuffer>& vb)
+void OpenGLVertexArray::add_vertex_buffer(ref<VertexBuffer>& vb)
 {
 	glBindVertexArray(renderer_id);
 	vb->bind();
@@ -82,7 +82,7 @@ void OpenGLVertexArray::add_vertex_buffer(std::shared_ptr<VertexBuffer>& vb)
 	vertex_buffers.push_back(vb);
 }
 
-void OpenGLVertexArray::set_index_buffer(std::shared_ptr<IndexBuffer>& ib)
+void OpenGLVertexArray::set_index_buffer(ref<IndexBuffer>& ib)
 {
 	glBindVertexArray(renderer_id);
 	ib->bind();
@@ -90,12 +90,12 @@ void OpenGLVertexArray::set_index_buffer(std::shared_ptr<IndexBuffer>& ib)
 	index_buffer = ib;
 }
 
-const std::vector<std::shared_ptr<Neurex::VertexBuffer>>& OpenGLVertexArray::get_vertex_buffers() const
+const std::vector<ref<Neurex::VertexBuffer>>& OpenGLVertexArray::get_vertex_buffers() const
 {
 	return vertex_buffers;
 }
 
-const std::shared_ptr<Neurex::IndexBuffer>& OpenGLVertexArray::get_index_buffer() const
+const ref<Neurex::IndexBuffer>& OpenGLVertexArray::get_index_buffer() const
 {
 	return index_buffer;
 }

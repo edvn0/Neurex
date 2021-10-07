@@ -1,48 +1,44 @@
 #pragma once
 
 #include "Core.h"
-#include "Window.h"
-#include "events/MouseEvent.h"
-#include "events/KeyEvent.h"
-#include "events/ApplicationEvent.h"
 #include "LayerStack.h"
-#include "imgui/ImGuiLayer.h"
 #include "Neurex/core/Timestep.h"
+#include "Window.h"
+#include "events/ApplicationEvent.h"
+#include "events/KeyEvent.h"
+#include "events/MouseEvent.h"
+#include "imgui/ImGuiLayer.h"
 
-#include "Neurex/renderer/Shader.h"
-#include "Neurex/renderer/Buffer.h"
-#include "Neurex/renderer/VertexArray.h"
 
 namespace Neurex {
 
-	class Application
-	{
-	public:
-		Application();
-		virtual ~Application();
+class Application {
+public:
+	Application();
+	virtual ~Application();
 
-		void run();
+	void run();
 
-		void on_event(Event& event);
+	void on_event(Event& event);
 
-		void add_layer(Layer* layer);
-		void add_overlay(Layer* overlay);
+	void add_layer(Layer* layer);
+	void add_overlay(Layer* overlay);
 
-		static inline Application& the() { return *instance; }
-		inline Window& get_window() { return *window; }
-	private:
-		std::unique_ptr<Window> window;
-		ImGuiLayer* imgui_layer;
+	static inline Application& the() { return *instance; }
+	inline Window& get_window() { return *window; }
 
-		bool is_running = true;
-		LayerStack stack;
+private:
+	std::unique_ptr<Window> window;
+	ImGuiLayer* imgui_layer;
 
-		Timestep::TimeDelta last_time = 0.0f;
+	bool is_running = true;
+	LayerStack stack;
 
-	private:
-		static Application* instance;
-	};
+	Timestep::TimeDelta last_time = 0.0f;
 
-	Application* create_application();
+private:
+	static Application* instance;
+};
+
+Application* create_application();
 }
-
