@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Neurex/renderer/Texture.h"
+#include <glad/glad.h>
 
 namespace Neurex {
 class OpenGLTexture2D : public Texture2D {
@@ -18,6 +19,8 @@ private:
 	uint32_t height;
 	std::string path;
 	uint32_t renderer_id;
+	GLenum internal_format;
+	GLenum data_format;
 };
 
 } // namespace Neurex

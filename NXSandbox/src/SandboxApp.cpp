@@ -113,11 +113,55 @@ public:
 		texture_shader->bind();
 		int slot = 0;
 		texture_shader->upload_uniform("tex_sampler", slot);
+		RenderCommand::set_clear_colour({ 0.2f, 0.2f, 0.2f, 1 });
+	}
+
+	virtual void poll_inputs(Timestep& ts)
+	{
+		float step = ts.get_seconds();
+
+		if (Input::is_key_pressed(NX_KC_Q)) {
+			camera.rotate(-45.0f * step);
+		}
+
+		if (Input::is_key_pressed(NX_KC_E)) {
+			camera.rotate(45.0f * step);
+		}
+
+		if (Input::is_key_pressed(NX_KC_W)) {
+			camera.move(-glm::vec3(0, speed, 0) * step);
+		}
+
+		if (Input::is_key_pressed(NX_KC_S)) {
+			camera.move(glm::vec3(0, speed, 0) * step);
+		}
+
+		if (Input::is_key_pressed(NX_KC_A)) {
+			camera.move(glm::vec3(speed, 0, 0) * step);
+		}
+
+		if (Input::is_key_pressed(NX_KC_D)) {
+			camera.move(-glm::vec3(speed, 0, 0) * step);
+		}
+
+		if (Input::is_key_pressed(NX_KC_R)) {
+			camera.set_position(glm::vec3(0, 0, 0));
+			camera.set_rotation(0);
+		}
+
+		if (Input::is_key_pressed(NX_KC_X)) {
+			num_squares++;
+		}
+
+		if (Input::is_key_pressed(NX_KC_Y)) {
+			num_squares--;
+		}
 	}
 
 	virtual void updated(Timestep ts) override
 	{
-		RenderCommand::set_clear_colour({ 0.2f, 0.2f, 0.2f, 1 });
+		poll_inputs(ts);
+
 		RenderCommand::clear();
 		Renderer::begin_scene(camera);
 
@@ -127,7 +171,7 @@ public:
 
 		square_shader->bind();
 		square_shader->upload_uniform("uniform_colour", square_colour);
-		/*
+
 		for (int i = 0; i < num_squares; i++) {
 			for (int j = 0; j < num_squares; j++) {
 				auto pos = glm::vec3(i * 0.11, j * 0.11, 0.0f);
@@ -135,10 +179,9 @@ public:
 				Renderer::submit(square_vertex_array, square_shader, transform);
 			}
 		}
-		*/
 
-		Renderer::submit(square_vertex_array, texture_shader, glm::scale(glm::mat4(1.0), glm::vec3(1.5f)));
 		texture->bind();
+		Renderer::submit(square_vertex_array, texture_shader, glm::scale(glm::mat4(1.0), glm::vec3(1.5f)));
 		Renderer::end_scene();
 	}
 
@@ -154,43 +197,6 @@ public:
 		EventDispatcher dispatcher(event);
 
 		dispatcher.dispatch_event<KeyPressedEvent>([&](KeyPressedEvent& ev) {
-			if (ev.get_key_code() == NX_KC_Q) {
-				camera.rotate(2.5f);
-			}
-
-			if (ev.get_key_code() == NX_KC_E) {
-				camera.rotate(-2.5f);
-			}
-
-			if (ev.get_key_code() == NX_KC_W) {
-				camera.move(-glm::vec3(0, 0.1, 0));
-			}
-
-			if (ev.get_key_code() == NX_KC_S) {
-				camera.move(glm::vec3(0, 0.1, 0));
-			}
-
-			if (ev.get_key_code() == NX_KC_A) {
-				camera.move(glm::vec3(0.1, 0, 0));
-			}
-
-			if (ev.get_key_code() == NX_KC_D) {
-				camera.move(-glm::vec3(0.1, 0, 0));
-			}
-
-			if (ev.get_key_code() == NX_KC_R) {
-				camera.set_position(glm::vec3(0, 0, 0));
-				camera.set_rotation(0);
-			}
-
-			if (ev.get_key_code() == NX_KC_X) {
-				num_squares++;
-			}
-
-			if (ev.get_key_code() == NX_KC_Y) {
-				num_squares--;
-			}
-
 			return false;
 		});
 	}
@@ -207,6 +213,7 @@ private:
 	glm::vec3 square_position;
 
 	int num_squares = 20;
+	static constexpr float speed = 1.0f;
 
 	glm::vec3 square_colour = glm::vec3(1.0f);
 

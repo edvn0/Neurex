@@ -4,7 +4,6 @@
 #include "Neurex/renderer/GraphicsContext.h"
 #include "nxpch.h"
 
-
 #include <GLFW/glfw3.h>
 
 namespace Neurex {
@@ -45,6 +44,9 @@ private:
 
 		EventCallback callback;
 	};
+
+	float pixel_size_x = 2.0;
+	float pixel_size_y = 2.0;
 
 	WindowData window_data;
 };

@@ -6,6 +6,8 @@ workspace "Neurex"
 startproject "NXSandbox"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+require "cmake"
+
 include_dirs = {}
 include_dirs["GLFW"] = "Neurex/vendor/GLFW/include"
 include_dirs["glad"] = "Neurex/vendor/glad/include"

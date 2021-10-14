@@ -9,18 +9,37 @@ namespace Neurex {
 OpenGLTexture2D::OpenGLTexture2D(const std::string& path_)
 	: path(path_)
 {
-	int twidth, theight, channels;
-	auto* data = stbi_load(path.c_str(), &twidth, &theight, &channels, 0);
-	NX_CORE_ASSERT(data, "Failed to load data.");
-	width = twidth;
-	height = theight;
+	int w, h, channels;
+	auto* data = stbi_load(path.c_str(), &w, &h, &channels, 0);
 
-	glCreateTex(1, &renderer_id);
-	glTextureStorage2D(renderer_id, 1, GL_RGB8, width, height);
+	NX_CORE_ASSERT(data, "Failed to load image!");
+	width = w;
+	height = h;
 
-	glTextureParameteri(renderer_id, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTextureParameteri(renderer_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, data);
+	GLenum internal_format_ = 0, data_format_ = 0;
+	if (channels == 4) {
+		internal_format_ = GL_RGBA8;
+		data_format_ = GL_RGBA;
+	} else if (channels == 3) {
+		internal_format_ = GL_RGB8;
+		data_format_ = GL_RGB;
+	}
+
+	internal_format = internal_format_;
+	data_format = data_format_;
+
+	glGenTextures(1, &renderer_id);
+
+	glBindTexture(GL_TEXTURE_2D, renderer_id);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	glTexImage2D(GL_TEXTURE_2D, 1, internal_format_, width, height, 0, data_format, GL_UNSIGNED_BYTE, data);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	stbi_image_free(data);
 };
@@ -32,7 +51,8 @@ OpenGLTexture2D::~OpenGLTexture2D()
 
 void OpenGLTexture2D::bind(uint32_t slot) const
 {
-	glBindTextureUnit(slot, renderer_id);
+	glActiveTexture(GL_TEXTURE0 + slot);
+	glBindTexture(GL_TEXTURE_2D, renderer_id);
 };
 
 } // namespace Neurex

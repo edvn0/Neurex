@@ -1,7 +1,9 @@
 #! /usr/bin/env bash
 
 start() {
-	./bin/Debug-macosx-x86_64/NXSandbox/NXSandbox
+	cd ~/Documents/Code.nosync/Neurex/NXSandbox
+	../bin/Debug-macosx-x86_64/NXSandbox/NXSandbox
+	cd -
 }
 
 start
