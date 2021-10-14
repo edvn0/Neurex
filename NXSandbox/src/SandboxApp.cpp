@@ -111,9 +111,9 @@ public:
 
 		texture = Texture2D::create("assets/textures/Checkerboard.png");
 		texture_shader->bind();
-		int slot = 0;
+		static int slot = 0;
 		texture_shader->upload_uniform("tex_sampler", slot);
-		RenderCommand::set_clear_colour({ 0.2f, 0.2f, 0.2f, 1 });
+		RenderCommand::set_clear_colour({ 0.4f, 0.4f, 0.2f, 1 });
 	}
 
 	virtual void poll_inputs(Timestep& ts)
@@ -180,6 +180,7 @@ public:
 			}
 		}
 
+		texture_shader->bind();
 		texture->bind();
 		Renderer::submit(square_vertex_array, texture_shader, glm::scale(glm::mat4(1.0), glm::vec3(1.5f)));
 		Renderer::end_scene();
