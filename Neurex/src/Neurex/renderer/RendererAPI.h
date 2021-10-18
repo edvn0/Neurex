@@ -15,7 +15,10 @@ public:
 	};
 
 public:
+	virtual void init() = 0;
+
 	virtual void clear() = 0;
+
 	virtual void set_clear_colour(const glm::vec4& color) = 0;
 
 	virtual void draw_indexed(const ref<VertexArray>& va) = 0;

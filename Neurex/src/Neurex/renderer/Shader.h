@@ -17,6 +17,7 @@ public:
 	virtual void upload_uniform(const std::string& name, float float_val) = 0;
 	virtual void upload_uniform(const std::string& name, int int_val) = 0;
 
-	static Shader* create(const std::string& vertex, const std::string& fragment);
+	static ref<Shader> create(const std::string& vertex, const std::string& fragment);
+	static ref<Shader> create(const std::string& path);
 };
 };

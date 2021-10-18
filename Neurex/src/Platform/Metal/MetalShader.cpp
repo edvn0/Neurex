@@ -6,6 +6,8 @@ namespace Neurex {
 
 MetalShader::MetalShader(const std::string& vertex, const std::string& fragment){};
 
+MetalShader::MetalShader(const std::string& path){};
+
 void MetalShader::bind(){};
 
 void MetalShader::unbind(){};

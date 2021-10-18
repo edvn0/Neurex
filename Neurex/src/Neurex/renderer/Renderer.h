@@ -10,6 +10,8 @@ namespace Neurex {
 
 class Renderer {
 public:
+	static void init();
+
 	static void begin_scene(OrthographicCamera& camera);
 
 	static void submit(const ref<VertexArray>& va, const ref<Shader>& shader, const glm::mat4& transform = glm::mat4(1.0f));

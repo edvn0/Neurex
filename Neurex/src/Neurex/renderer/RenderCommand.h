@@ -6,6 +6,11 @@ namespace Neurex {
 
 class RenderCommand {
 public:
+	inline static void init()
+	{
+		api->init();
+	}
+
 	inline static void clear()
 	{
 		api->clear();

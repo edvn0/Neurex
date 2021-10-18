@@ -8,7 +8,22 @@
 
 namespace Neurex {
 
+OpenGLShader::OpenGLShader(const std::string& path)
+{
+	read_file(path);
+}
+
 OpenGLShader::OpenGLShader(const std::string& vertex, const std::string& fragment)
+{
+	compile_shader(vertex, fragment);
+}
+
+OpenGLShader::~OpenGLShader()
+{
+	glDeleteProgram(renderer_id);
+}
+
+void OpenGLShader::compile_shader(const std::string& vertex, const std::string& fragment)
 {
 	// Create an empty vertex OpenGLShader handle
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -105,9 +120,20 @@ OpenGLShader::OpenGLShader(const std::string& vertex, const std::string& fragmen
 	glDetachShader(renderer_id, fragmentShader);
 }
 
-OpenGLShader::~OpenGLShader()
+std::string OpenGLShader::read_file(const std::string& path)
 {
-	glDeleteProgram(renderer_id);
+	std::string result;
+	std::ifstream file_stream(path.c_str());
+	if (file_stream) {
+		file_stream.seekg(0, std::ios::end);
+		result.resize(file_stream.tellg());
+		file_stream.seekg(0, std::ios::beg);
+		file_stream.read(&result[0], result.size());
+		file_stream.close();
+	} else {
+		NX_CORE_ERROR("Could not open file at path {0}.", path);
+	}
+	return result;
 }
 
 void OpenGLShader::bind()

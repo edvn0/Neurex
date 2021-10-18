@@ -5,7 +5,6 @@
 #include "core/Clock.h"
 #include "renderer/Renderer.h"
 
-
 namespace Neurex {
 
 Application* Application::instance = nullptr;
@@ -18,6 +17,9 @@ Application::Application()
 	window = std::unique_ptr<Window>(Window::create());
 	window->set_event_callback([&](Event& event) { this->on_event(event); });
 	imgui_layer = new ImGuiLayer();
+
+	Renderer::init();
+
 	add_overlay(imgui_layer);
 };
 

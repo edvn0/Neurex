@@ -7,6 +7,7 @@ namespace Neurex {
 class MetalShader : public Shader {
 public:
 	MetalShader(const std::string& vertex, const std::string& fragment);
+	MetalShader(const std::string& path);
 	~MetalShader() = default;
 
 	virtual void bind() override;

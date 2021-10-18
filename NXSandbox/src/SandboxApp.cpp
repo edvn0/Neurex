@@ -70,48 +70,14 @@ public:
 			}
 		)";
 
-		square_shader = std::shared_ptr<Shader>(Shader::create(vertex_src_square, fragment_src_square));
+		square_shader = Shader::create(vertex_src_square, fragment_src_square);
 
-		std::string vertex_src_texture, fragment_src_texture;
+		texture_shader = Shader::create("assets/shaders/texture.glsl");
 
-		vertex_src_texture = R"(
-			#version 330 core
-
-			layout(location = 0) in vec3 attrib_position;
-			layout(location = 1) in vec2 attrib_tex_coords;
-
-			uniform mat4 uniform_view_projection;
-			uniform mat4 uniform_transform;
-
-			out vec2 vertex_tex_coords;
-
-			void main()
-			{
-				vertex_tex_coords = attrib_tex_coords;
-				gl_Position = uniform_view_projection * uniform_transform * vec4(attrib_position, 1.0);
-			}
-		)";
-
-		fragment_src_texture = R"(
-			#version 330 core
-
-			layout(location = 0) out vec4 output_colour;
-
-			in vec2 vertex_tex_coords;
-
-			uniform sampler2D tex_sampler;
-
-			void main()
-			{
-				output_colour = texture(tex_sampler, vertex_tex_coords);
-			}
-		)";
-
-		texture_shader = std::shared_ptr<Shader>(Shader::create(vertex_src_texture, fragment_src_texture));
-
-		texture = Texture2D::create("assets/textures/Checkerboard.png");
+		texture = Texture2D::create("assets/textures/checkerboard.png");
+		cherno_texture = Texture2D::create("assets/textures/cherno_logo.png");
 		texture_shader->bind();
-		static int slot = 0;
+		int slot = 0;
 		texture_shader->upload_uniform("tex_sampler", slot);
 		RenderCommand::set_clear_colour({ 0.4f, 0.4f, 0.2f, 1 });
 	}
@@ -183,6 +149,9 @@ public:
 		texture_shader->bind();
 		texture->bind();
 		Renderer::submit(square_vertex_array, texture_shader, glm::scale(glm::mat4(1.0), glm::vec3(1.5f)));
+		cherno_texture->bind();
+		Renderer::submit(square_vertex_array, texture_shader, glm::scale(glm::mat4(1.0), glm::vec3(1.5f)));
+
 		Renderer::end_scene();
 	}
 
@@ -209,7 +178,9 @@ private:
 	ref<Shader> square_shader;
 	ref<VertexArray> square_vertex_array;
 	ref<Shader> texture_shader;
+
 	ref<Texture2D> texture;
+	ref<Texture2D> cherno_texture;
 
 	glm::vec3 square_position;
 

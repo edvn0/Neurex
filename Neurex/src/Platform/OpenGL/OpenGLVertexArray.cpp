@@ -75,7 +75,7 @@ void OpenGLVertexArray::add_vertex_buffer(ref<VertexBuffer>& vb)
 			nx_opengl_shader_type(l.type),
 			l.normalization ? GL_TRUE : GL_FALSE,
 			layout.get_stride(),
-			(const void*)l.offset);
+			(void*)l.offset);
 		index++;
 	}
 
