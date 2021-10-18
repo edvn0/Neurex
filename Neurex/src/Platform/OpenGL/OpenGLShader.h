@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Neurex/renderer/Shader.h"
+#include <glad/glad.h>
 
 namespace Neurex {
 
@@ -21,8 +22,9 @@ public:
 	virtual void upload_uniform(const std::string& name, int int_val) override;
 
 private:
-	void compile_shader(const std::string& vertex, const std::string& fragment);
+	void compile_shader(std::unordered_map<GLenum, std::string> sources);
 	std::string read_file(const std::string& path);
+	std::unordered_map<GLenum, std::string> process_shader_file(const std::string& src);
 
 private:
 	uint32_t renderer_id;

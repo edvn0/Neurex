@@ -20,8 +20,7 @@ public:
 
 		square_vertex_array.reset(VertexArray::create());
 
-		std::shared_ptr<VertexBuffer> square_vb;
-		square_vb.reset(VertexBuffer::create(square_vertices, sizeof(square_vertices)));
+		std::shared_ptr<VertexBuffer> square_vb = VertexBuffer::create(square_vertices, sizeof(square_vertices));
 
 		BufferLayout square_layout = {
 			{ ShaderDataType::Float3, "attrib_position" },
@@ -32,7 +31,7 @@ public:
 
 		uint32_t square_indices[6] = { 0, 1, 2, 2, 3, 0 };
 		std::shared_ptr<IndexBuffer> square_index_buffer;
-		square_index_buffer.reset(IndexBuffer::create(square_indices, sizeof(square_indices) / sizeof(uint32_t)));
+		square_index_buffer = IndexBuffer::create(square_indices, sizeof(square_indices) / sizeof(uint32_t));
 		square_vertex_array->set_index_buffer(square_index_buffer);
 
 		std::string vertex_src_square, fragment_src_square;

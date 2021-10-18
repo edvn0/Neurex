@@ -133,7 +133,7 @@ namespace Neurex {
 		virtual void set_layout(const BufferLayout& layout) = 0;
 		virtual const BufferLayout& get_layout() const = 0;
 
-		static VertexBuffer* create(float* vertices, uint32_t size);
+		static ref<VertexBuffer> create(float* vertices, uint32_t size);
 	};
 
 	class IndexBuffer {
@@ -144,7 +144,7 @@ namespace Neurex {
 		virtual void unbind() = 0;
 		virtual uint32_t get_count() const = 0;
 
-		static IndexBuffer* create(uint32_t* indices, uint32_t count);
+		static ref<IndexBuffer> create(uint32_t* indices, uint32_t count);
 	};
 
 }
