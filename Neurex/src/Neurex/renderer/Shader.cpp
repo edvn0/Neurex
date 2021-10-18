@@ -11,7 +11,7 @@
 
 namespace Neurex {
 
-ref<Shader> Shader::create(const std::string& vertex, const std::string& fragment)
+ref<Shader> Shader::create(const std::string& name, const std::string& vertex, const std::string& fragment)
 {
 	switch (Renderer::get_api()) {
 	case RendererAPI::API::None: {
@@ -19,14 +19,14 @@ ref<Shader> Shader::create(const std::string& vertex, const std::string& fragmen
 		return nullptr;
 	}
 	case RendererAPI::API::OpenGL: {
-		return std::make_shared<OpenGLShader>(vertex, fragment);
+		return std::make_shared<OpenGLShader>(name, vertex, fragment);
 	}
 	case RendererAPI::API::Vulkan: {
 		NX_CORE_ASSERT(false, "Vulkan is not supported.");
 		return nullptr;
 	}
 	case RendererAPI::API::Metal: {
-		return std::make_shared<MetalShader>(vertex, fragment);
+		return std::make_shared<MetalShader>(name, vertex, fragment);
 	}
 	case RendererAPI::API::DirectX: {
 		NX_CORE_ASSERT(false, "DirectX is not supported.");
@@ -61,4 +61,36 @@ ref<Shader> Shader::create(const std::string& path)
 	return nullptr;
 }
 
+void ShaderLibrary::add(const std::string& name, const ref<Shader>& shader)
+{
+	NX_CORE_ASSERT(shaders.find(name) == shaders.end(), "Shader with given name already exists.");
+	shaders[name] = shader;
+};
+
+void ShaderLibrary::add(const ref<Shader>& shader)
+{
+	auto& name = shader->get_name();
+	NX_CORE_ASSERT(shaders.find(name) == shaders.end(), "Shader with given name already exists.");
+	add(name, shader);
+};
+
+ref<Shader> ShaderLibrary::load(const std::string& name, const std::string& fp)
+{
+	auto shader = Shader::create(fp);
+	add(name, shader);
+	return shader;
+};
+
+ref<Shader> ShaderLibrary::load(const std::string& fp)
+{
+	auto shader = Shader::create(fp);
+	add(shader);
+	return shader;
+};
+
+ref<Shader> ShaderLibrary::get(const std::string& name)
+{
+	NX_CORE_ASSERT(shaders.find(name) != shaders.end(), "You provided an incorrect id for a shader.");
+	return shaders[name];
+};
 }

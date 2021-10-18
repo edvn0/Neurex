@@ -4,7 +4,7 @@
 
 namespace Neurex {
 
-MetalShader::MetalShader(const std::string& vertex, const std::string& fragment){};
+MetalShader::MetalShader(const std::string& name, const std::string& vertex, const std::string& fragment){};
 
 MetalShader::MetalShader(const std::string& path){};
 

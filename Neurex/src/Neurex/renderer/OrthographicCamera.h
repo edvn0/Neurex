@@ -26,21 +26,15 @@ public:
 		recalculate_view_matrix();
 	};
 
+	void set_projection(float left, float right, float bottom, float top)
+	{
+		proj_matrix = glm::ortho(left, right, bottom, top, -1.0f, 1.0f);
+		view_proj_matrix = proj_matrix * view_matrix;
+	}
+
 	const glm::mat4& get_projection_matrix() const { return proj_matrix; };
 	const glm::mat4& get_view_matrix() const { return view_matrix; };
 	const glm::mat4& get_view_projection_matrix() const { return view_proj_matrix; };
-
-	void move(const glm::vec3& delta)
-	{
-		position += delta;
-		recalculate_view_matrix();
-	};
-
-	void rotate(float delta_angle)
-	{
-		rotation_angle += delta_angle;
-		recalculate_view_matrix();
-	};
 
 private:
 	void recalculate_view_matrix();

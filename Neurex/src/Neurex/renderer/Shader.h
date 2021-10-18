@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 #include <string.h>
+#include <unordered_map>
 
 namespace Neurex {
 class Shader {
@@ -17,7 +18,23 @@ public:
 	virtual void upload_uniform(const std::string& name, float float_val) = 0;
 	virtual void upload_uniform(const std::string& name, int int_val) = 0;
 
-	static ref<Shader> create(const std::string& vertex, const std::string& fragment);
+	virtual const std::string& get_name() const = 0;
+
+	static ref<Shader> create(const std::string& name, const std::string& vertex, const std::string& fragment);
 	static ref<Shader> create(const std::string& path);
 };
+
+class ShaderLibrary {
+public:
+	void add(const ref<Shader>& shader);
+	void add(const std::string& name, const ref<Shader>& shader);
+	ref<Shader> load(const std::string& fp);
+	ref<Shader> load(const std::string& name, const std::string& fp);
+
+	ref<Shader> get(const std::string& name);
+
+private:
+	std::unordered_map<std::string, ref<Shader>> shaders;
+};
+
 };

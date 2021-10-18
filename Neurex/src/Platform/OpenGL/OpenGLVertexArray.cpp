@@ -9,23 +9,15 @@ static GLenum nx_opengl_shader_type(ShaderDataType type)
 {
 	switch (type) {
 	case Neurex::ShaderDataType::Float:
-		return GL_FLOAT;
 	case Neurex::ShaderDataType::Float2:
-		return GL_FLOAT;
 	case Neurex::ShaderDataType::Float3:
-		return GL_FLOAT;
 	case Neurex::ShaderDataType::Float4:
-		return GL_FLOAT;
 	case Neurex::ShaderDataType::Mat3:
-		return GL_FLOAT;
 	case Neurex::ShaderDataType::Mat4:
 		return GL_FLOAT;
 	case Neurex::ShaderDataType::Int:
-		return GL_INT;
 	case Neurex::ShaderDataType::Int2:
-		return GL_INT;
 	case Neurex::ShaderDataType::Int3:
-		return GL_INT;
 	case Neurex::ShaderDataType::Int4:
 		return GL_INT;
 	case Neurex::ShaderDataType::Bool:
@@ -42,8 +34,8 @@ static GLenum nx_opengl_shader_type(ShaderDataType type)
 
 OpenGLVertexArray::OpenGLVertexArray()
 {
-	glCreateVA(1, &renderer_id);
-	// glCreateVertexArrays(1, &renderer_id);
+	glGenVertexArrays(1, &renderer_id);
+	glBindVertexArray(renderer_id);
 }
 
 OpenGLVertexArray::~OpenGLVertexArray()

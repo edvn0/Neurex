@@ -95,7 +95,7 @@ void MacOSWindow::init(const WindowProps& props)
 
 	glViewport(0, 0, props.width * pixel_size_x, props.height * pixel_size_y);
 	glfwSetWindowUserPointer(win_window, &window_data);
-	set_vsync(false);
+	set_vsync(true);
 	setup_events();
 };
 

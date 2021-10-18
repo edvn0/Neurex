@@ -7,7 +7,7 @@ namespace Neurex {
 
 class OpenGLShader : public Shader {
 public:
-	OpenGLShader(const std::string& vertex, const std::string& fragment);
+	OpenGLShader(const std::string& name, const std::string& vertex, const std::string& fragment);
 	OpenGLShader(const std::string& path);
 	virtual ~OpenGLShader() override;
 
@@ -21,6 +21,8 @@ public:
 	virtual void upload_uniform(const std::string& name, float float_val) override;
 	virtual void upload_uniform(const std::string& name, int int_val) override;
 
+	virtual const std::string& get_name() const override { return name; };
+
 private:
 	void compile_shader(std::unordered_map<GLenum, std::string> sources);
 	std::string read_file(const std::string& path);
@@ -28,6 +30,6 @@ private:
 
 private:
 	uint32_t renderer_id;
+	std::string name;
 };
-
 }

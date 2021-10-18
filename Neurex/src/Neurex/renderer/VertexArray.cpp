@@ -1,41 +1,36 @@
-#include "nxpch.h"
 #include "VertexArray.h"
+#include "nxpch.h"
 
 #include "Renderer.h"
 
 #include "Platform/OpenGL/OpenGLVertexArray.h"
 
-namespace Neurex
+namespace Neurex {
+
+ref<VertexArray> VertexArray::create()
 {
-	VertexArray* VertexArray::create()
-	{
-		switch (Renderer::get_api())
-		{
-		case RendererAPI::API::None:
-		{
-			NX_CORE_ASSERT(false, "No Rendering API is not supported.");
-			return nullptr;
-		}
-		case RendererAPI::API::OpenGL:
-		{
-			return new OpenGLVertexArray();
-		}
-		case RendererAPI::API::Vulkan:
-		{
-			NX_CORE_ASSERT(false, "Vulkan is not supported.");
-			return nullptr;
-		}
-		case RendererAPI::API::Metal:
-		{
-			NX_CORE_ASSERT(false, "Metal is not supported.");
-			return nullptr;
-		}
-		case RendererAPI::API::DirectX:
-		{
-			NX_CORE_ASSERT(false, "DirectX is not supported.");
-			return nullptr;
-		}
-		}
+	switch (Renderer::get_api()) {
+	case RendererAPI::API::None: {
+		NX_CORE_ASSERT(false, "No Rendering API is not supported.");
 		return nullptr;
 	}
+	case RendererAPI::API::OpenGL: {
+		return std::make_shared<OpenGLVertexArray>();
+	}
+	case RendererAPI::API::Vulkan: {
+		NX_CORE_ASSERT(false, "Vulkan is not supported.");
+		return nullptr;
+	}
+	case RendererAPI::API::Metal: {
+		NX_CORE_ASSERT(false, "Metal is not supported.");
+		return nullptr;
+	}
+	case RendererAPI::API::DirectX: {
+		NX_CORE_ASSERT(false, "DirectX is not supported.");
+		return nullptr;
+	}
+	}
+	return nullptr;
+}
+
 }

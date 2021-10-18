@@ -18,6 +18,6 @@ public:
 	virtual const std::vector<ref<VertexBuffer>>& get_vertex_buffers() const = 0;
 	virtual const ref<IndexBuffer>& get_index_buffer() const = 0;
 
-	static VertexArray* create();
+	static ref<VertexArray> create();
 };
 };

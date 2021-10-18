@@ -9,7 +9,6 @@
 #include "events/MouseEvent.h"
 #include "imgui/ImGuiLayer.h"
 
-
 namespace Neurex {
 
 class Application {
@@ -26,6 +25,12 @@ public:
 
 	static inline Application& the() { return *instance; }
 	inline Window& get_window() { return *window; }
+
+	inline bool exit()
+	{
+		is_running = false;
+		return true;
+	}
 
 private:
 	std::unique_ptr<Window> window;
