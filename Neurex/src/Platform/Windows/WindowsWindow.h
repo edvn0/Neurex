@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Neurex/Window.h"
+#include "Neurex/core/Window.h"
 #include "Neurex/renderer/GraphicsContext.h"
 #include "nxpch.h"
 

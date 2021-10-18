@@ -1,4 +1,4 @@
-#include "Neurex/CameraController.h"
+#include "CameraController.h"
 #include "nxpch.h"
 
 namespace Neurex {

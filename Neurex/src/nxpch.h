@@ -14,7 +14,7 @@
 #include <unordered_set>
 #include <vector>
 
-#include "Neurex/Logger.h"
+#include "Neurex/core/Logger.h"
 
 #ifdef NX_PT_WIN
 #include <Windows.h>

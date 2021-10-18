@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Neurex/Input.h"
-#include "Neurex/KeyCodes.h"
+#include "Neurex/core/Input.h"
+#include "Neurex/core/KeyCodes.h"
 #include "Neurex/core/Timestep.h"
 #include "Neurex/events/ApplicationEvent.h"
 #include "Neurex/events/MouseEvent.h"

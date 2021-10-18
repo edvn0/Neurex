@@ -1,7 +1,7 @@
 #include "ImGuiLayer.h"
 #include "nxpch.h"
 
-#include "Neurex/Application.h"
+#include "Neurex/core/Application.h"
 
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"

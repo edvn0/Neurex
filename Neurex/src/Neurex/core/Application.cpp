@@ -1,9 +1,9 @@
 #include "nxpch.h"
 
 #include "Application.h"
-#include "Input.h"
-#include "core/Clock.h"
-#include "renderer/Renderer.h"
+#include "Neurex/core/Input.h"
+#include "Neurex/core/Clock.h"
+#include "Neurex/renderer/Renderer.h"
 
 namespace Neurex {
 

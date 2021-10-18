@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Neurex/Core.h"
+#include "Neurex/core/Core.h"
 
 namespace Neurex {
 

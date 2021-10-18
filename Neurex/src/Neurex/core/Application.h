@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Core.h"
-#include "LayerStack.h"
+#include "Neurex/core/Core.h"
+#include "Neurex/core/LayerStack.h"
 #include "Neurex/core/Timestep.h"
-#include "Window.h"
-#include "events/ApplicationEvent.h"
-#include "events/KeyEvent.h"
-#include "events/MouseEvent.h"
-#include "imgui/ImGuiLayer.h"
+#include "Neurex/core/Window.h"
+#include "Neurex/events/ApplicationEvent.h"
+#include "Neurex/events/KeyEvent.h"
+#include "Neurex/events/MouseEvent.h"
+#include "Neurex/imgui/ImGuiLayer.h"
 
 namespace Neurex {
 

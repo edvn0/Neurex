@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Event.h"
+#include "Neurex/events/Event.h"
 
 namespace Neurex {
 class WindowFramebufferEvent : public Event {

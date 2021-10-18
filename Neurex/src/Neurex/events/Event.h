@@ -1,8 +1,7 @@
 #pragma once
 
-#include "Neurex/Core.h"
+#include "Neurex/core/Core.h"
 #include "nxpch.h"
-
 
 namespace Neurex {
 

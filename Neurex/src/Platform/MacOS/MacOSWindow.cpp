@@ -91,7 +91,6 @@ void MacOSWindow::init(const WindowProps& props)
 	window_context->init();
 
 	glfwGetWindowContentScale(win_window, &pixel_size_x, &pixel_size_y);
-	NX_CORE_INFO("Sizes: {0}, {1}", pixel_size_x, pixel_size_y);
 
 	glViewport(0, 0, props.width * pixel_size_x, props.height * pixel_size_y);
 	glfwSetWindowUserPointer(win_window, &window_data);

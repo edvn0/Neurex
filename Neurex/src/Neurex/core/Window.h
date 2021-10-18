@@ -2,8 +2,8 @@
 
 #include "nxpch.h"
 
-#include "Core.h"
-#include "events/Event.h"
+#include "Neurex/core/Core.h"
+#include "Neurex/events/Event.h"
 
 namespace Neurex {
 
