@@ -1,9 +1,6 @@
 [submodule "Neurex/vendor/spdlog"]
 	path = Neurex/vendor/spdlog
 	url = https://github.com/edvn0/spdlog.git
-[submodule "Neurex/vendor/GLFW"]
-	path = Neurex/vendor/GLFW
-	url = https://github.com/edvn0/glfw.git
 [submodule "Neurex/vendor/imgui"]
 	path = Neurex/vendor/imgui
 	url = https://github.com/edvn0/imgui.git
