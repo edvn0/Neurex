@@ -9,7 +9,6 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 require "cmake"
 
 include_dirs = {}
-include_dirs["GLFW"] = "Neurex/vendor/GLFW/include"
 include_dirs["glad"] = "Neurex/vendor/glad/include"
 include_dirs["spdlog"] = "Neurex/vendor/spdlog/include"
 include_dirs["ImGui"] = "Neurex/vendor/imgui"
@@ -17,7 +16,6 @@ include_dirs["glm"] = "Neurex/vendor/glm"
 include_dirs["stb_image"] = "Neurex/vendor/stb_image"
 
 group "Dependencies"
-	include "Neurex/vendor/GLFW"
 	include "Neurex/vendor/glad"
 	include "Neurex/vendor/imgui"
 group ""
@@ -49,8 +47,8 @@ project "Neurex"
 	includedirs
 	{
 		"%{prj.name}/src",
+		"/usr/local/include",
 		"%{include_dirs.spdlog}",
-		"%{include_dirs.GLFW}",
 		"%{include_dirs.glad}",
 		"%{include_dirs.ImGui}",
 		"%{include_dirs.glm}",
@@ -75,13 +73,13 @@ project "Neurex"
 
 	filter "system:macosx"
 		links {
-			"GLFW",
+			"glfw3",
 			"glad",
 			"ImGui",
 			"Cocoa.framework",
 			"CoreVideo.framework",
 			"OpenGL.framework",
-			"IOKit.framework"
+			"IOKit.framework",
 		}
 
 		defines {
@@ -140,13 +138,13 @@ project "NXSandbox"
 
 	filter "system:macosx"
 		links {
+			"glfw3",
 			"glad",
-			"GLFW",
 			"ImGui",
 			"Cocoa.framework",
 			"CoreVideo.framework",
 			"OpenGL.framework",
-			"IOKit.framework"
+			"IOKit.framework",
 		}
 
 		defines {
