@@ -121,10 +121,10 @@ project "NXSandbox"
 	}
 
 	includedirs {
-		"Neurex/vendor/spdlog/include",
+		"%{include_dirs.spdlog}",
 		"Neurex/src",
 		"Neurex/vendor",
-		"%{include_dirs.glm}",
+		"%{include_dirs.glm}"
 	}
 
 	links {

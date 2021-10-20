@@ -20,8 +20,8 @@ public:
 
 	void on_event(Event& event);
 
-	void add_layer(Layer* layer);
-	void add_overlay(Layer* overlay);
+	void add_layer(scoped<Layer> layer);
+	void add_overlay(scoped<Layer> overlay);
 
 	static inline Application& the() { return *instance; }
 	inline Window& get_window() { return *window; }
@@ -33,8 +33,8 @@ public:
 	}
 
 private:
-	std::unique_ptr<Window> window;
-	ImGuiLayer* imgui_layer;
+	scoped<Window> window;
+	scoped<ImGuiLayer> imgui_layer;
 
 	bool is_running = true;
 	LayerStack stack;

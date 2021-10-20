@@ -3,6 +3,8 @@
 
 #include "Sandbox2D.h"
 
+#include <Neurex/core/EntryPoint.h>
+
 using namespace Neurex;
 
 class ExampleLayer : public Layer {
@@ -191,7 +193,7 @@ public:
 	Sandbox()
 	{
 		// add_layer(new ExampleLayer());
-		add_layer(new Sandbox2D());
+		add_layer(std::make_unique<Sandbox2D>());
 	};
 
 	~Sandbox(){};

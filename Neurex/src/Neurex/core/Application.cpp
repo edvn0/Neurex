@@ -16,16 +16,14 @@ Application::Application()
 
 	window = std::unique_ptr<Window>(Window::create());
 	window->set_event_callback([&](Event& event) { this->on_event(event); });
-	imgui_layer = new ImGuiLayer();
+	imgui_layer = std::make_unique<ImGuiLayer>();
 
 	Renderer::init();
 
-	add_overlay(imgui_layer);
+	add_overlay(std::move(imgui_layer));
 };
 
-Application::~Application()
-{
-}
+Application::~Application() = default;
 
 void Application::run()
 {
@@ -34,12 +32,12 @@ void Application::run()
 		Timestep step = time - last_time;
 		last_time = time;
 
-		for (auto* l : stack) {
+		for (auto& l : stack) {
 			l->updated(step);
 		}
 
 		imgui_layer->begin();
-		for (auto* l : stack) {
+		for (auto& l : stack) {
 			l->on_imgui_render();
 		}
 		imgui_layer->end();
@@ -75,16 +73,14 @@ void Application::on_event(Event& event)
 	}
 }
 
-void Application::add_layer(Layer* layer)
+void Application::add_layer(scoped<Layer> layer)
 {
-	stack.push(layer);
-	layer->attached();
+	stack.push(std::move(layer));
 }
 
-void Application::add_overlay(Layer* overlay)
+void Application::add_overlay(scoped<Layer> overlay)
 {
-	stack.push_overlay(overlay);
-	overlay->attached();
+	stack.push_overlay(std::move(overlay));
 }
 
 }

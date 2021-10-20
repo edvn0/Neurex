@@ -37,4 +37,15 @@ void Sandbox2D::on_imgui_render()
 	ImGui::End();
 }
 
-void Sandbox2D::on_event(Event& event) { camera_controller.on_event(event); }
+void Sandbox2D::on_event(Event& event)
+{
+	camera_controller.on_event(event);
+	EventDispatcher dispatcher(event);
+
+	dispatcher.dispatch_event<KeyPressedEvent>([&](KeyPressedEvent& ev) {
+		if (ev.get_key_code() == NX_KC_Q) {
+			return Application::the().exit();
+		}
+		return false;
+	});
+}

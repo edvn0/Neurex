@@ -17,4 +17,3 @@
 #include <imgui/imgui.h>
 
 // Entry Point
-#include "Neurex/core/EntryPoint.h"

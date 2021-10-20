@@ -8,25 +8,22 @@ LayerStack::LayerStack()
 	layer_insert = 0;
 }
 
-LayerStack::~LayerStack()
-{
-	for (auto* l : layer_stack) {
-		delete l;
-	}
-}
+LayerStack::~LayerStack() = default;
 
-void LayerStack::push(Layer* layer)
+void LayerStack::push(scoped<Layer> layer)
 {
-	layer_stack.emplace(begin() + layer_insert, layer);
+	layer->attached();
+	layer_stack.emplace(begin() + layer_insert, std::move(layer));
 	layer_insert++;
 }
 
-void LayerStack::push_overlay(Layer* overlay)
+void LayerStack::push_overlay(scoped<Layer> overlay)
 {
-	layer_stack.emplace_back(overlay);
+	overlay->attached();
+	layer_stack.emplace_back(std::move(overlay));
 }
 
-void LayerStack::pop(Layer* layer)
+void LayerStack::pop(scoped<Layer> layer)
 {
 	auto found = std::find(begin(), end(), layer);
 	if (found != end()) {
@@ -35,7 +32,7 @@ void LayerStack::pop(Layer* layer)
 	}
 }
 
-void LayerStack::pop_overlay(Layer* overlay)
+void LayerStack::pop_overlay(scoped<Layer> overlay)
 {
 	auto found = std::find(begin(), end(), overlay);
 	if (found != end()) {
