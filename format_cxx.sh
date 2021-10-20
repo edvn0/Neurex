@@ -1,3 +1,4 @@
 #! /usr/bin/env bash
 
-find . -regex '.*\.\(cpp\|hpp\|cc\|cxx\)' -exec clang-format -style=.clang_format -i {} \;
+find ./{Neurex,NXSandbox}/src -name '*.cpp' -exec clang-format --style=file -i {} \;
+

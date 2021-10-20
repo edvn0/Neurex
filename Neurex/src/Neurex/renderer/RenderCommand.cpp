@@ -1,11 +1,10 @@
-#include "nxpch.h"
 #include "RenderCommand.h"
+#include "nxpch.h"
 
 #include "Platform/OpenGL/OpenGLRendererAPI.h"
 
-namespace Neurex
-{
+namespace Neurex {
 
-	RendererAPI* RenderCommand::api = new OpenGLRendererAPI();
+RendererAPI* RenderCommand::api = new OpenGLRendererAPI();
 
 }

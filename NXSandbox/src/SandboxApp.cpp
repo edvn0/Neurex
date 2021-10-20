@@ -1,4 +1,7 @@
-#include <Neurex.h>
+#include "glm/ext/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
+
+#include "Sandbox2D.h"
 
 using namespace Neurex;
 
@@ -111,10 +114,6 @@ public:
 		texture_shader->upload_uniform("tex_sampler", 0);
 	}
 
-	virtual void poll_inputs(Timestep& ts)
-	{
-	}
-
 	virtual void updated(Timestep ts) override
 	{
 		controller.on_update(ts);
@@ -191,7 +190,8 @@ class Sandbox : public Application {
 public:
 	Sandbox()
 	{
-		add_layer(new ExampleLayer());
+		// add_layer(new ExampleLayer());
+		add_layer(new Sandbox2D());
 	};
 
 	~Sandbox(){};

@@ -4,7 +4,6 @@
 #include "Neurex/core/Timestep.h"
 #include "Neurex/events/Event.h"
 
-
 namespace Neurex {
 
 class Layer {
