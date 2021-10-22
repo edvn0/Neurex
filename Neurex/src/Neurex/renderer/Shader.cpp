@@ -19,14 +19,14 @@ ref<Shader> Shader::create(const std::string& name, const std::string& vertex, c
 		return nullptr;
 	}
 	case RendererAPI::API::OpenGL: {
-		return std::make_shared<OpenGLShader>(name, vertex, fragment);
+		return make_ref<OpenGLShader>(name, vertex, fragment);
 	}
 	case RendererAPI::API::Vulkan: {
 		NX_CORE_ASSERT(false, "Vulkan is not supported.");
 		return nullptr;
 	}
 	case RendererAPI::API::Metal: {
-		return std::make_shared<MetalShader>(name, vertex, fragment);
+		return make_ref<MetalShader>(name, vertex, fragment);
 	}
 	case RendererAPI::API::DirectX: {
 		NX_CORE_ASSERT(false, "DirectX is not supported.");
@@ -44,14 +44,14 @@ ref<Shader> Shader::create(const std::string& path)
 		return nullptr;
 	}
 	case RendererAPI::API::OpenGL: {
-		return std::make_shared<OpenGLShader>(path);
+		return make_ref<OpenGLShader>(path);
 	}
 	case RendererAPI::API::Vulkan: {
 		NX_CORE_ASSERT(false, "Vulkan is not supported.");
 		return nullptr;
 	}
 	case RendererAPI::API::Metal: {
-		return std::make_shared<MetalShader>(path);
+		return make_ref<MetalShader>(path);
 	}
 	case RendererAPI::API::DirectX: {
 		NX_CORE_ASSERT(false, "DirectX is not supported.");

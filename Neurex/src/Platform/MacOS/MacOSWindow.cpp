@@ -78,6 +78,7 @@ void MacOSWindow::init(const WindowProps& props)
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+		glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GL_TRUE);
 
 		glfwSetErrorCallback(glfw_error_callback);
 
@@ -86,11 +87,12 @@ void MacOSWindow::init(const WindowProps& props)
 	}
 
 	win_window = glfwCreateWindow((int)props.width, (int)props.height, window_data.title.c_str(), nullptr, nullptr);
-
 	window_context = new OpenGLContext(win_window);
 	window_context->init();
 
 	glfwGetWindowContentScale(win_window, &pixel_size_x, &pixel_size_y);
+
+	NX_CORE_INFO("Pixel density: [{0} X {1}]", pixel_size_x, pixel_size_y);
 
 	glViewport(0, 0, props.width * pixel_size_x, props.height * pixel_size_y);
 	glfwSetWindowUserPointer(win_window, &window_data);
@@ -109,8 +111,8 @@ void MacOSWindow::setup_events()
 		auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
 
 		WindowFramebufferEvent event(w, h);
-		user_ptr.height = h;
 		user_ptr.width = w;
+		user_ptr.height = h;
 		user_ptr.callback(event);
 	});
 

@@ -15,7 +15,7 @@ ref<Texture2D> Texture2D::create(const std::string& path)
 		return nullptr;
 	}
 	case RendererAPI::API::OpenGL: {
-		return std::make_shared<OpenGLTexture2D>(path);
+		return make_ref<OpenGLTexture2D>(path);
 	}
 	case RendererAPI::API::Vulkan: {
 		NX_CORE_ASSERT(false, "Vulkan is not supported.");

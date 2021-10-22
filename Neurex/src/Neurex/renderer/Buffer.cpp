@@ -15,7 +15,7 @@ ref<VertexBuffer> VertexBuffer::create(float* vertices, uint32_t size)
 		return nullptr;
 	}
 	case RendererAPI::API::OpenGL: {
-		return std::make_shared<OpenGLVertexBuffer>(vertices, size);
+		return make_ref<OpenGLVertexBuffer>(vertices, size);
 	}
 	case RendererAPI::API::Vulkan: {
 		NX_CORE_ASSERT(false, "Vulkan is not supported.");
@@ -41,7 +41,7 @@ ref<IndexBuffer> IndexBuffer::create(uint32_t* indices, uint32_t count)
 		return nullptr;
 	}
 	case RendererAPI::API::OpenGL: {
-		return std::make_shared<OpenGLIndexBuffer>(indices, count);
+		return make_ref<OpenGLIndexBuffer>(indices, count);
 	}
 	case RendererAPI::API::Vulkan: {
 		NX_CORE_ASSERT(false, "Vulkan is not supported.");

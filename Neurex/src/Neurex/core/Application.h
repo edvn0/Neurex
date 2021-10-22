@@ -25,6 +25,7 @@ public:
 
 	static inline Application& the() { return *instance; }
 	inline Window& get_window() { return *window; }
+	inline float get_fps() { return fps; };
 
 	inline bool exit()
 	{
@@ -40,6 +41,7 @@ private:
 	LayerStack stack;
 
 	Timestep::TimeDelta last_time = 0.0f;
+	float fps = 0.0f;
 
 private:
 	static Application* instance;

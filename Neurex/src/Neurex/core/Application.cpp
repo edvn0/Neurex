@@ -16,7 +16,7 @@ Application::Application()
 
 	window = std::unique_ptr<Window>(Window::create());
 	window->set_event_callback([&](Event& event) { this->on_event(event); });
-	imgui_layer = std::make_unique<ImGuiLayer>();
+	imgui_layer = make_scoped<ImGuiLayer>();
 
 	Renderer::init();
 
@@ -31,6 +31,7 @@ void Application::run()
 		auto time = Clock::get_time();
 		Timestep step = time - last_time;
 		last_time = time;
+		fps = (1.0 / step.get_seconds());
 
 		for (auto& l : stack) {
 			l->updated(step);

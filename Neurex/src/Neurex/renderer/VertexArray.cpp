@@ -15,7 +15,7 @@ ref<VertexArray> VertexArray::create()
 		return nullptr;
 	}
 	case RendererAPI::API::OpenGL: {
-		return std::make_shared<OpenGLVertexArray>();
+		return make_ref<OpenGLVertexArray>();
 	}
 	case RendererAPI::API::Vulkan: {
 		NX_CORE_ASSERT(false, "Vulkan is not supported.");

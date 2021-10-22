@@ -26,6 +26,7 @@ void OpenGLRendererAPI::set_clear_colour(const glm::vec4& color)
 void OpenGLRendererAPI::draw_indexed(const ref<VertexArray>& va)
 {
 	glDrawElements(GL_TRIANGLES, va->get_index_buffer()->get_count(), GL_UNSIGNED_INT, nullptr);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 }

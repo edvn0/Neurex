@@ -24,6 +24,7 @@ namespace Neurex
         std::vector<ref<VertexBuffer>> vertex_buffers;
         ref<IndexBuffer> index_buffer;
         unsigned int renderer_id = 0;
-    };
+		uint32_t m_VertexBufferIndex = 0;
+	};
 
 }

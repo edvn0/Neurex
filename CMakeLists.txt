@@ -27,7 +27,6 @@ set(CMAKE_C_FLAGS_DIST "")
 set(CMAKE_CXX_FLAGS_DIST "")
 
 project("Neurex")
-include(Neurex/vendor/GLFW/GLFW.cmake)
 include(Neurex/vendor/imgui/ImGui.cmake)
 include(Neurex/vendor/glad/glad.cmake)
 include(NXSandbox/NXSandbox.cmake)

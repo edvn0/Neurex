@@ -25,6 +25,9 @@ private:
 		glm::mat4 view_projection_matrix;
 	};
 
+	static bool has_begun;
+	static bool has_ended;
+
 	static SceneData* scene_data;
 };
 
