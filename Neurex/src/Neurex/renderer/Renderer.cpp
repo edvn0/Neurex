@@ -3,6 +3,8 @@
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
+#include "Renderer2D.h"
+
 namespace Neurex {
 
 Renderer::SceneData* Renderer::scene_data = new Renderer::SceneData();
@@ -12,6 +14,7 @@ bool Renderer::has_ended = false;
 void Renderer::init()
 {
 	RenderCommand::init();
+	Renderer2D::init();
 }
 
 void Renderer::begin_scene(OrthographicCamera& camera)

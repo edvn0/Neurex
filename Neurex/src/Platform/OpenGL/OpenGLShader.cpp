@@ -195,4 +195,19 @@ void OpenGLShader::upload_uniform(const std::string& name, int uniform)
 	GLint location = glGetUniformLocation(renderer_id, name.c_str());
 	glUniform1i(location, uniform);
 }
+
+void OpenGLShader::set_float4(const std::string& name, const glm::vec4& vec)
+{
+	upload_uniform(name, vec);
+}
+
+void OpenGLShader::set_float3(const std::string& name, const glm::vec3& vec)
+{
+	upload_uniform(name, vec);
+}
+
+void OpenGLShader::set_mat4(const std::string& name, const glm::mat4& mat4)
+{
+	upload_uniform(name, mat4);
+}
 }

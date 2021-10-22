@@ -34,4 +34,16 @@ void MetalShader::upload_uniform(const std::string& name, float uniform)
 void MetalShader::upload_uniform(const std::string& name, int uniform)
 {
 }
+
+void MetalShader::set_float4(const std::string& name, const glm::vec4& vec)
+{
+}
+
+void MetalShader::set_float3(const std::string& name, const glm::vec3& vec)
+{
+}
+
+void MetalShader::set_mat4(const std::string& name, const glm::mat4& mat4)
+{
+}
 }

@@ -20,6 +20,10 @@ public:
 	virtual void upload_uniform(const std::string& name, float float_val) override;
 	virtual void upload_uniform(const std::string& name, int int_val) override;
 
+	virtual void set_mat4(const std::string& name, const glm::mat4& mat4) override;
+	virtual void set_float4(const std::string& name, const glm::vec4& mat4) override;
+	virtual void set_float3(const std::string& name, const glm::vec3& mat4) override;
+
 	virtual const std::string& get_name() const override { return name; }
 
 private:
