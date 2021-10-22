@@ -5,6 +5,8 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <iostream>
+#include <string>
 
 namespace Neurex {
 
@@ -66,12 +68,12 @@ void OpenGLShader::compile_shader(std::unordered_map<GLenum, std::string> source
 
 			glDeleteShader(shader);
 
-			NX_CORE_ASSERT(false, "OpenGLShader compilation failure.")
 			NX_CORE_ERROR("Shader Type: {0}. \nInfo: {1}", type == GL_VERTEX_SHADER ? "Vertex" : "Fragment", infoLog.data());
+			NX_CORE_ASSERT(false, "OpenGLShader compilation failure.")
 			break;
 		}
 
-		glAttachShader(renderer_id, program);
+		glAttachShader(program, shader);
 		shader_ids[shader_index++] = shader;
 	}
 
@@ -115,7 +117,7 @@ std::string OpenGLShader::read_file(const std::string& path)
 	std::string result;
 	auto file_stream = std::ifstream(path, std::ios::in | std::ios::binary);
 	if (!file_stream) {
-		NX_CORE_ERROR("Could not open file at path {0}.", path);
+		NX_ASSERT(false, "Could not open file.");
 		return result;
 	}
 
@@ -167,19 +169,19 @@ void OpenGLShader::upload_uniform(const std::string& name, const glm::mat4& unif
 void OpenGLShader::upload_uniform(const std::string& name, const glm::vec4& uniform)
 {
 	GLint location = glGetUniformLocation(renderer_id, name.c_str());
-	glUniform4fv(location, 1, glm::value_ptr(uniform));
+	glUniform4f(location, uniform.x, uniform.y, uniform.z, uniform.w);
 }
 
 void OpenGLShader::upload_uniform(const std::string& name, const glm::vec3& uniform)
 {
 	GLint location = glGetUniformLocation(renderer_id, name.c_str());
-	glUniform3fv(location, 1, glm::value_ptr(uniform));
+	glUniform3f(location, uniform.x, uniform.y, uniform.z);
 }
 
 void OpenGLShader::upload_uniform(const std::string& name, const glm::vec2& uniform)
 {
 	GLint location = glGetUniformLocation(renderer_id, name.c_str());
-	glUniform2fv(location, 1, glm::value_ptr(uniform));
+	glUniform2f(location, uniform.x, uniform.y);
 }
 
 void OpenGLShader::upload_uniform(const std::string& name, float uniform)
