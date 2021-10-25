@@ -1,4 +1,3 @@
-
 #include "Sandbox2D.h"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
@@ -20,28 +19,33 @@ void Sandbox2D::detached() { }
 
 void Sandbox2D::updated(Timestep ts)
 {
-	camera_controller.on_update(ts);
+	NX_PROFILE_FUNCTION();
+
+	{
+		NX_PROFILE_SCOPE("CameraController::OnUpdate");
+		camera_controller.on_update(ts);
+	}
 
 	RenderCommand::clear();
-	Renderer2D::begin_scene(camera_controller.get_camera());
-	Renderer2D::draw_quad({ -1.0f, 0.0f, 0.0f }, { 0.8f, 0.8f }, square_color);
-	Renderer2D::draw_quad(
-		{ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.6f, 0.1f, 1.0f });
-	Renderer2D::draw_rotated_quad({ -0.5f, -0.5f, 0.0f }, { 22.0, 0.0, 0.0 },
-		{ 0.5f, 0.75f }, { 0.9f, 0.3f, 0.1f, 1.0f });
-	Renderer2D::draw_quad(
-		{ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, checkerboard_texture);
-	Renderer2D::end_scene();
+	{
+		NX_PROFILE_SCOPE("Renderer2D::GPUCalls");
+		Renderer2D::begin_scene(camera_controller.get_camera());
+		Renderer2D::draw_quad(
+			{ -1.0f, 0.0f, 0.0f }, { 0.8f, 0.8f }, square_color);
+		Renderer2D::draw_quad(
+			{ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.6f, 0.1f, 1.0f });
+		Renderer2D::draw_rotated_quad({ -0.5f, -0.5f, 0.0f },
+			{ 22.0, 0.0, 0.0 }, { 0.5f, 0.75f }, { 0.9f, 0.3f, 0.1f, 1.0f });
+		Renderer2D::draw_quad(
+			{ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, checkerboard_texture);
+		Renderer2D::end_scene();
+	}
 }
 
 void Sandbox2D::on_imgui_render()
 {
-	ImGui::Begin("FPS");
-	ImGui::Text("%f", Application::the().get_fps());
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Square color", glm::value_ptr(square_color));
-	ImGui::End();
-
 	ImGui::End();
 }
 

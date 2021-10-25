@@ -8,6 +8,7 @@
 #include "Neurex/core/Logger.h"
 #include "Neurex/core/MouseCodes.h"
 #include "Neurex/core/Timestep.h"
+#include "Neurex/debug/Instrumentor.h"
 #include "Neurex/imgui/ImGuiLayer.h"
 #include "Neurex/renderer/CameraController.h"
 #include "Neurex/renderer/Renderer.h"

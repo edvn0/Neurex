@@ -2,6 +2,7 @@
 *.vcxproj
 *.swp
 imgui.ini
+*.json
 
 docs
 

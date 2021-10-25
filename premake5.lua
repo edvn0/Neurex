@@ -89,7 +89,10 @@ project "Neurex"
 		}
 
 	filter "configurations:Debug"
-		defines "NX_DEBUG"
+		defines {
+			"NX_DEBUG",
+			"NX_PROFILE"
+		}
 		symbols "on"
 		runtime "Debug"
 
