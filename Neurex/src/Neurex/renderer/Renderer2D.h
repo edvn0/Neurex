@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Neurex/renderer/OrthographicCamera.h"
+#include "Neurex/renderer/Texture.h"
 #include "Shader.h"
 #include "VertexArray.h"
-#include "Neurex/renderer/Texture.h"
 
 namespace Neurex {
 

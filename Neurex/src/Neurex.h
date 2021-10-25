@@ -16,5 +16,3 @@
 
 #include <glm/gtc/type_ptr.hpp>
 #include <imgui/imgui.h>
-
-// Entry Point

@@ -1,4 +1,4 @@
 #! /usr/bin/env bash
 
-find ./{Neurex,NXSandbox}/src -name '*.cpp' -exec clang-format --style=file -i {} \;
+find ./{Neurex,NXSandbox}/src -iname "*.h" -o -iname "*.cpp" | xargs clang-format -style=file -i
 

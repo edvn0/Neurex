@@ -4,7 +4,7 @@
 
 extern Neurex::Application* Neurex::create_application();
 
-int main(int argc, char** argv) 
+int main(int argc, char** argv)
 {
 	Neurex::Logger::init();
 	NX_CORE_WARN("test-core");
@@ -17,7 +17,7 @@ int main(int argc, char** argv)
 #elif defined(NX_PT_OSX)
 extern Neurex::Application* Neurex::create_application();
 
-int main(int argc, char** argv) 
+int main(int argc, char** argv)
 {
 	Neurex::Logger::init();
 	NX_CORE_WARN("test-core");

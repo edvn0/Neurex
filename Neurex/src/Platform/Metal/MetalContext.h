@@ -19,7 +19,6 @@ public:
 	virtual void swap_buffers() override;
 
 private:
-	
 };
 
 } // namespace Neurex

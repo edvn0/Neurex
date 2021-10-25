@@ -6,16 +6,15 @@ struct GLFWwindow;
 
 namespace Neurex {
 
-	class OpenGLContext : public GraphicsContext
-	{
-	public:
-		OpenGLContext(GLFWwindow* handle);
+class OpenGLContext : public GraphicsContext {
+public:
+	OpenGLContext(GLFWwindow* handle);
 
-		virtual void init() override;
-		virtual void swap_buffers() override;
-	private:
-		GLFWwindow* window_handle;
-	};
+	virtual void init() override;
+	virtual void swap_buffers() override;
+
+private:
+	GLFWwindow* window_handle;
+};
 
 }
-
