@@ -15,7 +15,7 @@
 #include <vector>
 
 #include "Neurex/core/Logger.h"
-#include "Neurex/debug/Instrumentor.h"
+#include "Neurex/instrumentation/Instrumentor.h"
 
 #ifdef NX_PT_WIN
 #include <Windows.h>

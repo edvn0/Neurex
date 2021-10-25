@@ -8,6 +8,8 @@ namespace Neurex {
 
 OpenGLTexture2D::OpenGLTexture2D(uint32_t w, uint32_t h)
 {
+	NX_PROFILE_FUNCTION();
+
 	width = w;
 	height = h;
 
@@ -25,11 +27,15 @@ OpenGLTexture2D::OpenGLTexture2D(uint32_t w, uint32_t h)
 OpenGLTexture2D::OpenGLTexture2D(const std::string& path_)
 	: path(path_)
 {
+	NX_PROFILE_FUNCTION();
+
 	stbi_set_flip_vertically_on_load(1);
 
 	int w, h, channels;
 	stbi_uc* data = nullptr;
 	{
+		NX_PROFILE_SCOPE(
+			"OpenGLTexture2D::OpenGLTexture2D(const std::string& path)");
 		data = stbi_load(path.c_str(), &w, &h, &channels, 0);
 	}
 
@@ -73,14 +79,20 @@ OpenGLTexture2D::~OpenGLTexture2D() { glDeleteTextures(1, &renderer_id); }
 
 void OpenGLTexture2D::bind(uint32_t slot) const
 {
+	NX_PROFILE_FUNCTION();
 	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture(GL_TEXTURE_2D, renderer_id);
 };
 
-void OpenGLTexture2D::unbind() const { glBindTexture(GL_TEXTURE_2D, 0); };
+void OpenGLTexture2D::unbind() const
+{
+	NX_PROFILE_FUNCTION();
+	glBindTexture(GL_TEXTURE_2D, 0);
+};
 
 void OpenGLTexture2D::set_data(void* data, uint32_t size)
 {
+	NX_PROFILE_FUNCTION();
 	bind(0);
 	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0,
 		data_format, GL_UNSIGNED_BYTE, data);

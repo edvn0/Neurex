@@ -33,22 +33,33 @@ void Application::run()
 		last_time = time;
 		fps = (1.0 / step.get_seconds());
 
-		for (auto& l : stack) {
-			l->updated(step);
+		{
+			NX_PROFILE_SCOPE("Layer::updated");
+			for (auto& l : stack) {
+				l->updated(step);
+			}
 		}
 
-		imgui_layer->begin();
-		for (auto& l : stack) {
-			l->on_imgui_render();
+		{
+			NX_PROFILE_SCOPE("Layer::ImGui_render");
+			imgui_layer->begin();
+			for (auto& l : stack) {
+				l->on_imgui_render();
+			}
+			imgui_layer->end();
 		}
-		imgui_layer->end();
 
-		window->on_update();
+		{
+			NX_PROFILE_SCOPE("Window::on_update");
+			window->on_update();
+		}
 	}
 }
 
 void Application::on_event(Event& event)
 {
+	NX_PROFILE_FUNCTION();
+
 	EventDispatcher dispatcher(event);
 
 	dispatcher.dispatch_event<WindowCloseEvent>([&](WindowCloseEvent& e) {

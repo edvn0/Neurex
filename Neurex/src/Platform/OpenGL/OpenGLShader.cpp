@@ -24,6 +24,7 @@ static GLenum shader_type_from_string(const std::string& type)
 
 OpenGLShader::OpenGLShader(const std::string& path)
 {
+	NX_PROFILE_FUNCTION();
 	std::string read = read_file(path);
 	auto processed = process_shader_file(read);
 	compile_shader(processed);
@@ -36,16 +37,22 @@ OpenGLShader::OpenGLShader(const std::string& name_, const std::string& vertex,
 	const std::string& fragment)
 	: name(name_)
 {
+	NX_PROFILE_FUNCTION();
 	std::unordered_map<GLenum, std::string> map
 		= { { GL_VERTEX_SHADER, vertex }, { GL_FRAGMENT_SHADER, fragment } };
 	compile_shader(map);
 }
 
-OpenGLShader::~OpenGLShader() { glDeleteProgram(renderer_id); }
+OpenGLShader::~OpenGLShader()
+{
+	NX_PROFILE_FUNCTION();
+	glDeleteProgram(renderer_id);
+}
 
 void OpenGLShader::compile_shader(
 	std::unordered_map<GLenum, std::string> sources)
 {
+	NX_PROFILE_FUNCTION();
 	GLuint program = glCreateProgram();
 
 	std::array<GLenum, 2> shader_ids;
@@ -156,13 +163,22 @@ std::unordered_map<GLenum, std::string> OpenGLShader::process_shader_file(
 	return sources;
 }
 
-void OpenGLShader::bind() { glUseProgram(renderer_id); }
+void OpenGLShader::bind()
+{
+	NX_PROFILE_FUNCTION();
+	glUseProgram(renderer_id);
+}
 
-void OpenGLShader::unbind() { glUseProgram(0); }
+void OpenGLShader::unbind()
+{
+	NX_PROFILE_FUNCTION();
+	glUseProgram(0);
+}
 
 void OpenGLShader::upload_uniform(
 	const std::string& name, const glm::mat4& uniform)
 {
+	NX_PROFILE_FUNCTION();
 	GLint location = glGetUniformLocation(renderer_id, name.c_str());
 	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(uniform));
 }
@@ -170,6 +186,7 @@ void OpenGLShader::upload_uniform(
 void OpenGLShader::upload_uniform(
 	const std::string& name, const glm::vec4& uniform)
 {
+	NX_PROFILE_FUNCTION();
 	GLint location = glGetUniformLocation(renderer_id, name.c_str());
 	glUniform4f(location, uniform.x, uniform.y, uniform.z, uniform.w);
 }
@@ -177,6 +194,7 @@ void OpenGLShader::upload_uniform(
 void OpenGLShader::upload_uniform(
 	const std::string& name, const glm::vec3& uniform)
 {
+	NX_PROFILE_FUNCTION();
 	GLint location = glGetUniformLocation(renderer_id, name.c_str());
 	glUniform3f(location, uniform.x, uniform.y, uniform.z);
 }
@@ -184,34 +202,40 @@ void OpenGLShader::upload_uniform(
 void OpenGLShader::upload_uniform(
 	const std::string& name, const glm::vec2& uniform)
 {
+	NX_PROFILE_FUNCTION();
 	GLint location = glGetUniformLocation(renderer_id, name.c_str());
 	glUniform2f(location, uniform.x, uniform.y);
 }
 
 void OpenGLShader::upload_uniform(const std::string& name, float uniform)
 {
+	NX_PROFILE_FUNCTION();
 	GLint location = glGetUniformLocation(renderer_id, name.c_str());
 	glUniform1f(location, uniform);
 }
 
 void OpenGLShader::upload_uniform(const std::string& name, int uniform)
 {
+	NX_PROFILE_FUNCTION();
 	GLint location = glGetUniformLocation(renderer_id, name.c_str());
 	glUniform1i(location, uniform);
 }
 
 void OpenGLShader::set_float4(const std::string& name, const glm::vec4& vec)
 {
+	NX_PROFILE_FUNCTION();
 	upload_uniform(name, vec);
 }
 
 void OpenGLShader::set_float3(const std::string& name, const glm::vec3& vec)
 {
+	NX_PROFILE_FUNCTION();
 	upload_uniform(name, vec);
 }
 
 void OpenGLShader::set_mat4(const std::string& name, const glm::mat4& mat4)
 {
+	NX_PROFILE_FUNCTION();
 	upload_uniform(name, mat4);
 }
 }

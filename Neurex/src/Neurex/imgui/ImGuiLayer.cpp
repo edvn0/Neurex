@@ -21,6 +21,8 @@ ImGuiLayer::~ImGuiLayer() { }
 
 void ImGuiLayer::attached()
 {
+	NX_PROFILE_FUNCTION();
+
 	IMGUI_CHECKVERSION();
 
 	ImGui::CreateContext();
@@ -53,6 +55,8 @@ void ImGuiLayer::detached()
 
 void ImGuiLayer::on_event(Event& event)
 {
+	NX_PROFILE_FUNCTION();
+
 	EventDispatcher dispatcher(event);
 
 	dispatcher.dispatch_event<MouseButtonPressedEvent>(
@@ -123,6 +127,8 @@ void ImGuiLayer::on_event(Event& event)
 
 void ImGuiLayer::on_imgui_render()
 {
+	NX_PROFILE_FUNCTION();
+
 	static bool show = true;
 	ImGui::ShowDemoWindow(&show);
 }
@@ -136,6 +142,8 @@ void ImGuiLayer::begin()
 
 void ImGuiLayer::end()
 {
+	NX_PROFILE_FUNCTION();
+
 	ImGuiIO& io = ImGui::GetIO();
 	Application& app = Application::the();
 	Window& window = app.get_window();

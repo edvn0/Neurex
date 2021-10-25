@@ -13,6 +13,8 @@ OpenGLContext::OpenGLContext(GLFWwindow* handle)
 
 void OpenGLContext::init()
 {
+	NX_PROFILE_FUNCTION();
+
 	glfwMakeContextCurrent(window_handle);
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		NX_CORE_ASSERT(false, "Glad failed.");
@@ -30,6 +32,9 @@ void OpenGLContext::init()
 		vendor, renderer, version);
 }
 
-void OpenGLContext::swap_buffers() { glfwSwapBuffers(window_handle); }
-
+void OpenGLContext::swap_buffers()
+{
+	NX_PROFILE_FUNCTION();
+	glfwSwapBuffers(window_handle);
+}
 }

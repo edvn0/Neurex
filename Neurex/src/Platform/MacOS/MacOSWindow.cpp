@@ -22,18 +22,30 @@ Window* Window::create(const WindowProps& props)
 	return new MacOSWindow(props);
 };
 
-MacOSWindow::MacOSWindow(const WindowProps& props) { init(props); };
+MacOSWindow::MacOSWindow(const WindowProps& props)
+{
+	NX_PROFILE_FUNCTION();
+	init(props);
+};
 
-MacOSWindow::~MacOSWindow() { glfwDestroyWindow(win_window); }
+MacOSWindow::~MacOSWindow()
+{
+	NX_PROFILE_FUNCTION();
+	glfwDestroyWindow(win_window);
+}
 
 void MacOSWindow::on_update()
 {
+	NX_PROFILE_FUNCTION();
+
 	glfwPollEvents();
 	window_context->swap_buffers();
 };
 
 void MacOSWindow::set_vsync(bool enabled)
 {
+	NX_PROFILE_FUNCTION();
+
 	if (enabled) {
 		glfwSwapInterval(1);
 	} else {
@@ -46,17 +58,23 @@ bool MacOSWindow::is_vsync() { return window_data.vsync; }
 
 void MacOSWindow::resize_window(float w, float h) const
 {
+	NX_PROFILE_FUNCTION();
+
 	glfwSetWindowSize(win_window, (int)w, (int)h);
 	glViewport(0, 0, w * pixel_size_x, h * pixel_size_y);
 }
 
 void MacOSWindow::resize_framebuffer(int w, int h) const
 {
+	NX_PROFILE_FUNCTION();
+
 	glViewport(0, 0, w * pixel_size_x, h * pixel_size_y);
 }
 
 void MacOSWindow::init(const WindowProps& props)
 {
+	NX_PROFILE_FUNCTION();
+
 	window_data.title = props.title;
 	window_data.width = props.width;
 	window_data.height = props.height;
@@ -93,10 +111,16 @@ void MacOSWindow::init(const WindowProps& props)
 	setup_events();
 };
 
-void MacOSWindow::shutdown() { glfwDestroyWindow(win_window); };
+void MacOSWindow::shutdown()
+{
+	NX_PROFILE_FUNCTION();
+	glfwDestroyWindow(win_window);
+};
 
 void MacOSWindow::setup_events()
 {
+	NX_PROFILE_FUNCTION();
+
 	glfwSetFramebufferSizeCallback(
 		win_window, [](GLFWwindow* window, int w, int h) {
 			auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
