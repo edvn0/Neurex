@@ -20,9 +20,14 @@ void Renderer2D::init()
 	render_data = new RendererData();
 	render_data->quad_vertex_array = VertexArray::create();
 
-	float squareVertices[5 * 4]
-		= { -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.5f,
-			  0.5f, 0.0f, 1.0f, 1.0f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f };
+	// clang-format off
+	float squareVertices[5 * 4] = 
+	{		-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 
+			0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 
+			0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 
+			-0.5f, 0.5f, 0.0f, 1.0f, 0.0f 
+	};
+	// clang-format on
 
 	ref<VertexBuffer> square_vb
 		= VertexBuffer::create(squareVertices, sizeof(squareVertices));
