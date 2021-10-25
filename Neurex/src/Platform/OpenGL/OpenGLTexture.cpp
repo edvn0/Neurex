@@ -59,7 +59,8 @@ OpenGLTexture2D::OpenGLTexture2D(const std::string& path_)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0, data_format, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0,
+			data_format, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -68,10 +69,7 @@ OpenGLTexture2D::OpenGLTexture2D(const std::string& path_)
 	}
 };
 
-OpenGLTexture2D::~OpenGLTexture2D()
-{
-	glDeleteTextures(1, &renderer_id);
-}
+OpenGLTexture2D::~OpenGLTexture2D() { glDeleteTextures(1, &renderer_id); }
 
 void OpenGLTexture2D::bind(uint32_t slot) const
 {
@@ -79,10 +77,13 @@ void OpenGLTexture2D::bind(uint32_t slot) const
 	glBindTexture(GL_TEXTURE_2D, renderer_id);
 };
 
+void OpenGLTexture2D::unbind() const { glBindTexture(GL_TEXTURE_2D, 0); };
+
 void OpenGLTexture2D::set_data(void* data, uint32_t size)
 {
 	bind(0);
-	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0, data_format, GL_UNSIGNED_BYTE, data);
+	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0,
+		data_format, GL_UNSIGNED_BYTE, data);
 }
 
 } // namespace Neurex

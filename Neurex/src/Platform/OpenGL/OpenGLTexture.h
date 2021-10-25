@@ -16,6 +16,7 @@ public:
 	virtual void set_data(void* data, uint32_t size) override;
 
 	virtual void bind(uint32_t slot) const override;
+	virtual void unbind() const override;
 
 private:
 	uint32_t width;

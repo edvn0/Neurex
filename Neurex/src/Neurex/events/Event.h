@@ -48,25 +48,20 @@ public:
 		return get_category() & category;
 	}
 
-	explicit operator bool() const
-	{
-		return handled;
-	}
+	explicit operator bool() const { return handled; }
 
 protected:
 	bool handled = false;
 };
 
 class EventDispatcher {
-	template <typename T>
-	using EventFn = std::function<bool(T&)>;
+	template <typename T> using EventFn = std::function<bool(T&)>;
 
 public:
 	EventDispatcher(Event& event_)
 		: event(event_){};
 
-	template <typename T = Event>
-	bool dispatch_event(EventFn<T> func)
+	template <typename T = Event> bool dispatch_event(EventFn<T> func)
 	{
 		if (event.get_event_type() == T::get_static_type()) {
 			event.handled = func(*(T*)&event);

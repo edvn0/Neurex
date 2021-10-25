@@ -2,6 +2,7 @@
 
 #include "Neurex/core/Input.h"
 #include "Neurex/core/KeyCodes.h"
+#include "Neurex/core/MouseCodes.h"
 #include "Neurex/core/Timestep.h"
 #include "Neurex/events/ApplicationEvent.h"
 #include "Neurex/events/MouseEvent.h"
@@ -30,5 +31,10 @@ private:
 	float move_speed = 0.5f;
 
 	OrthographicCamera camera;
+
+private: // For user.
+	float cursor_x = 0.0f;
+	float cursor_y = 0.0f;
+	bool is_pressed = false;
 };
 }

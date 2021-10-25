@@ -6,13 +6,7 @@
 namespace Neurex {
 class RendererAPI {
 public:
-	enum class API {
-		None = 0,
-		OpenGL,
-		DirectX,
-		Vulkan,
-		Metal
-	};
+	enum class API { None = 0, OpenGL, DirectX, Vulkan, Metal };
 
 public:
 	virtual void init() = 0;

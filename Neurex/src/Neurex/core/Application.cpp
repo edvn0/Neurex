@@ -61,10 +61,11 @@ void Application::on_event(Event& event)
 		return true;
 	});
 
-	dispatcher.dispatch_event<WindowFramebufferEvent>([&](WindowFramebufferEvent& e) {
-		window->resize_framebuffer(e.get_width(), e.get_height());
-		return true;
-	});
+	dispatcher.dispatch_event<WindowFramebufferEvent>(
+		[&](WindowFramebufferEvent& e) {
+			window->resize_framebuffer(e.get_width(), e.get_height());
+			return true;
+		});
 
 	for (auto it = stack.end(); it != stack.begin();) {
 		(*--it)->on_event(event);

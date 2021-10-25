@@ -14,7 +14,11 @@ protected:
 public:
 	inline const int get_key_code() const { return key_code; }
 
-	virtual int get_category() const { return EventCategory::EventCategoryKeyboard | EventCategory::EventCategoryInput; };
+	virtual int get_category() const
+	{
+		return EventCategory::EventCategoryKeyboard
+			| EventCategory::EventCategoryInput;
+	};
 
 protected:
 	int key_code;
@@ -36,7 +40,10 @@ public:
 	}
 
 	static EventType get_static_type() { return EventType::KeyPressed; };
-	virtual EventType get_event_type() const override { return get_static_type(); };
+	virtual EventType get_event_type() const override
+	{
+		return get_static_type();
+	};
 	virtual const char* get_name() const override { return "KeyPressed"; };
 
 private:
@@ -49,7 +56,10 @@ public:
 		: KeyEvent(keycode){};
 
 	static EventType get_static_type() { return EventType::KeyReleased; };
-	virtual EventType get_event_type() const override { return get_static_type(); };
+	virtual EventType get_event_type() const override
+	{
+		return get_static_type();
+	};
 	virtual const char* get_name() const override { return "KeyReleased"; };
 };
 
@@ -66,7 +76,10 @@ public:
 	}
 
 	static EventType get_static_type() { return EventType::KeyTyped; };
-	virtual EventType get_event_type() const override { return get_static_type(); };
+	virtual EventType get_event_type() const override
+	{
+		return get_static_type();
+	};
 	virtual const char* get_name() const override { return "KeyTyped"; };
 };
 }

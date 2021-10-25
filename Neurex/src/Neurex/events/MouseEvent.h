@@ -22,9 +22,16 @@ public:
 	}
 
 	static EventType get_static_type() { return EventType::MouseMoved; };
-	virtual EventType get_event_type() const override { return get_static_type(); };
+	virtual EventType get_event_type() const override
+	{
+		return get_static_type();
+	};
 	virtual const char* get_name() const override { return "MouseMoved"; };
-	virtual int get_category() const override { return EventCategory::EventCategoryMouse | EventCategory::EventCategoryInput; }
+	virtual int get_category() const override
+	{
+		return EventCategory::EventCategoryMouse
+			| EventCategory::EventCategoryInput;
+	}
 
 private:
 	float mouse_x, mouse_y;
@@ -49,9 +56,16 @@ public:
 	}
 
 	static EventType get_static_type() { return EventType::MouseScrolled; };
-	virtual EventType get_event_type() const override { return get_static_type(); };
+	virtual EventType get_event_type() const override
+	{
+		return get_static_type();
+	};
 	virtual const char* get_name() const override { return "MouseScrolled"; };
-	virtual int get_category() const override { return EventCategory::EventCategoryMouse | EventCategory::EventCategoryInput; }
+	virtual int get_category() const override
+	{
+		return EventCategory::EventCategoryMouse
+			| EventCategory::EventCategoryInput;
+	}
 
 private:
 	float offset_x, offset_y;
@@ -59,8 +73,10 @@ private:
 
 class MouseButtonPressedEvent : public Event {
 public:
-	MouseButtonPressedEvent(int mouse_button_)
-		: mouse_button(mouse_button_){};
+	MouseButtonPressedEvent(int mouse_button_, float x_, float y_)
+		: mouse_button(mouse_button_)
+		, x(x_)
+		, y(y_){};
 
 	inline int get_mouse_button() const { return mouse_button; }
 
@@ -71,19 +87,38 @@ public:
 		return ss.str();
 	}
 
-	static EventType get_static_type() { return EventType::MouseButtonPressed; };
-	virtual EventType get_event_type() const override { return get_static_type(); };
-	virtual const char* get_name() const override { return "MouseButtonPressed"; };
-	virtual int get_category() const override { return EventCategory::EventCategoryMouseButton | EventCategory::EventCategoryInput; }
+	inline float get_x() const { return x; };
+	inline float get_y() const { return y; };
+
+	static EventType get_static_type()
+	{
+		return EventType::MouseButtonPressed;
+	};
+	virtual EventType get_event_type() const override
+	{
+		return get_static_type();
+	};
+	virtual const char* get_name() const override
+	{
+		return "MouseButtonPressed";
+	};
+	virtual int get_category() const override
+	{
+		return EventCategory::EventCategoryMouseButton
+			| EventCategory::EventCategoryInput;
+	}
 
 private:
 	int mouse_button;
+	float x, y;
 };
 
 class MouseButtonReleasedEvent : public Event {
 public:
-	MouseButtonReleasedEvent(int mouse_button_)
-		: mouse_button(mouse_button_){};
+	MouseButtonReleasedEvent(int mouse_button_, float x_, float y_)
+		: mouse_button(mouse_button_)
+		, x(x_)
+		, y(y_){};
 
 	inline int get_mouse_button() const { return mouse_button; }
 
@@ -94,12 +129,29 @@ public:
 		return ss.str();
 	}
 
-	static EventType get_static_type() { return EventType::MouseButtonReleased; };
-	virtual EventType get_event_type() const override { return get_static_type(); };
-	virtual const char* get_name() const override { return "MouseButtonReleased"; };
-	virtual int get_category() const override { return EventCategory::EventCategoryMouseButton | EventCategory::EventCategoryInput; }
+	inline float get_x() const { return x; };
+	inline float get_y() const { return y; };
+
+	static EventType get_static_type()
+	{
+		return EventType::MouseButtonReleased;
+	};
+	virtual EventType get_event_type() const override
+	{
+		return get_static_type();
+	};
+	virtual const char* get_name() const override
+	{
+		return "MouseButtonReleased";
+	};
+	virtual int get_category() const override
+	{
+		return EventCategory::EventCategoryMouseButton
+			| EventCategory::EventCategoryInput;
+	}
 
 private:
 	int mouse_button;
+	float x, y;
 };
 }

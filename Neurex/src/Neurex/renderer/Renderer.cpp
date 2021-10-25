@@ -23,19 +23,20 @@ void Renderer::begin_scene(OrthographicCamera& camera)
 	has_begun = true;
 }
 
-void Renderer::submit(const ref<VertexArray>& va, const ref<Shader>& shader, const glm::mat4& transform)
+void Renderer::submit(const ref<VertexArray>& va, const ref<Shader>& shader,
+	const glm::mat4& transform)
 {
-	NX_CORE_ASSERT(has_begun, "Submit must be called between Renderer::begin_scene and Renderer::end_scene.");
+	NX_CORE_ASSERT(has_begun,
+		"Submit must be called between Renderer::begin_scene and "
+		"Renderer::end_scene.");
 	shader->bind();
 	shader->upload_uniform("u_Transform", transform);
-	shader->upload_uniform("u_ViewProjection", scene_data->view_projection_matrix);
+	shader->upload_uniform(
+		"u_ViewProjection", scene_data->view_projection_matrix);
 
 	va->bind();
 	RenderCommand::draw_indexed(va);
 }
 
-void Renderer::end_scene()
-{
-	has_begun = false;
-}
+void Renderer::end_scene() { has_begun = false; }
 }

@@ -6,15 +6,9 @@ namespace Neurex {
 
 class RenderCommand {
 public:
-	inline static void init()
-	{
-		api->init();
-	}
+	inline static void init() { api->init(); }
 
-	inline static void clear()
-	{
-		api->clear();
-	};
+	inline static void clear() { api->clear(); };
 
 	inline static void set_clear_colour(const glm::vec4& color)
 	{

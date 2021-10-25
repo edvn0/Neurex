@@ -17,9 +17,7 @@ ImGuiLayer::ImGuiLayer()
 {
 }
 
-ImGuiLayer::~ImGuiLayer()
-{
-}
+ImGuiLayer::~ImGuiLayer() { }
 
 void ImGuiLayer::attached()
 {
@@ -40,7 +38,8 @@ void ImGuiLayer::attached()
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
 
-	auto* window = static_cast<GLFWwindow*>(Application::the().get_window().get_natively());
+	auto* window = static_cast<GLFWwindow*>(
+		Application::the().get_window().get_natively());
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init("#version 410");
 }
@@ -56,17 +55,19 @@ void ImGuiLayer::on_event(Event& event)
 {
 	EventDispatcher dispatcher(event);
 
-	dispatcher.dispatch_event<MouseButtonPressedEvent>([&](MouseButtonPressedEvent& e) {
-		ImGuiIO& io = ImGui::GetIO();
-		io.MouseDown[e.get_mouse_button()] = true;
-		return false;
-	});
+	dispatcher.dispatch_event<MouseButtonPressedEvent>(
+		[&](MouseButtonPressedEvent& e) {
+			ImGuiIO& io = ImGui::GetIO();
+			io.MouseDown[e.get_mouse_button()] = true;
+			return false;
+		});
 
-	dispatcher.dispatch_event<MouseButtonReleasedEvent>([&](MouseButtonReleasedEvent& e) {
-		ImGuiIO& io = ImGui::GetIO();
-		io.MouseDown[e.get_mouse_button()] = false;
-		return false;
-	});
+	dispatcher.dispatch_event<MouseButtonReleasedEvent>(
+		[&](MouseButtonReleasedEvent& e) {
+			ImGuiIO& io = ImGui::GetIO();
+			io.MouseDown[e.get_mouse_button()] = false;
+			return false;
+		});
 
 	dispatcher.dispatch_event<MouseMovedEvent>([&](MouseMovedEvent& e) {
 		ImGuiIO& io = ImGui::GetIO();
@@ -89,18 +90,23 @@ void ImGuiLayer::on_event(Event& event)
 		return false;
 	});
 
-	dispatcher.dispatch_event<WindowFramebufferEvent>([&](WindowFramebufferEvent& e) {
-		glViewport(0, 0, e.get_width(), e.get_height());
-		return false;
-	});
+	dispatcher.dispatch_event<WindowFramebufferEvent>(
+		[&](WindowFramebufferEvent& e) {
+			glViewport(0, 0, e.get_width(), e.get_height());
+			return false;
+		});
 
 	dispatcher.dispatch_event<KeyPressedEvent>([&](KeyPressedEvent& e) {
 		ImGuiIO& io = ImGui::GetIO();
 		io.KeysDown[e.get_key_code()] = true;
-		io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL] || io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
-		io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT] || io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
-		io.KeyAlt = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
-		io.KeySuper = io.KeysDown[GLFW_KEY_LEFT_SUPER] || io.KeysDown[GLFW_KEY_RIGHT_SUPER];
+		io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL]
+			|| io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
+		io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT]
+			|| io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
+		io.KeyAlt
+			= io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
+		io.KeySuper = io.KeysDown[GLFW_KEY_LEFT_SUPER]
+			|| io.KeysDown[GLFW_KEY_RIGHT_SUPER];
 		return false;
 	});
 
@@ -134,7 +140,8 @@ void ImGuiLayer::end()
 	Application& app = Application::the();
 	Window& window = app.get_window();
 
-	io.DisplaySize = ImVec2((float)window.get_width(), (float)window.get_height());
+	io.DisplaySize
+		= ImVec2((float)window.get_width(), (float)window.get_height());
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -14,14 +14,16 @@ Input* Input::instance = new MacOSInput();
 
 bool MacOSInput::is_key_pressed_impl(int keycode)
 {
-	auto window = static_cast<GLFWwindow*>(Application::the().get_window().get_natively());
+	auto window = static_cast<GLFWwindow*>(
+		Application::the().get_window().get_natively());
 	auto state = glfwGetKey(window, keycode);
 	return state == GLFW_PRESS || state == GLFW_REPEAT;
 }
 
 bool MacOSInput::is_mouse_button_pressed_impl(int button)
 {
-	auto window = static_cast<GLFWwindow*>(Application::the().get_window().get_natively());
+	auto window = static_cast<GLFWwindow*>(
+		Application::the().get_window().get_natively());
 	auto state = glfwGetMouseButton(window, button);
 	return state == GLFW_PRESS;
 }
@@ -40,7 +42,8 @@ float MacOSInput::mouse_y_impl()
 
 std::pair<float, float> MacOSInput::mouse_pos_impl()
 {
-	auto window = static_cast<GLFWwindow*>(Application::the().get_window().get_natively());
+	auto window = static_cast<GLFWwindow*>(
+		Application::the().get_window().get_natively());
 	double x;
 	double y;
 	glfwGetCursorPos(window, &x, &y);

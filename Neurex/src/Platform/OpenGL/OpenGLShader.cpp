@@ -32,19 +32,19 @@ OpenGLShader::OpenGLShader(const std::string& path)
 	name = path_.stem().string();
 }
 
-OpenGLShader::OpenGLShader(const std::string& name_, const std::string& vertex, const std::string& fragment)
+OpenGLShader::OpenGLShader(const std::string& name_, const std::string& vertex,
+	const std::string& fragment)
 	: name(name_)
 {
-	std::unordered_map<GLenum, std::string> map = { { GL_VERTEX_SHADER, vertex }, { GL_FRAGMENT_SHADER, fragment } };
+	std::unordered_map<GLenum, std::string> map
+		= { { GL_VERTEX_SHADER, vertex }, { GL_FRAGMENT_SHADER, fragment } };
 	compile_shader(map);
 }
 
-OpenGLShader::~OpenGLShader()
-{
-	glDeleteProgram(renderer_id);
-}
+OpenGLShader::~OpenGLShader() { glDeleteProgram(renderer_id); }
 
-void OpenGLShader::compile_shader(std::unordered_map<GLenum, std::string> sources)
+void OpenGLShader::compile_shader(
+	std::unordered_map<GLenum, std::string> sources)
 {
 	GLuint program = glCreateProgram();
 
@@ -68,7 +68,9 @@ void OpenGLShader::compile_shader(std::unordered_map<GLenum, std::string> source
 
 			glDeleteShader(shader);
 
-			NX_CORE_ERROR("Shader Type: {0}. \nInfo: {1}", type == GL_VERTEX_SHADER ? "Vertex" : "Fragment", infoLog.data());
+			NX_CORE_ERROR("Shader Type: {0}. \nInfo: {1}",
+				type == GL_VERTEX_SHADER ? "Vertex" : "Fragment",
+				infoLog.data());
 			NX_CORE_ASSERT(false, "OpenGLShader compilation failure.")
 			break;
 		}
@@ -130,7 +132,8 @@ std::string OpenGLShader::read_file(const std::string& path)
 	return result;
 }
 
-std::unordered_map<GLenum, std::string> OpenGLShader::process_shader_file(const std::string& src)
+std::unordered_map<GLenum, std::string> OpenGLShader::process_shader_file(
+	const std::string& src)
 {
 	std::unordered_map<GLenum, std::string> sources;
 
@@ -144,41 +147,42 @@ std::unordered_map<GLenum, std::string> OpenGLShader::process_shader_file(const 
 		std::string type = src.substr(begin, eol - begin);
 		size_t next_line_pos = src.find_first_not_of("\n", eol);
 		pos = src.find(token, next_line_pos);
-		sources[shader_type_from_string(type)] = src.substr(next_line_pos, pos - (next_line_pos == std::string::npos ? src.size() - 1 : next_line_pos));
+		sources[shader_type_from_string(type)] = src.substr(next_line_pos,
+			pos
+				- (next_line_pos == std::string::npos ? src.size() - 1
+													  : next_line_pos));
 	}
 
 	return sources;
 }
 
-void OpenGLShader::bind()
-{
-	glUseProgram(renderer_id);
-}
+void OpenGLShader::bind() { glUseProgram(renderer_id); }
 
-void OpenGLShader::unbind()
-{
-	glUseProgram(0);
-}
+void OpenGLShader::unbind() { glUseProgram(0); }
 
-void OpenGLShader::upload_uniform(const std::string& name, const glm::mat4& uniform)
+void OpenGLShader::upload_uniform(
+	const std::string& name, const glm::mat4& uniform)
 {
 	GLint location = glGetUniformLocation(renderer_id, name.c_str());
 	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(uniform));
 }
 
-void OpenGLShader::upload_uniform(const std::string& name, const glm::vec4& uniform)
+void OpenGLShader::upload_uniform(
+	const std::string& name, const glm::vec4& uniform)
 {
 	GLint location = glGetUniformLocation(renderer_id, name.c_str());
 	glUniform4f(location, uniform.x, uniform.y, uniform.z, uniform.w);
 }
 
-void OpenGLShader::upload_uniform(const std::string& name, const glm::vec3& uniform)
+void OpenGLShader::upload_uniform(
+	const std::string& name, const glm::vec3& uniform)
 {
 	GLint location = glGetUniformLocation(renderer_id, name.c_str());
 	glUniform3f(location, uniform.x, uniform.y, uniform.z);
 }
 
-void OpenGLShader::upload_uniform(const std::string& name, const glm::vec2& uniform)
+void OpenGLShader::upload_uniform(
+	const std::string& name, const glm::vec2& uniform)
 {
 	GLint location = glGetUniformLocation(renderer_id, name.c_str());
 	glUniform2f(location, uniform.x, uniform.y);

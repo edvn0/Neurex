@@ -43,15 +43,9 @@ OpenGLVertexArray::~OpenGLVertexArray()
 	glDeleteVertexArrays(1, &renderer_id);
 }
 
-void OpenGLVertexArray::bind()
-{
-	glBindVertexArray(renderer_id);
-}
+void OpenGLVertexArray::bind() { glBindVertexArray(renderer_id); }
 
-void OpenGLVertexArray::unbind()
-{
-	glBindVertexArray(0);
-}
+void OpenGLVertexArray::unbind() { glBindVertexArray(0); }
 
 void OpenGLVertexArray::add_vertex_buffer(ref<VertexBuffer>& vb)
 {
@@ -70,8 +64,7 @@ void OpenGLVertexArray::add_vertex_buffer(ref<VertexBuffer>& vb)
 			glVertexAttribPointer(vertex_buffer_index,
 				element.get_component_count(),
 				nx_opengl_shader_type(element.type),
-				element.normalization ? GL_TRUE : GL_FALSE,
-				layout.get_stride(),
+				element.normalization ? GL_TRUE : GL_FALSE, layout.get_stride(),
 				(const void*)element.offset);
 			vertex_buffer_index++;
 			break;
@@ -84,8 +77,7 @@ void OpenGLVertexArray::add_vertex_buffer(ref<VertexBuffer>& vb)
 			glEnableVertexAttribArray(vertex_buffer_index);
 			glVertexAttribIPointer(vertex_buffer_index,
 				element.get_component_count(),
-				nx_opengl_shader_type(element.type),
-				layout.get_stride(),
+				nx_opengl_shader_type(element.type), layout.get_stride(),
 				(const void*)element.offset);
 			vertex_buffer_index++;
 			break;
@@ -95,8 +87,7 @@ void OpenGLVertexArray::add_vertex_buffer(ref<VertexBuffer>& vb)
 			uint8_t count = element.get_component_count();
 			for (uint8_t i = 0; i < count; i++) {
 				glEnableVertexAttribArray(vertex_buffer_index);
-				glVertexAttribPointer(vertex_buffer_index,
-					count,
+				glVertexAttribPointer(vertex_buffer_index, count,
 					nx_opengl_shader_type(element.type),
 					element.normalization ? GL_TRUE : GL_FALSE,
 					layout.get_stride(),
@@ -122,7 +113,8 @@ void OpenGLVertexArray::set_index_buffer(ref<IndexBuffer>& ib)
 	index_buffer = ib;
 }
 
-const std::vector<ref<VertexBuffer>>& OpenGLVertexArray::get_vertex_buffers() const
+const std::vector<ref<VertexBuffer>>&
+OpenGLVertexArray::get_vertex_buffers() const
 {
 	return vertex_buffers;
 }

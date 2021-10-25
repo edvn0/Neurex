@@ -12,20 +12,11 @@ OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 	glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 }
 
-OpenGLVertexBuffer::~OpenGLVertexBuffer()
-{
-	glDeleteBuffers(1, &renderer_id);
-}
+OpenGLVertexBuffer::~OpenGLVertexBuffer() { glDeleteBuffers(1, &renderer_id); }
 
-void OpenGLVertexBuffer::bind()
-{
-	glBindBuffer(GL_ARRAY_BUFFER, renderer_id);
-}
+void OpenGLVertexBuffer::bind() { glBindBuffer(GL_ARRAY_BUFFER, renderer_id); }
 
-void OpenGLVertexBuffer::unbind()
-{
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-}
+void OpenGLVertexBuffer::unbind() { glBindBuffer(GL_ARRAY_BUFFER, 0); }
 
 void OpenGLVertexBuffer::set_layout(const BufferLayout& layout_)
 {
@@ -46,19 +37,13 @@ OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count_)
 	glBufferData(GL_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
 }
 
-OpenGLIndexBuffer::~OpenGLIndexBuffer()
-{
-	glDeleteBuffers(1, &renderer_id);
-}
+OpenGLIndexBuffer::~OpenGLIndexBuffer() { glDeleteBuffers(1, &renderer_id); }
 
 void OpenGLIndexBuffer::bind()
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_id);
 }
 
-void OpenGLIndexBuffer::unbind()
-{
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-}
+void OpenGLIndexBuffer::unbind() { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); }
 
 }

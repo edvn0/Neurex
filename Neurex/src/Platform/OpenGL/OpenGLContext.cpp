@@ -26,12 +26,10 @@ void OpenGLContext::init()
 	auto* renderer = glGetString(GL_RENDERER);
 	auto* version = glGetString(GL_VERSION);
 
-	NX_CORE_INFO("OpenGL [ Vendor: {0}, Renderer: {1} ]\n\tVersion: {2}", vendor, renderer, version);
+	NX_CORE_INFO("OpenGL [ Vendor: {0}, Renderer: {1} ]\n\tVersion: {2}",
+		vendor, renderer, version);
 }
 
-void OpenGLContext::swap_buffers()
-{
-	glfwSwapBuffers(window_handle);
-}
+void OpenGLContext::swap_buffers() { glfwSwapBuffers(window_handle); }
 
 }

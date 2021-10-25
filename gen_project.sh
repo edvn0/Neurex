@@ -2,7 +2,7 @@
 
 go() {
 	make clean
-	premake5 --os=macosx --cc=clang gmake2
+	vendor/premake5 --os=macosx --cc=clang gmake2
 	make -j4
 }
 

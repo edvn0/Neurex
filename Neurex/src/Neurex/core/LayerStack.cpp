@@ -3,10 +3,7 @@
 
 namespace Neurex {
 
-LayerStack::LayerStack()
-{
-	layer_insert = 0;
-}
+LayerStack::LayerStack() { layer_insert = 0; }
 
 LayerStack::~LayerStack() = default;
 
