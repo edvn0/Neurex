@@ -6,11 +6,14 @@
 namespace Neurex {
 class OpenGLTexture2D : public Texture2D {
 public:
-	OpenGLTexture2D(const std::string& path);
+	explicit OpenGLTexture2D(const std::string& path);
+	OpenGLTexture2D(uint32_t w, uint32_t h);
 	virtual ~OpenGLTexture2D();
 
 	virtual uint32_t get_width() const override { return width; };
 	virtual uint32_t get_height() const override { return height; };
+
+	virtual void set_data(void* data, uint32_t size) override;
 
 	virtual void bind(uint32_t slot) const override;
 

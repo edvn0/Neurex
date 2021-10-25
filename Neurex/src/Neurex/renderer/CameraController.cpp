@@ -45,6 +45,7 @@ void OrthographicCameraController::on_event(Event& e)
 	EventDispatcher dispatcher(e);
 	dispatcher.dispatch_event<MouseScrolledEvent>([&](MouseScrolledEvent& e) {
 		zoom -= e.get_offset_y();
+		zoom = std::max(zoom, minimal_zoom_camera_controller);
 		camera.set_projection(-aspect_ratio * zoom, aspect_ratio * zoom, -zoom, zoom);
 		return false;
 	});

@@ -66,14 +66,14 @@ void OpenGLVertexArray::add_vertex_buffer(ref<VertexBuffer>& vb)
 		case ShaderDataType::Float2:
 		case ShaderDataType::Float3:
 		case ShaderDataType::Float4: {
-			glEnableVertexAttribArray(m_VertexBufferIndex);
-			glVertexAttribPointer(m_VertexBufferIndex,
+			glEnableVertexAttribArray(vertex_buffer_index);
+			glVertexAttribPointer(vertex_buffer_index,
 				element.get_component_count(),
 				nx_opengl_shader_type(element.type),
 				element.normalization ? GL_TRUE : GL_FALSE,
 				layout.get_stride(),
 				(const void*)element.offset);
-			m_VertexBufferIndex++;
+			vertex_buffer_index++;
 			break;
 		}
 		case ShaderDataType::Int:
@@ -81,28 +81,28 @@ void OpenGLVertexArray::add_vertex_buffer(ref<VertexBuffer>& vb)
 		case ShaderDataType::Int3:
 		case ShaderDataType::Int4:
 		case ShaderDataType::Bool: {
-			glEnableVertexAttribArray(m_VertexBufferIndex);
-			glVertexAttribIPointer(m_VertexBufferIndex,
+			glEnableVertexAttribArray(vertex_buffer_index);
+			glVertexAttribIPointer(vertex_buffer_index,
 				element.get_component_count(),
 				nx_opengl_shader_type(element.type),
 				layout.get_stride(),
 				(const void*)element.offset);
-			m_VertexBufferIndex++;
+			vertex_buffer_index++;
 			break;
 		}
 		case ShaderDataType::Mat3:
 		case ShaderDataType::Mat4: {
 			uint8_t count = element.get_component_count();
 			for (uint8_t i = 0; i < count; i++) {
-				glEnableVertexAttribArray(m_VertexBufferIndex);
-				glVertexAttribPointer(m_VertexBufferIndex,
+				glEnableVertexAttribArray(vertex_buffer_index);
+				glVertexAttribPointer(vertex_buffer_index,
 					count,
 					nx_opengl_shader_type(element.type),
 					element.normalization ? GL_TRUE : GL_FALSE,
 					layout.get_stride(),
 					(const void*)(element.offset + sizeof(float) * count * i));
-				glVertexAttribDivisor(m_VertexBufferIndex, 1);
-				m_VertexBufferIndex++;
+				glVertexAttribDivisor(vertex_buffer_index, 1);
+				vertex_buffer_index++;
 			}
 			break;
 		}
@@ -122,12 +122,12 @@ void OpenGLVertexArray::set_index_buffer(ref<IndexBuffer>& ib)
 	index_buffer = ib;
 }
 
-const std::vector<ref<Neurex::VertexBuffer>>& OpenGLVertexArray::get_vertex_buffers() const
+const std::vector<ref<VertexBuffer>>& OpenGLVertexArray::get_vertex_buffers() const
 {
 	return vertex_buffers;
 }
 
-const ref<Neurex::IndexBuffer>& OpenGLVertexArray::get_index_buffer() const
+const ref<IndexBuffer>& OpenGLVertexArray::get_index_buffer() const
 {
 	return index_buffer;
 }

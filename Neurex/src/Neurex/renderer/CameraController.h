@@ -7,6 +7,8 @@
 #include "Neurex/events/MouseEvent.h"
 #include "Neurex/renderer/OrthographicCamera.h"
 
+static constexpr float minimal_zoom_camera_controller = 0.1f;
+
 namespace Neurex {
 class OrthographicCameraController {
 public:

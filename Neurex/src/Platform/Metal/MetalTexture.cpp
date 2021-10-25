@@ -6,6 +6,10 @@
 
 namespace Neurex {
 
+MetalTexture2D::MetalTexture2D(uint32_t w, uint32_t h)
+{
+}
+
 MetalTexture2D::MetalTexture2D(const std::string& path_)
 	: path(path_)
 {
