@@ -7,12 +7,14 @@ namespace Neurex {
 class OpenGLVertexBuffer : public VertexBuffer {
 public:
 	OpenGLVertexBuffer(float* vertices, uint32_t size);
+	OpenGLVertexBuffer(uint32_t size);
 	virtual ~OpenGLVertexBuffer();
 
 	virtual void bind() override;
 	virtual void unbind() override;
 
 	void set_layout(const BufferLayout& layout) override;
+	void set_data(const void* data, uint32_t size) override;
 	const BufferLayout& get_layout() const override;
 
 private:

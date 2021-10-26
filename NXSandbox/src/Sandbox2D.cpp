@@ -13,6 +13,7 @@ void Sandbox2D::attached()
 	RenderCommand::set_clear_colour({ 0.1f, 0.1f, 0.1f, 1 });
 	checkerboard_texture
 		= Texture2D::create("assets/textures/checkerboard.png");
+	cherno_texture = Texture2D::create("assets/textures/cherno_logo.png");
 }
 
 void Sandbox2D::detached() { }
@@ -34,10 +35,12 @@ void Sandbox2D::updated(Timestep ts)
 			{ -1.0f, 0.0f, 0.0f }, { 0.8f, 0.8f }, square_color);
 		Renderer2D::draw_quad(
 			{ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.6f, 0.1f, 1.0f });
-		Renderer2D::draw_rotated_quad({ -0.5f, -0.5f, 0.0f },
-			{ 22.0, 0.0, 0.0 }, { 0.5f, 0.75f }, { 0.9f, 0.3f, 0.1f, 1.0f });
-		Renderer2D::draw_quad(
-			{ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, checkerboard_texture);
+		// Renderer2D::draw_rotated_quad({ -0.5f, -0.5f, 0.0f },
+		//	{ 22.0, 0.0, 0.0 }, { 0.5f, 0.75f }, { 0.9f, 0.3f, 0.1f, 1.0f });
+		Renderer2D::draw_quad({ -5.0f, -5.0f, -0.1f }, { 10.0f, 10.0f },
+			checkerboard_texture, 1.0f);
+		// Renderer2D::draw_quad(
+		//	{ -0.9f, -0.5f, 0.1f }, { 0.5f, 0.5f }, cherno_texture, 1.0f);
 		Renderer2D::end_scene();
 	}
 }
@@ -55,7 +58,7 @@ void Sandbox2D::on_event(Event& event)
 	EventDispatcher dispatcher(event);
 
 	dispatcher.dispatch_event<KeyPressedEvent>([&](KeyPressedEvent& ev) {
-		if (ev.get_key_code() == NX_KC_Q) {
+		if (ev.get_key_code() == NX_KC_X) {
 			return Application::the().exit();
 		}
 		return false;

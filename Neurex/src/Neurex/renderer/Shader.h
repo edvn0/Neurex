@@ -25,6 +25,9 @@ public:
 		= 0;
 	virtual void upload_uniform(const std::string& name, float float_val) = 0;
 	virtual void upload_uniform(const std::string& name, int int_val) = 0;
+	virtual void upload_uniform(
+		const std::string& name, int* vals, uint32_t count)
+		= 0;
 
 	virtual void set_mat4(const std::string& name, const glm::mat4& mat4) = 0;
 	virtual void set_float4(const std::string& name, const glm::vec4& mat4) = 0;
@@ -33,6 +36,15 @@ public:
 	{
 		upload_uniform(name, val);
 	};
+	virtual void set_float(const std::string& name, float val)
+	{
+		upload_uniform(name, val);
+	};
+	virtual void set_int_array(
+		const std::string& name, int* vals, uint32_t count)
+	{
+		upload_uniform(name, vals, count);
+	}
 
 	virtual const std::string& get_name() const = 0;
 

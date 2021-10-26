@@ -23,6 +23,7 @@ private:
 	ref<IndexBuffer> square_index_buffer;
 	ref<Shader> flat_color_shader;
 	ref<Texture2D> checkerboard_texture;
+	ref<Texture2D> cherno_texture;
 
 	glm::vec4 square_color = { 0.2f, 0.3f, 0.8f, 1.0f };
 };

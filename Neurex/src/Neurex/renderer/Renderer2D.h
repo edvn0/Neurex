@@ -19,13 +19,14 @@ public:
 	static void draw_quad(
 		const glm::vec2& pos, const glm::vec2& size, const glm::vec4& colour);
 	static void draw_quad(const glm::vec2& pos, const glm::vec2& size,
-		const ref<Texture2D>& texture);
+		const ref<Texture2D>& texture, float tiling_factor = 1.0f);
 	static void draw_quad(const glm::vec3& pos, const glm::vec2& size,
-		const ref<Texture2D>& texture);
+		const ref<Texture2D>& texture, float tiling_factor = 1.0f);
 	static void draw_rotated_quad(const glm::vec3& pos, const glm::vec3& rot,
 		const glm::vec2& size, const glm::vec4& colour);
 
 	static void end_scene();
+	static void flush();
 };
 
 } // namespace Neurex

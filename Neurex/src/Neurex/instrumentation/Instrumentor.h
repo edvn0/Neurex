@@ -35,7 +35,7 @@ public:
 	void begin_session(
 		const std::string& name, const std::string& filepath = "results.json")
 	{
-		std::lock_guard lock(m_Mutex);
+		std::lock_guard lock(instrumentor_lock);
 		if (current_session) {
 			// If there is already a current session, then close it before
 			// beginning new one. Subsequent profiling output meant for the
@@ -67,7 +67,7 @@ public:
 
 	void end_session()
 	{
-		std::lock_guard lock(m_Mutex);
+		std::lock_guard lock(instrumentor_lock);
 		internal_end_session();
 	}
 
@@ -86,7 +86,7 @@ public:
 		json << "\"ts\":" << result.Start.count();
 		json << "}";
 
-		std::lock_guard lock(m_Mutex);
+		std::lock_guard lock(instrumentor_lock);
 		if (current_session) {
 			output_stream << json.str();
 			output_stream.flush();
@@ -119,7 +119,7 @@ private:
 		output_stream.flush();
 	}
 
-	// Note: you must already own lock on m_Mutex before
+	// Note: you must already own lock on instrumentor_lock before
 	// calling internal_end_session()
 	void internal_end_session()
 	{
@@ -132,7 +132,7 @@ private:
 	}
 
 private:
-	std::mutex m_Mutex;
+	std::mutex instrumentor_lock;
 	InstrumentationSession* current_session;
 	std::ofstream output_stream;
 };

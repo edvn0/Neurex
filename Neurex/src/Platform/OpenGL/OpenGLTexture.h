@@ -18,6 +18,13 @@ public:
 	virtual void bind(uint32_t slot) const override;
 	virtual void unbind() const override;
 
+	virtual uint32_t get_renderer_id() const override { return renderer_id; };
+
+	virtual bool compare(const Texture& other) const override
+	{
+		return renderer_id == ((OpenGLTexture2D&)other).renderer_id;
+	};
+
 private:
 	uint32_t width;
 	uint32_t height;

@@ -20,6 +20,11 @@ public:
 		api->draw_indexed(va);
 	}
 
+	inline static void draw_indexed(const ref<VertexArray>& va, uint32_t count)
+	{
+		api->draw_indexed(va, count);
+	}
+
 private:
 	static RendererAPI* api;
 };

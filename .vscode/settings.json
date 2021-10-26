@@ -90,7 +90,8 @@
     "memory_resource": "cpp",
     "stop_token": "cpp",
     "cinttypes": "cpp",
-    "filesystem": "cpp"
+    "filesystem": "cpp",
+    "version": "cpp"
   },
   "C_Cpp.errorSquiggles": "Disabled"
 }

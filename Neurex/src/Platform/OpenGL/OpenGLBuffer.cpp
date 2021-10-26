@@ -14,6 +14,14 @@ OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
 	glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 }
 
+OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
+{
+	NX_PROFILE_FUNCTION();
+	glGenBuffers(1, &renderer_id);
+	glBindBuffer(GL_ARRAY_BUFFER, renderer_id);
+	glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+}
+
 OpenGLVertexBuffer::~OpenGLVertexBuffer() { glDeleteBuffers(1, &renderer_id); }
 
 void OpenGLVertexBuffer::bind()
@@ -31,6 +39,12 @@ void OpenGLVertexBuffer::unbind()
 void OpenGLVertexBuffer::set_layout(const BufferLayout& layout_)
 {
 	layout = layout_;
+}
+
+void OpenGLVertexBuffer::set_data(const void* data, uint32_t size)
+{
+	glBindBuffer(GL_ARRAY_BUFFER, renderer_id);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 }
 
 const Neurex::BufferLayout& OpenGLVertexBuffer::get_layout() const

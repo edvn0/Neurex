@@ -111,8 +111,8 @@ void OpenGLShader::compile_shader(
 			glDeleteShader(val);
 		}
 
-		NX_CORE_ASSERT(false, "OpenGLShader linking failure.");
 		NX_CORE_ERROR("{0}", infoLog.data());
+		NX_CORE_ASSERT(false, "OpenGLShader linking failure.");
 	}
 
 	for (auto& val : shader_ids) {
@@ -219,6 +219,14 @@ void OpenGLShader::upload_uniform(const std::string& name, int uniform)
 	NX_PROFILE_FUNCTION();
 	GLint location = glGetUniformLocation(renderer_id, name.c_str());
 	glUniform1i(location, uniform);
+}
+
+void OpenGLShader::upload_uniform(
+	const std::string& name, int* uniform, uint32_t count)
+{
+	NX_PROFILE_FUNCTION();
+	GLint location = glGetUniformLocation(renderer_id, name.c_str());
+	glUniform1iv(location, count, uniform);
 }
 
 void OpenGLShader::set_float4(const std::string& name, const glm::vec4& vec)

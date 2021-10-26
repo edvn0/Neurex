@@ -14,6 +14,10 @@ public:
 
 	virtual void bind(uint32_t slot = 0) const = 0;
 	virtual void unbind() const = 0;
+
+	virtual uint32_t get_renderer_id() const = 0;
+
+	virtual bool compare(const Texture& other) const = 0;
 };
 
 class Texture2D : public Texture {

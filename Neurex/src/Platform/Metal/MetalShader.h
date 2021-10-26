@@ -25,6 +25,7 @@ public:
 	virtual void upload_uniform(
 		const std::string& name, float float_val) override;
 	virtual void upload_uniform(const std::string& name, int int_val) override;
+	virtual void upload_uniform(const std::string& name, int* vals, uint32_t count) override;
 
 	virtual void set_mat4(
 		const std::string& name, const glm::mat4& mat4) override;
