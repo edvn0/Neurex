@@ -36,10 +36,7 @@ void OpenGLVertexBuffer::unbind()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void OpenGLVertexBuffer::set_layout(const BufferLayout& layout_)
-{
-	layout = layout_;
-}
+void OpenGLVertexBuffer::set_layout(const BufferLayout& layout_) { layout = layout_; }
 
 void OpenGLVertexBuffer::set_data(const void* data, uint32_t size)
 {
@@ -47,10 +44,7 @@ void OpenGLVertexBuffer::set_data(const void* data, uint32_t size)
 	glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 }
 
-const Neurex::BufferLayout& OpenGLVertexBuffer::get_layout() const
-{
-	return layout;
-}
+const Neurex::BufferLayout& OpenGLVertexBuffer::get_layout() const { return layout; }
 
 OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count_)
 	: count(count_)

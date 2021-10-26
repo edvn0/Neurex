@@ -17,10 +17,7 @@ public:
 	size_t get_width() const override { return window_data.width; };
 	size_t get_height() const override { return window_data.height; };
 
-	void set_event_callback(const EventCallback& callback) override
-	{
-		window_data.callback = callback;
-	};
+	void set_event_callback(const EventCallback& callback) override { window_data.callback = callback; };
 	void set_vsync(bool enabled) override;
 	bool is_vsync() override;
 	void resize_window(float w, float h) const override;

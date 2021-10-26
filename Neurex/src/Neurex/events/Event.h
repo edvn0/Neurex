@@ -43,10 +43,7 @@ public:
 	virtual int get_category() const = 0;
 	virtual std::string to_string() const { return get_name(); }
 
-	inline bool is_in_category(EventCategory category)
-	{
-		return get_category() & category;
-	}
+	inline bool is_in_category(EventCategory category) { return get_category() & category; }
 
 	explicit operator bool() const { return handled; }
 

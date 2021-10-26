@@ -11,8 +11,7 @@
 
 namespace Neurex {
 
-ref<Shader> Shader::create(const std::string& name, const std::string& vertex,
-	const std::string& fragment)
+ref<Shader> Shader::create(const std::string& name, const std::string& vertex, const std::string& fragment)
 {
 	switch (Renderer::get_api()) {
 	case RendererAPI::API::None: {
@@ -64,16 +63,14 @@ ref<Shader> Shader::create(const std::string& path)
 
 void ShaderLibrary::add(const std::string& name, const ref<Shader>& shader)
 {
-	NX_CORE_ASSERT(shaders.find(name) == shaders.end(),
-		"Shader with given name already exists.");
+	NX_CORE_ASSERT(shaders.find(name) == shaders.end(), "Shader with given name already exists.");
 	shaders[name] = shader;
 };
 
 void ShaderLibrary::add(const ref<Shader>& shader)
 {
 	auto& name = shader->get_name();
-	NX_CORE_ASSERT(shaders.find(name) == shaders.end(),
-		"Shader with given name already exists.");
+	NX_CORE_ASSERT(shaders.find(name) == shaders.end(), "Shader with given name already exists.");
 	add(name, shader);
 };
 
@@ -93,8 +90,7 @@ ref<Shader> ShaderLibrary::load(const std::string& fp)
 
 ref<Shader> ShaderLibrary::get(const std::string& name)
 {
-	NX_CORE_ASSERT(shaders.find(name) != shaders.end(),
-		"You provided an incorrect id for a shader.");
+	NX_CORE_ASSERT(shaders.find(name) != shaders.end(), "You provided an incorrect id for a shader.");
 	return shaders[name];
 };
 }

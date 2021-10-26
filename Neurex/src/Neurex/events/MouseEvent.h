@@ -22,15 +22,11 @@ public:
 	}
 
 	static EventType get_static_type() { return EventType::MouseMoved; };
-	virtual EventType get_event_type() const override
-	{
-		return get_static_type();
-	};
+	virtual EventType get_event_type() const override { return get_static_type(); };
 	virtual const char* get_name() const override { return "MouseMoved"; };
 	virtual int get_category() const override
 	{
-		return EventCategory::EventCategoryMouse
-			| EventCategory::EventCategoryInput;
+		return EventCategory::EventCategoryMouse | EventCategory::EventCategoryInput;
 	}
 
 private:
@@ -56,15 +52,11 @@ public:
 	}
 
 	static EventType get_static_type() { return EventType::MouseScrolled; };
-	virtual EventType get_event_type() const override
-	{
-		return get_static_type();
-	};
+	virtual EventType get_event_type() const override { return get_static_type(); };
 	virtual const char* get_name() const override { return "MouseScrolled"; };
 	virtual int get_category() const override
 	{
-		return EventCategory::EventCategoryMouse
-			| EventCategory::EventCategoryInput;
+		return EventCategory::EventCategoryMouse | EventCategory::EventCategoryInput;
 	}
 
 private:
@@ -90,22 +82,12 @@ public:
 	inline float get_x() const { return x; };
 	inline float get_y() const { return y; };
 
-	static EventType get_static_type()
-	{
-		return EventType::MouseButtonPressed;
-	};
-	virtual EventType get_event_type() const override
-	{
-		return get_static_type();
-	};
-	virtual const char* get_name() const override
-	{
-		return "MouseButtonPressed";
-	};
+	static EventType get_static_type() { return EventType::MouseButtonPressed; };
+	virtual EventType get_event_type() const override { return get_static_type(); };
+	virtual const char* get_name() const override { return "MouseButtonPressed"; };
 	virtual int get_category() const override
 	{
-		return EventCategory::EventCategoryMouseButton
-			| EventCategory::EventCategoryInput;
+		return EventCategory::EventCategoryMouseButton | EventCategory::EventCategoryInput;
 	}
 
 private:
@@ -132,22 +114,12 @@ public:
 	inline float get_x() const { return x; };
 	inline float get_y() const { return y; };
 
-	static EventType get_static_type()
-	{
-		return EventType::MouseButtonReleased;
-	};
-	virtual EventType get_event_type() const override
-	{
-		return get_static_type();
-	};
-	virtual const char* get_name() const override
-	{
-		return "MouseButtonReleased";
-	};
+	static EventType get_static_type() { return EventType::MouseButtonReleased; };
+	virtual EventType get_event_type() const override { return get_static_type(); };
+	virtual const char* get_name() const override { return "MouseButtonReleased"; };
 	virtual int get_category() const override
 	{
-		return EventCategory::EventCategoryMouseButton
-			| EventCategory::EventCategoryInput;
+		return EventCategory::EventCategoryMouseButton | EventCategory::EventCategoryInput;
 	}
 
 private:

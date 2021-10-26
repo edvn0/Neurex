@@ -17,10 +17,7 @@ static void glfw_error_callback(int error, const char* desc)
 	NX_CORE_ERROR("GLFW Error: ({0}), info: {1}", error, desc);
 }
 
-Window* Window::create(const WindowProps& props)
-{
-	return new MacOSWindow(props);
-};
+Window* Window::create(const WindowProps& props) { return new MacOSWindow(props); };
 
 MacOSWindow::MacOSWindow(const WindowProps& props)
 {
@@ -79,8 +76,7 @@ void MacOSWindow::init(const WindowProps& props)
 	window_data.width = props.width;
 	window_data.height = props.height;
 
-	NX_CORE_INFO("Creating a new MacOSX window {0} ({1}, {2})", props.title,
-		props.width, props.height);
+	NX_CORE_INFO("Creating a new MacOSX window {0} ({1}, {2})", props.title, props.width, props.height);
 
 	if (!is_glfw_initialized) {
 		int success = glfwInit();
@@ -96,8 +92,8 @@ void MacOSWindow::init(const WindowProps& props)
 		is_glfw_initialized = true;
 	}
 
-	win_window = glfwCreateWindow((int)props.width, (int)props.height,
-		window_data.title.c_str(), nullptr, nullptr);
+	win_window
+		= glfwCreateWindow((int)props.width, (int)props.height, window_data.title.c_str(), nullptr, nullptr);
 	window_context = new OpenGLContext(win_window);
 	window_context->init();
 
@@ -121,25 +117,23 @@ void MacOSWindow::setup_events()
 {
 	NX_PROFILE_FUNCTION();
 
-	glfwSetFramebufferSizeCallback(
-		win_window, [](GLFWwindow* window, int w, int h) {
-			auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
+	glfwSetFramebufferSizeCallback(win_window, [](GLFWwindow* window, int w, int h) {
+		auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
 
-			WindowFramebufferEvent event(w, h);
-			user_ptr.width = w;
-			user_ptr.height = h;
-			user_ptr.callback(event);
-		});
+		WindowFramebufferEvent event(w, h);
+		user_ptr.width = w;
+		user_ptr.height = h;
+		user_ptr.callback(event);
+	});
 
-	glfwSetWindowSizeCallback(
-		win_window, [](GLFWwindow* window, int width, int height) {
-			auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
+	glfwSetWindowSizeCallback(win_window, [](GLFWwindow* window, int width, int height) {
+		auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
 
-			WindowResizeEvent event((float)width, (float)height);
-			user_ptr.width = width;
-			user_ptr.height = height;
-			user_ptr.callback(event);
-		});
+		WindowResizeEvent event((float)width, (float)height);
+		user_ptr.width = width;
+		user_ptr.height = height;
+		user_ptr.callback(event);
+	});
 
 	glfwSetWindowCloseCallback(win_window, [](GLFWwindow* window) {
 		auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -147,49 +141,47 @@ void MacOSWindow::setup_events()
 		user_ptr.callback(closed);
 	});
 
-	glfwSetKeyCallback(win_window,
-		[](GLFWwindow* window, int key, int scancode, int action, int modes) {
-			auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
+	glfwSetKeyCallback(win_window, [](GLFWwindow* window, int key, int scancode, int action, int modes) {
+		auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
 
-			switch (action) {
-			case GLFW_PRESS: {
-				KeyPressedEvent event(key, 0);
-				user_ptr.callback(event);
-				break;
-			}
-			case GLFW_RELEASE: {
-				KeyReleasedEvent event(key);
-				user_ptr.callback(event);
-				break;
-			}
-			case GLFW_REPEAT: {
-				KeyPressedEvent event(key, 1);
-				user_ptr.callback(event);
-				break;
-			}
-			}
-		});
+		switch (action) {
+		case GLFW_PRESS: {
+			KeyPressedEvent event(key, 0);
+			user_ptr.callback(event);
+			break;
+		}
+		case GLFW_RELEASE: {
+			KeyReleasedEvent event(key);
+			user_ptr.callback(event);
+			break;
+		}
+		case GLFW_REPEAT: {
+			KeyPressedEvent event(key, 1);
+			user_ptr.callback(event);
+			break;
+		}
+		}
+	});
 
-	glfwSetMouseButtonCallback(
-		win_window, [](GLFWwindow* window, int button, int action, int mods) {
-			auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
+	glfwSetMouseButtonCallback(win_window, [](GLFWwindow* window, int button, int action, int mods) {
+		auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
 
-			double x, y;
-			glfwGetCursorPos(window, &x, &y);
+		double x, y;
+		glfwGetCursorPos(window, &x, &y);
 
-			switch (action) {
-			case GLFW_PRESS: {
-				MouseButtonPressedEvent event(button, x, y);
-				user_ptr.callback(event);
-				break;
-			}
-			case GLFW_RELEASE: {
-				MouseButtonReleasedEvent event(button, x, y);
-				user_ptr.callback(event);
-				break;
-			}
-			}
-		});
+		switch (action) {
+		case GLFW_PRESS: {
+			MouseButtonPressedEvent event(button, x, y);
+			user_ptr.callback(event);
+			break;
+		}
+		case GLFW_RELEASE: {
+			MouseButtonReleasedEvent event(button, x, y);
+			user_ptr.callback(event);
+			break;
+		}
+		}
+	});
 
 	glfwSetCharCallback(win_window, [](GLFWwindow* window, unsigned int c) {
 		auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -197,19 +189,17 @@ void MacOSWindow::setup_events()
 		user_ptr.callback(event);
 	});
 
-	glfwSetScrollCallback(
-		win_window, [](GLFWwindow* window, double xo, double yo) {
-			auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
-			MouseScrolledEvent event((float)xo, (float)yo);
-			user_ptr.callback(event);
-		});
+	glfwSetScrollCallback(win_window, [](GLFWwindow* window, double xo, double yo) {
+		auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
+		MouseScrolledEvent event((float)xo, (float)yo);
+		user_ptr.callback(event);
+	});
 
-	glfwSetCursorPosCallback(
-		win_window, [](GLFWwindow* window, double xpos, double ypos) {
-			auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
-			MouseMovedEvent event((float)xpos, (float)ypos);
-			user_ptr.callback(event);
-		});
+	glfwSetCursorPosCallback(win_window, [](GLFWwindow* window, double xpos, double ypos) {
+		auto user_ptr = *(WindowData*)glfwGetWindowUserPointer(window);
+		MouseMovedEvent event((float)xpos, (float)ypos);
+		user_ptr.callback(event);
+	});
 }
 
 }

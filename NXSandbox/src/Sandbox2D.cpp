@@ -11,13 +11,12 @@ Sandbox2D::Sandbox2D()
 void Sandbox2D::attached()
 {
 	RenderCommand::set_clear_colour({ 0.1f, 0.1f, 0.1f, 1 });
-	checkerboard_texture
-		= Texture2D::create("assets/textures/checkerboard.png");
-	NX_INFO("{0}, {1}, {2}", checkerboard_texture->get_renderer_id(),
-		checkerboard_texture->get_width(), checkerboard_texture->get_height());
+	checkerboard_texture = Texture2D::create("assets/textures/checkerboard.png");
+	NX_INFO("{0}, {1}, {2}", checkerboard_texture->get_renderer_id(), checkerboard_texture->get_width(),
+		checkerboard_texture->get_height());
 	cherno_texture = Texture2D::create("assets/textures/cherno_logo.png");
-	NX_INFO("{0}, {1}, {2}", cherno_texture->get_renderer_id(),
-		cherno_texture->get_width(), cherno_texture->get_height());
+	NX_INFO("{0}, {1}, {2}", cherno_texture->get_renderer_id(), cherno_texture->get_width(),
+		cherno_texture->get_height());
 }
 
 void Sandbox2D::detached() { }
@@ -36,17 +35,13 @@ void Sandbox2D::updated(Timestep ts)
 		NX_PROFILE_SCOPE("Renderer2D::GPUCalls");
 		Renderer2D::begin_scene(camera_controller.get_camera());
 
-		Renderer2D::draw_quad(
-			{ -1.0f, 0.0f, 0.0f }, { 0.8f, 0.8f }, square_color);
+		Renderer2D::draw_quad({ -1.0f, 0.0f, 0.0f }, { 0.8f, 0.8f }, square_color);
 
-		Renderer2D::draw_rotated_quad({ -0.5f, -0.5f, 0.0f }, 22.0,
-			{ 0.5f, 0.75f }, { 0.9f, 0.3f, 0.1f, 1.0f });
+		Renderer2D::draw_rotated_quad({ -0.5f, -0.5f, 0.0f }, 22.0, { 0.5f, 0.75f }, { 0.9f, 0.3f, 0.1f, 1.0f });
 
-		Renderer2D::draw_quad(
-			{ -5.0f, -5.0f, -0.1f }, { 10.0f, 10.0f }, checkerboard_texture);
+		Renderer2D::draw_quad({ -5.0f, -5.0f, -0.1f }, { 10.0f, 10.0f }, checkerboard_texture);
 
-		Renderer2D::draw_quad(
-			{ -0.9f, -0.5f, 0.1f }, { 0.5f, 0.5f }, cherno_texture, 1.0f);
+		Renderer2D::draw_quad({ -0.9f, -0.5f, 0.1f }, { 0.5f, 0.5f }, cherno_texture, 1.0f);
 
 		Renderer2D::end_scene();
 	}

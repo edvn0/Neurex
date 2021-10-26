@@ -40,10 +40,7 @@ OpenGLVertexArray::OpenGLVertexArray()
 	glBindVertexArray(renderer_id);
 }
 
-OpenGLVertexArray::~OpenGLVertexArray()
-{
-	glDeleteVertexArrays(1, &renderer_id);
-}
+OpenGLVertexArray::~OpenGLVertexArray() { glDeleteVertexArrays(1, &renderer_id); }
 
 void OpenGLVertexArray::bind() { glBindVertexArray(renderer_id); }
 
@@ -63,11 +60,9 @@ void OpenGLVertexArray::add_vertex_buffer(ref<VertexBuffer>& vb)
 		case ShaderDataType::Float3:
 		case ShaderDataType::Float4: {
 			glEnableVertexAttribArray(vertex_buffer_index);
-			glVertexAttribPointer(vertex_buffer_index,
-				element.get_component_count(),
-				nx_opengl_shader_type(element.type),
-				element.normalization ? GL_TRUE : GL_FALSE, layout.get_stride(),
-				(const void*)element.offset);
+			glVertexAttribPointer(vertex_buffer_index, element.get_component_count(),
+				nx_opengl_shader_type(element.type), element.normalization ? GL_TRUE : GL_FALSE,
+				layout.get_stride(), (const void*)element.offset);
 			vertex_buffer_index++;
 			break;
 		}
@@ -77,10 +72,8 @@ void OpenGLVertexArray::add_vertex_buffer(ref<VertexBuffer>& vb)
 		case ShaderDataType::Int4:
 		case ShaderDataType::Bool: {
 			glEnableVertexAttribArray(vertex_buffer_index);
-			glVertexAttribIPointer(vertex_buffer_index,
-				element.get_component_count(),
-				nx_opengl_shader_type(element.type), layout.get_stride(),
-				(const void*)element.offset);
+			glVertexAttribIPointer(vertex_buffer_index, element.get_component_count(),
+				nx_opengl_shader_type(element.type), layout.get_stride(), (const void*)element.offset);
 			vertex_buffer_index++;
 			break;
 		}
@@ -89,10 +82,8 @@ void OpenGLVertexArray::add_vertex_buffer(ref<VertexBuffer>& vb)
 			uint8_t count = element.get_component_count();
 			for (uint8_t i = 0; i < count; i++) {
 				glEnableVertexAttribArray(vertex_buffer_index);
-				glVertexAttribPointer(vertex_buffer_index, count,
-					nx_opengl_shader_type(element.type),
-					element.normalization ? GL_TRUE : GL_FALSE,
-					layout.get_stride(),
+				glVertexAttribPointer(vertex_buffer_index, count, nx_opengl_shader_type(element.type),
+					element.normalization ? GL_TRUE : GL_FALSE, layout.get_stride(),
 					(const void*)(element.offset + sizeof(float) * count * i));
 				glVertexAttribDivisor(vertex_buffer_index, 1);
 				vertex_buffer_index++;
@@ -115,15 +106,8 @@ void OpenGLVertexArray::set_index_buffer(ref<IndexBuffer>& ib)
 	index_buffer = ib;
 }
 
-const std::vector<ref<VertexBuffer>>&
-OpenGLVertexArray::get_vertex_buffers() const
-{
-	return vertex_buffers;
-}
+const std::vector<ref<VertexBuffer>>& OpenGLVertexArray::get_vertex_buffers() const { return vertex_buffers; }
 
-const ref<IndexBuffer>& OpenGLVertexArray::get_index_buffer() const
-{
-	return index_buffer;
-}
+const ref<IndexBuffer>& OpenGLVertexArray::get_index_buffer() const { return index_buffer; }
 
 }

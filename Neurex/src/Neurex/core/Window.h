@@ -12,8 +12,7 @@ struct WindowProps {
 	size_t width;
 	size_t height;
 
-	WindowProps(const std::string& title_ = "Neurex Engine", size_t w = 1280,
-		size_t h = 720)
+	WindowProps(const std::string& title_ = "Neurex Engine", size_t w = 1280, size_t h = 720)
 		: title(title_)
 		, width(w)
 		, height(h)

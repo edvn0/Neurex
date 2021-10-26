@@ -4,20 +4,7 @@
 
 namespace Neurex {
 
-enum class ShaderDataType {
-	None = 0,
-	Float,
-	Float2,
-	Float3,
-	Float4,
-	Mat3,
-	Mat4,
-	Int,
-	Int2,
-	Int3,
-	Int4,
-	Bool
-};
+enum class ShaderDataType { None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Int, Int2, Int3, Int4, Bool };
 
 static uint32_t shader_data_type_size(ShaderDataType type)
 {
@@ -61,8 +48,7 @@ struct BufferElement {
 
 	BufferElement(){};
 
-	BufferElement(
-		ShaderDataType type_, const std::string& name_, bool normalize = false)
+	BufferElement(ShaderDataType type_, const std::string& name_, bool normalize = false)
 		: name(name_)
 		, type(type_)
 		, size(shader_data_type_size(type_))
@@ -112,23 +98,14 @@ public:
 		calculate_offsets_stride();
 	};
 
-	inline const std::vector<BufferElement>& get_elements() const
-	{
-		return elements;
-	}
+	inline const std::vector<BufferElement>& get_elements() const { return elements; }
 
 	inline uint32_t const get_stride() const { return stride; };
 
 	std::vector<BufferElement>::iterator begin() { return elements.begin(); };
 	std::vector<BufferElement>::iterator end() { return elements.end(); };
-	std::vector<BufferElement>::const_iterator begin() const
-	{
-		return elements.begin();
-	};
-	std::vector<BufferElement>::const_iterator end() const
-	{
-		return elements.end();
-	};
+	std::vector<BufferElement>::const_iterator begin() const { return elements.begin(); };
+	std::vector<BufferElement>::const_iterator end() const { return elements.end(); };
 
 private:
 	void calculate_offsets_stride()

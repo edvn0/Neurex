@@ -72,11 +72,10 @@ void Application::on_event(Event& event)
 		return true;
 	});
 
-	dispatcher.dispatch_event<WindowFramebufferEvent>(
-		[&](WindowFramebufferEvent& e) {
-			window->resize_framebuffer(e.get_width(), e.get_height());
-			return true;
-		});
+	dispatcher.dispatch_event<WindowFramebufferEvent>([&](WindowFramebufferEvent& e) {
+		window->resize_framebuffer(e.get_width(), e.get_height());
+		return true;
+	});
 
 	for (auto it = stack.end(); it != stack.begin();) {
 		(*--it)->on_event(event);
@@ -86,14 +85,8 @@ void Application::on_event(Event& event)
 	}
 }
 
-void Application::add_layer(scoped<Layer> layer)
-{
-	stack.push(std::move(layer));
-}
+void Application::add_layer(scoped<Layer> layer) { stack.push(std::move(layer)); }
 
-void Application::add_overlay(scoped<Layer> overlay)
-{
-	stack.push_overlay(std::move(overlay));
-}
+void Application::add_overlay(scoped<Layer> overlay) { stack.push_overlay(std::move(overlay)); }
 
 }

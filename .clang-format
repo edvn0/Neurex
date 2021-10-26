@@ -5,7 +5,7 @@ SpaceBeforeCpp11BracedList: 'false'
 SpacesInContainerLiterals: 'false'
 SpacesInParentheses: 'false'
 SpacesInSquareBrackets: 'false'
-Standard: Cpp17
+Standard: Cpp11
 ColumnLimit: 115
 TabWidth: '4'
 UseTab: Always

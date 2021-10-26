@@ -32,8 +32,7 @@ public:
 	Instrumentor(const Instrumentor&) = delete;
 	Instrumentor(Instrumentor&&) = delete;
 
-	void BeginSession(
-		const std::string& name, const std::string& filepath = "results.json")
+	void BeginSession(const std::string& name, const std::string& filepath = "results.json")
 	{
 		std::lock_guard lock(m_Mutex);
 		if (m_CurrentSession) {
@@ -59,8 +58,7 @@ public:
 			if (Logger::get_core_logger()) // Edge case: BeginSession() might be
 										   // before Log::Init()
 			{
-				NX_CORE_ERROR("Instrumentor could not open results file '{0}'.",
-					filepath);
+				NX_CORE_ERROR("Instrumentor could not open results file '{0}'.", filepath);
 			}
 		}
 	}
@@ -155,18 +153,11 @@ public:
 	void Stop()
 	{
 		auto endTimepoint = std::chrono::steady_clock::now();
-		auto highResStart
-			= FloatingPointMicroseconds{ m_StartTimepoint.time_since_epoch() };
-		auto elapsedTime
-			= std::chrono::time_point_cast<std::chrono::microseconds>(
-				  endTimepoint)
-				  .time_since_epoch()
-			- std::chrono::time_point_cast<std::chrono::microseconds>(
-				m_StartTimepoint)
-				  .time_since_epoch();
+		auto highResStart = FloatingPointMicroseconds{ m_StartTimepoint.time_since_epoch() };
+		auto elapsedTime = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch()
+			- std::chrono::time_point_cast<std::chrono::microseconds>(m_StartTimepoint).time_since_epoch();
 
-		Instrumentor::Get().WriteProfile(
-			{ m_Name, highResStart, elapsedTime, std::this_thread::get_id() });
+		Instrumentor::Get().WriteProfile({ m_Name, highResStart, elapsedTime, std::this_thread::get_id() });
 
 		m_Stopped = true;
 	}
@@ -184,8 +175,7 @@ namespace InstrumentorUtils {
 	};
 
 	template <size_t N, size_t K>
-	constexpr auto CleanupOutputString(
-		const char (&expr)[N], const char (&remove)[K])
+	constexpr auto CleanupOutputString(const char (&expr)[N], const char (&remove)[K])
 	{
 		ChangeResult<N> result = {};
 
@@ -198,8 +188,7 @@ namespace InstrumentorUtils {
 				matchIndex++;
 			if (matchIndex == K - 1)
 				srcIndex += matchIndex;
-			result.Data[dstIndex++]
-				= expr[srcIndex] == '"' ? '\'' : expr[srcIndex];
+			result.Data[dstIndex++] = expr[srcIndex] == '"' ? '\'' : expr[srcIndex];
 			srcIndex++;
 		}
 		return result;
@@ -211,15 +200,14 @@ namespace InstrumentorUtils {
 // Resolve which function signature macro will be used. Note that this only
 // is resolved when the (pre)compiler starts, so the syntax highlighting
 // could mark the wrong one in your editor!
-#if defined(__GNUC__) || (defined(__MWERKS__) && (__MWERKS__ >= 0x3000))       \
-	|| (defined(__ICC) && (__ICC >= 600)) || defined(__ghs__)
+#if defined(__GNUC__) || (defined(__MWERKS__) && (__MWERKS__ >= 0x3000)) || (defined(__ICC) && (__ICC >= 600))    \
+	|| defined(__ghs__)
 #define NX_FUNC_SIG __PRETTY_FUNCTION__
 #elif defined(__DMC__) && (__DMC__ >= 0x810)
 #define NX_FUNC_SIG __PRETTY_FUNCTION__
 #elif (defined(__FUNCSIG__) || (_MSC_VER))
 #define NX_FUNC_SIG __FUNCSIG__
-#elif (defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 600))                 \
-	|| (defined(__IBMCPP__) && (__IBMCPP__ >= 500))
+#elif (defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 600)) || (defined(__IBMCPP__) && (__IBMCPP__ >= 500))
 #define NX_FUNC_SIG __FUNCTION__
 #elif defined(__BORLANDC__) && (__BORLANDC__ >= 0x550)
 #define NX_FUNC_SIG __FUNC__
@@ -231,12 +219,10 @@ namespace InstrumentorUtils {
 #define NX_FUNC_SIG "NX_FUNC_SIG unknown!"
 #endif
 
-#define NX_PROFILE_BEGIN_SESSION(name, filepath)                               \
-	::Neurex::Instrumentor::Get().BeginSession(name, filepath)
+#define NX_PROFILE_BEGIN_SESSION(name, filepath) ::Neurex::Instrumentor::Get().BeginSession(name, filepath)
 #define NX_PROFILE_END_SESSION() ::Neurex::Instrumentor::Get().EndSession()
-#define NX_PROFILE_SCOPE_LINE2(name, line)                                     \
-	constexpr auto fixedName##line                                             \
-		= ::Neurex::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");  \
+#define NX_PROFILE_SCOPE_LINE2(name, line)                                                                        \
+	constexpr auto fixedName##line = ::Neurex::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");          \
 	::Neurex::InstrumentationTimer timer##line(fixedName##line.Data)
 #define NX_PROFILE_SCOPE_LINE(name, line) NX_PROFILE_SCOPE_LINE2(name, line)
 #define NX_PROFILE_SCOPE(name) NX_PROFILE_SCOPE_LINE(name, __LINE__)

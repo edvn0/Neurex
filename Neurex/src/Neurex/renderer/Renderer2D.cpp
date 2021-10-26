@@ -40,8 +40,7 @@ static RendererData render_data;
 void Renderer2D::init()
 {
 	render_data.quad_vertex_array = VertexArray::create();
-	render_data.quad_vertex_buffer
-		= VertexBuffer::create(render_data.max_vertices * sizeof(QuadVertex));
+	render_data.quad_vertex_buffer = VertexBuffer::create(render_data.max_vertices * sizeof(QuadVertex));
 
 	// clang-format off
 	BufferLayout layout = { 
@@ -54,11 +53,9 @@ void Renderer2D::init()
 	// clang-format on
 
 	render_data.quad_vertex_buffer->set_layout(layout);
-	render_data.quad_vertex_array->add_vertex_buffer(
-		render_data.quad_vertex_buffer);
+	render_data.quad_vertex_array->add_vertex_buffer(render_data.quad_vertex_buffer);
 
-	render_data.quad_vertex_buffer_base
-		= new QuadVertex[render_data.max_vertices];
+	render_data.quad_vertex_buffer_base = new QuadVertex[render_data.max_vertices];
 
 	uint32_t* quad_indices = new uint32_t[render_data.max_indices];
 
@@ -75,15 +72,13 @@ void Renderer2D::init()
 		offset += 4;
 	}
 
-	ref<IndexBuffer> quad_index_buffer
-		= IndexBuffer::create(quad_indices, render_data.max_indices);
+	ref<IndexBuffer> quad_index_buffer = IndexBuffer::create(quad_indices, render_data.max_indices);
 	render_data.quad_vertex_array->set_index_buffer(quad_index_buffer);
 
 	delete[] quad_indices;
 
 	render_data.white_texture = Texture2D::create(1, 1);
-	NX_INFO("{0}, {1}, {2}", render_data.white_texture->get_renderer_id(),
-		render_data.white_texture->get_width(),
+	NX_INFO("{0}, {1}, {2}", render_data.white_texture->get_renderer_id(), render_data.white_texture->get_width(),
 		render_data.white_texture->get_height());
 	uint32_t data = 0xffffffff;
 	render_data.white_texture->set_data(&data, sizeof(uint32_t));
@@ -92,8 +87,7 @@ void Renderer2D::init()
 	for (uint32_t i = 0; i < render_data.max_texture_slots; i++)
 		textures[i] = i;
 
-	render_data.shader
-		= Shader::create("assets/shaders/renderer_2d_shader.glsl");
+	render_data.shader = Shader::create("assets/shaders/renderer_2d_shader.glsl");
 	// render_data.shader->set_int_array(
 	//	"u_Textures", textures, render_data.max_texture_slots);
 
@@ -105,8 +99,7 @@ void Renderer2D::shut_down() { delete[] render_data.quad_vertex_buffer_base; }
 void Renderer2D::begin_scene(const OrthographicCamera& cam)
 {
 	render_data.shader->bind();
-	render_data.shader->upload_uniform(
-		"u_ViewProjection", cam.get_view_projection_matrix());
+	render_data.shader->upload_uniform("u_ViewProjection", cam.get_view_projection_matrix());
 
 	render_data.quad_index_count = 0;
 	render_data.quad_vertex_ptr = render_data.quad_vertex_buffer_base;
@@ -114,20 +107,18 @@ void Renderer2D::begin_scene(const OrthographicCamera& cam)
 	render_data.texture_slot_index = 1;
 }
 
-void Renderer2D::draw_quad(
-	const glm::vec3& pos, const glm::vec2& size, const glm::vec4& colour)
+void Renderer2D::draw_quad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& colour)
 {
 	draw_rotated_quad(pos, 0.0, size, colour);
 }
 
-void Renderer2D::draw_quad(
-	const glm::vec2& pos, const glm::vec2& size, const glm::vec4& colour)
+void Renderer2D::draw_quad(const glm::vec2& pos, const glm::vec2& size, const glm::vec4& colour)
 {
 	draw_quad({ pos.x, pos.y, 0.0f }, size, colour);
 }
 
-void Renderer2D::draw_rotated_quad(const glm::vec3& pos, float rotation,
-	const glm::vec2& size, const glm::vec4& colour)
+void Renderer2D::draw_rotated_quad(
+	const glm::vec3& pos, float rotation, const glm::vec2& size, const glm::vec4& colour)
 {
 	NX_PROFILE_FUNCTION();
 
@@ -145,8 +136,7 @@ void Renderer2D::draw_rotated_quad(const glm::vec3& pos, float rotation,
 	render_data.quad_vertex_ptr->tex_coord = { 1.0f, 0.0f };
 	render_data.quad_vertex_ptr++;
 
-	render_data.quad_vertex_ptr->position
-		= { pos.x + size.x, pos.y + size.y, 0.0f };
+	render_data.quad_vertex_ptr->position = { pos.x + size.x, pos.y + size.y, 0.0f };
 	render_data.quad_vertex_ptr->color = colour;
 	render_data.quad_vertex_ptr->tex_id = 0.0f;
 	render_data.quad_vertex_ptr->tiling = 1.0f;
@@ -163,8 +153,8 @@ void Renderer2D::draw_rotated_quad(const glm::vec3& pos, float rotation,
 	render_data.quad_index_count += 6;
 }
 
-void Renderer2D::draw_quad(const glm::vec3& pos, const glm::vec2& size,
-	const ref<Texture2D>& texture, float tiling_factor)
+void Renderer2D::draw_quad(
+	const glm::vec3& pos, const glm::vec2& size, const ref<Texture2D>& texture, float tiling_factor)
 {
 	constexpr glm::vec4 color(1.0f);
 
@@ -197,8 +187,7 @@ void Renderer2D::draw_quad(const glm::vec3& pos, const glm::vec2& size,
 	render_data.quad_vertex_ptr->tex_coord = { 1.0f, 0.0f };
 	render_data.quad_vertex_ptr++;
 
-	render_data.quad_vertex_ptr->position
-		= { pos.x + size.x, pos.y + size.y, 0.0f };
+	render_data.quad_vertex_ptr->position = { pos.x + size.x, pos.y + size.y, 0.0f };
 	render_data.quad_vertex_ptr->color = color;
 	render_data.quad_vertex_ptr->tex_id = tex_index;
 	render_data.quad_vertex_ptr->tiling = tiling_factor;
@@ -215,8 +204,8 @@ void Renderer2D::draw_quad(const glm::vec3& pos, const glm::vec2& size,
 	render_data.quad_index_count += 6;
 }
 
-void Renderer2D::draw_quad(const glm::vec2& pos, const glm::vec2& size,
-	const ref<Texture2D>& texture, float tiling_factor)
+void Renderer2D::draw_quad(
+	const glm::vec2& pos, const glm::vec2& size, const ref<Texture2D>& texture, float tiling_factor)
 {
 	draw_quad({ pos.x, pos.y, 0.0f }, size, texture, tiling_factor);
 }
@@ -235,14 +224,12 @@ void Renderer2D::flush()
 		return;
 	}
 
-	uint32_t data_size = ((uint8_t*)render_data.quad_vertex_ptr
-		- (uint8_t*)render_data.quad_vertex_buffer_base);
+	uint32_t data_size = ((uint8_t*)render_data.quad_vertex_ptr - (uint8_t*)render_data.quad_vertex_buffer_base);
 
 	NX_CORE_INFO("{}", data_size);
 
 	render_data.quad_vertex_buffer->bind();
-	render_data.quad_vertex_buffer->set_data(
-		render_data.quad_vertex_buffer_base, data_size);
+	render_data.quad_vertex_buffer->set_data(render_data.quad_vertex_buffer_base, data_size);
 
 	render_data.shader->bind();
 	for (uint32_t i = 0; i < render_data.texture_slot_index; i++) {
@@ -250,7 +237,6 @@ void Renderer2D::flush()
 	};
 
 	render_data.quad_vertex_array->bind();
-	RenderCommand::draw_indexed(
-		render_data.quad_vertex_array, render_data.quad_index_count);
+	RenderCommand::draw_indexed(render_data.quad_vertex_array, render_data.quad_index_count);
 };
 }
