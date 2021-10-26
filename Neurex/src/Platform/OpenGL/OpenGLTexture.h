@@ -22,8 +22,15 @@ public:
 
 	virtual bool compare(const Texture& other) const override
 	{
-		return renderer_id == ((OpenGLTexture2D&)other).renderer_id;
+		auto other_rid = static_cast<const OpenGLTexture2D&>(other).renderer_id;
+		return renderer_id == other_rid;
 	};
+
+	virtual bool operator==(const Texture& other) const override
+	{
+		auto other_rid = static_cast<const OpenGLTexture2D&>(other).renderer_id;
+		return renderer_id == other_rid;
+	}
 
 private:
 	uint32_t width;

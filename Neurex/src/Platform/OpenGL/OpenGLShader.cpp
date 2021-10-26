@@ -25,7 +25,7 @@ static GLenum shader_type_from_string(const std::string& type)
 OpenGLShader::OpenGLShader(const std::string& path)
 {
 	NX_PROFILE_FUNCTION();
-	std::string read = read_file(path);
+	auto read = read_file(path);
 	auto processed = process_shader_file(read);
 	compile_shader(processed);
 

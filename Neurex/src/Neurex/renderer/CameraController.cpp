@@ -22,19 +22,19 @@ void OrthographicCameraController::on_update(Timestep t)
 	}
 
 	if (Input::is_key_pressed(NX_KC_W)) {
-		camera_position += (-glm::vec3(0, move_speed, 0) * step);
+		camera_position += (-glm::vec3(0, move_speed, 0) * step * zoom);
 	}
 
 	if (Input::is_key_pressed(NX_KC_S)) {
-		camera_position += (glm::vec3(0, move_speed, 0) * step);
+		camera_position += (glm::vec3(0, move_speed, 0) * step * zoom);
 	}
 
 	if (Input::is_key_pressed(NX_KC_A)) {
-		camera_position += (glm::vec3(move_speed, 0, 0) * step);
+		camera_position += (glm::vec3(move_speed, 0, 0) * step * zoom);
 	}
 
 	if (Input::is_key_pressed(NX_KC_D)) {
-		camera_position += (-glm::vec3(move_speed, 0, 0) * step);
+		camera_position += (-glm::vec3(move_speed, 0, 0) * step * zoom);
 	}
 
 	camera.set_position(camera_position);

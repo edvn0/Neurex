@@ -7,6 +7,7 @@ startproject "NXSandbox"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 require "cmake"
+require "clion"
 
 include_dirs = {}
 include_dirs["glad"] = "Neurex/vendor/glad/include"
@@ -32,7 +33,7 @@ project "Neurex"
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "nxpch.h"
-	pchsource "Neurex/src/nxpch.cpp"
+	pchsource "Neurex/Neurex/src/nxpch.cpp"
 
 	files
 	{

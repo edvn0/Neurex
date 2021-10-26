@@ -28,7 +28,7 @@ private:
 	float camera_rotation = 0.0f;
 	glm::vec3 camera_position = { 0, 0, 0 };
 	float rotation_speed = 45.0f;
-	float move_speed = 0.5f;
+	float move_speed = 2.0f;
 
 	OrthographicCamera camera;
 

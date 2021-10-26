@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Neurex/core/Core.h"
+#include <iostream>
 
 namespace Neurex {
 
@@ -18,6 +19,7 @@ public:
 	virtual uint32_t get_renderer_id() const = 0;
 
 	virtual bool compare(const Texture& other) const = 0;
+	virtual bool operator==(const Texture& other) const = 0;
 };
 
 class Texture2D : public Texture {

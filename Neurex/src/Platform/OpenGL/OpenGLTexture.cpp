@@ -16,6 +16,7 @@ OpenGLTexture2D::OpenGLTexture2D(uint32_t w, uint32_t h)
 	internal_format = GL_RGBA8;
 	data_format = GL_RGBA;
 	glGenTextures(1, &renderer_id);
+	NX_CORE_INFO("Empty texture created, render_id: {0}", renderer_id);
 	glBindTexture(GL_TEXTURE_2D, renderer_id);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -58,6 +59,7 @@ OpenGLTexture2D::OpenGLTexture2D(const std::string& path_)
 		data_format = data_format_;
 
 		glGenTextures(1, &renderer_id);
+		NX_CORE_INFO("Texture created, render_id: {0}", renderer_id);
 		glBindTexture(GL_TEXTURE_2D, renderer_id);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

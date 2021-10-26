@@ -9,7 +9,7 @@ class OpenGLShader : public Shader {
 public:
 	OpenGLShader(const std::string& name, const std::string& vertex,
 		const std::string& fragment);
-	OpenGLShader(const std::string& path);
+	explicit OpenGLShader(const std::string& path);
 	virtual ~OpenGLShader() override;
 
 	virtual void bind() override;

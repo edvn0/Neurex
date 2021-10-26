@@ -3,7 +3,7 @@
 set -e
 
 go() {
-	make -j4
+	make -j8
 	source ./run.sh
 }
 

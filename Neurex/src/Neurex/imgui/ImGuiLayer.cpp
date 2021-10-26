@@ -127,10 +127,6 @@ void ImGuiLayer::on_event(Event& event)
 
 void ImGuiLayer::on_imgui_render()
 {
-	NX_PROFILE_FUNCTION();
-
-	static bool show = true;
-	ImGui::ShowDemoWindow(&show);
 }
 
 void ImGuiLayer::begin()
