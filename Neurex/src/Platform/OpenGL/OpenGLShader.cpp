@@ -215,6 +215,7 @@ void OpenGLShader::upload_uniform(const std::string& name, int* uniform, uint32_
 {
 	NX_PROFILE_FUNCTION();
 	GLint location = glGetUniformLocation(renderer_id, name.c_str());
+	NX_CORE_INFO("Shader Location: {0}", location);
 	glUniform1iv(location, count, uniform);
 }
 

@@ -53,9 +53,36 @@ OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count_)
 
 	auto size = count * sizeof(uint32_t);
 	glGenBuffers(1, &renderer_id);
-	glBindBuffer(GL_ARRAY_BUFFER, renderer_id);
-	glBufferData(GL_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_id);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
 }
+
+OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t vertices)
+{
+	NX_PROFILE_FUNCTION();
+
+	auto vertex_indices = vertices * 6;
+	uint32_t* quad_indices = new uint32_t[vertex_indices];
+	size_t offset = 0;
+	for (size_t i = 0; i < vertices; i += 6) {
+		quad_indices[i + 0] = offset + 0;
+		quad_indices[i + 1] = offset + 1;
+		quad_indices[i + 2] = offset + 2;
+
+		quad_indices[i + 3] = offset + 2;
+		quad_indices[i + 4] = offset + 3;
+		quad_indices[i + 5] = offset + 0;
+
+		offset += 4;
+	};
+
+	auto size = vertex_indices * sizeof(uint32_t);
+	glGenBuffers(1, &renderer_id);
+	glBindBuffer(GL_ARRAY_BUFFER, renderer_id);
+	glBufferData(GL_ARRAY_BUFFER, size, quad_indices, GL_STATIC_DRAW);
+
+	delete[] quad_indices;
+};
 
 OpenGLIndexBuffer::~OpenGLIndexBuffer() { glDeleteBuffers(1, &renderer_id); }
 

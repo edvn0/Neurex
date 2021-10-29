@@ -30,6 +30,8 @@ int main(int argc, char** argv)
 	NX_PROFILE_BEGIN_SESSION("Destruction", "NeurexProfile-Destruction.json");
 	delete app;
 	NX_PROFILE_END_SESSION();
+
+	Renderer2D::shut_down();
 }
 #else
 #error Only win and osx supported.

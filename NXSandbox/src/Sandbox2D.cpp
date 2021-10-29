@@ -43,6 +43,18 @@ void Sandbox2D::updated(Timestep ts)
 
 		Renderer2D::draw_quad({ -0.9f, -0.5f, 0.1f }, { 0.5f, 0.5f }, cherno_texture, 1.0f);
 
+		Renderer2D::draw_quad({ -5.0f, -5.0f, -0.1f }, { 10.0f, 10.0f }, checkerboard_texture);
+
+		Renderer2D::draw_quad({ -0.9f, -0.5f, 0.1f }, { 0.5f, 0.5f }, cherno_texture, 1.0f);
+
+		Renderer2D::draw_quad({ -5.0f, -5.0f, -0.1f }, { 10.0f, 10.0f }, checkerboard_texture);
+
+		Renderer2D::draw_quad({ -0.9f, -0.5f, 0.1f }, { 0.5f, 0.5f }, cherno_texture, 1.0f);
+
+		Renderer2D::draw_quad({ -5.0f, -5.0f, -0.1f }, { 10.0f, 10.0f }, checkerboard_texture);
+
+		Renderer2D::draw_quad({ -0.9f, -0.5f, 0.1f }, { 0.5f, 0.5f }, cherno_texture, 1.0f);
+
 		Renderer2D::end_scene();
 	}
 }
