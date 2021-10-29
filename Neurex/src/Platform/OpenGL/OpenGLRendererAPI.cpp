@@ -29,6 +29,5 @@ void OpenGLRendererAPI::draw_indexed(const ref<VertexArray>& va)
 void OpenGLRendererAPI::draw_indexed(const ref<VertexArray>& va, uint32_t count)
 {
 	glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
-	glBindTexture(GL_TEXTURE_2D, 0);
 };
 }

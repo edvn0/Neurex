@@ -25,7 +25,7 @@ public:
 	stack_it_rev rend() { return layer_stack.rend(); };
 
 private:
-	stack layer_stack;
+	stack layer_stack = {};
 	unsigned int layer_insert;
 };
 

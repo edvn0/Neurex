@@ -67,9 +67,6 @@ OpenGLTexture2D::OpenGLTexture2D(const std::string& path_)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 		glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0, data_format, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 		stbi_image_free(data);
 	}
@@ -93,7 +90,6 @@ void OpenGLTexture2D::unbind() const
 void OpenGLTexture2D::set_data(void* data, uint32_t size)
 {
 	NX_PROFILE_FUNCTION();
-	bind(0);
 	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0, data_format, GL_UNSIGNED_BYTE, data);
 }
 

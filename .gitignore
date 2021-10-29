@@ -3,6 +3,7 @@
 *.swp
 imgui.ini
 *.json
+build
 
 docs
 

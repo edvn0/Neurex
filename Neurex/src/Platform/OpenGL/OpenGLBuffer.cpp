@@ -58,6 +58,7 @@ OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count_)
 }
 
 OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t vertices)
+	: count(vertices * 6)
 {
 	NX_PROFILE_FUNCTION();
 
@@ -78,8 +79,8 @@ OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t vertices)
 
 	auto size = vertex_indices * sizeof(uint32_t);
 	glGenBuffers(1, &renderer_id);
-	glBindBuffer(GL_ARRAY_BUFFER, renderer_id);
-	glBufferData(GL_ARRAY_BUFFER, size, quad_indices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_id);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, quad_indices, GL_STATIC_DRAW);
 
 	delete[] quad_indices;
 };

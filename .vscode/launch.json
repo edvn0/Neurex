@@ -8,14 +8,13 @@
             "name": "clang++ - Build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "bin/NXSandbox/NXSandbox",
+            "program": "/Volumes/1TBSSD/Programmering/Neurex/bin/Debug-macosx-x86_64/NXSandbox/NXSandbox",
             "args": [],
             "stopAtEntry": true,
-            "cwd": "NXSandbox",
+            "cwd": "/Volumes/1TBSSD/Programmering/Neurex/NXSandbox",
             "environment": [],
             "externalConsole": false,
-            "MIMode": "gdb",
-            "preLaunchTask": "C/C++: clang++ build active file"
+            "MIMode": "lldb",
         }
     ]
 }
