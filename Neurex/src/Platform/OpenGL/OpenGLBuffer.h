@@ -25,7 +25,7 @@ private:
 class OpenGLIndexBuffer : public IndexBuffer {
 public:
 	OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
-	OpenGLIndexBuffer(uint32_t vertices);
+	OpenGLIndexBuffer(uint32_t quads);
 	virtual ~OpenGLIndexBuffer();
 
 	virtual uint32_t get_count() const override { return count; }

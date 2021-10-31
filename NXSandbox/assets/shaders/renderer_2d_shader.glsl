@@ -35,4 +35,4 @@ in float v_Tiling;
 
 uniform sampler2D u_Textures[16];
 
-void main() { color = texture(u_Textures[int(v_TextureIndex)], v_TexCoord) * v_Color; }
+void main() { color = texture(u_Textures[int(v_TextureIndex)], v_TexCoord * v_Tiling) * v_Color; }

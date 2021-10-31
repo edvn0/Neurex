@@ -32,13 +32,33 @@ public:
 		return renderer_id == other_rid;
 	}
 
+	virtual const std::string& get_name() const override { return name; }
+
 private:
 	uint32_t width;
 	uint32_t height;
 	std::string path;
+	std::string name;
 	uint32_t renderer_id;
 	GLenum internal_format;
 	GLenum data_format;
+};
+
+class OpenGLSpritesheetTexture : public SpritesheetTexture {
+public:
+	explicit OpenGLSpritesheetTexture(const ref<Texture2D>& base_texture, const glm::vec2& coords,
+		const glm::vec2& cell_size, glm::vec2 sprite_size);
+
+	~OpenGLSpritesheetTexture();
+
+	const ref<Texture2D> get_base_texture() const override { return base; };
+
+	const glm::vec2* get_texture_coordinates() const override { return tex_coords; };
+
+private:
+	ref<Texture2D> base;
+
+	glm::vec2 tex_coords[4];
 };
 
 } // namespace Neurex

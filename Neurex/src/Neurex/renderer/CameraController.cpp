@@ -40,19 +40,29 @@ void OrthographicCameraController::on_update(Timestep t)
 	camera.set_rotation(camera_rotation);
 };
 
+void OrthographicCameraController::calculate_view()
+{
+
+	camera.set_projection(-aspect_ratio * zoom, aspect_ratio * zoom, -zoom, zoom);
+};
+
 void OrthographicCameraController::on_event(Event& e)
 {
 	EventDispatcher dispatcher(e);
 	dispatcher.dispatch_event<MouseScrolledEvent>([&](MouseScrolledEvent& e) {
 		zoom -= e.get_offset_y();
 		zoom = std::max(zoom, minimal_zoom_camera_controller);
-		camera.set_projection(-aspect_ratio * zoom, aspect_ratio * zoom, -zoom, zoom);
+
+		calculate_view();
+
 		return false;
 	});
 
 	dispatcher.dispatch_event<WindowResizeEvent>([&](WindowResizeEvent& e) {
 		aspect_ratio = e.get_width() / e.get_height();
-		camera.set_projection(-aspect_ratio * zoom, aspect_ratio * zoom, -zoom, zoom);
+
+		calculate_view();
+
 		return false;
 	});
 

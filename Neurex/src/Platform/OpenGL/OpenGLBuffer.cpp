@@ -57,15 +57,15 @@ OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count_)
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
 }
 
-OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t vertices)
-	: count(vertices * 6)
+OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t quads)
+	: count(quads * 6)
 {
 	NX_PROFILE_FUNCTION();
 
-	auto vertex_indices = vertices * 6;
+	auto vertex_indices = quads * 6;
 	uint32_t* quad_indices = new uint32_t[vertex_indices];
 	size_t offset = 0;
-	for (size_t i = 0; i < vertices; i += 6) {
+	for (size_t i = 0; i < quads; i += 6) {
 		quad_indices[i + 0] = offset + 0;
 		quad_indices[i + 1] = offset + 1;
 		quad_indices[i + 2] = offset + 2;

@@ -24,6 +24,8 @@ private:
 	ref<Shader> flat_color_shader;
 	ref<Texture2D> checkerboard_texture;
 	ref<Texture2D> cherno_texture;
+	ref<Texture2D> spritesheet;
+	ref<SpritesheetTexture> weapon_zero;
 
 	glm::vec4 square_color = { 0.2f, 0.3f, 0.8f, 0.8f };
 };

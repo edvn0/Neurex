@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Neurex/core/Core.h"
-#include <iostream>
+#include <glm/glm.hpp>
 
 namespace Neurex {
 
@@ -26,6 +26,17 @@ class Texture2D : public Texture {
 public:
 	static ref<Texture2D> create(const std::string& path);
 	static ref<Texture2D> create(uint32_t width, uint32_t height);
+
+	virtual const std::string& get_name() const = 0;
+};
+
+class SpritesheetTexture {
+public:
+	static ref<SpritesheetTexture> create(const ref<Texture2D>& base_texture, const glm::vec2& coords,
+		const glm::vec2& cell_size, glm::vec2 sprite_size = { 1, 1 });
+
+	virtual const ref<Texture2D> get_base_texture() const = 0;
+	virtual const glm::vec2* get_texture_coordinates() const = 0;
 };
 
 } // namespace Neurex

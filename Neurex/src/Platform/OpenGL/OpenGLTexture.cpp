@@ -7,6 +7,7 @@
 namespace Neurex {
 
 OpenGLTexture2D::OpenGLTexture2D(uint32_t w, uint32_t h)
+	: name("Unnamed empty texture")
 {
 	NX_PROFILE_FUNCTION();
 
@@ -31,6 +32,9 @@ OpenGLTexture2D::OpenGLTexture2D(const std::string& path_)
 	NX_PROFILE_FUNCTION();
 
 	stbi_set_flip_vertically_on_load(1);
+
+	std::filesystem::path path = path_;
+	name = path.stem().string();
 
 	int w, h, channels;
 	stbi_uc* data = nullptr;
@@ -90,7 +94,25 @@ void OpenGLTexture2D::unbind() const
 void OpenGLTexture2D::set_data(void* data, uint32_t size)
 {
 	NX_PROFILE_FUNCTION();
-	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0, data_format, GL_UNSIGNED_BYTE, data);
+	glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 }
+
+OpenGLSpritesheetTexture::OpenGLSpritesheetTexture(
+	const ref<Texture2D>& base_texture, const glm::vec2& coords, const glm::vec2& cell_size, glm::vec2 sprite_size)
+	: base(base_texture)
+{
+	auto w = base_texture->get_width();
+	auto h = base_texture->get_height();
+	glm::vec2 min = { ((coords.x * cell_size.x) / w), ((coords.y * cell_size.y) / h) };
+	glm::vec2 max
+		= { (((coords.x + sprite_size.x) * cell_size.x) / w), (((coords.y + sprite_size.y) * cell_size.y) / h) };
+
+	tex_coords[0] = { min.x, min.y };
+	tex_coords[1] = { max.x, min.y };
+	tex_coords[2] = { max.x, max.y };
+	tex_coords[3] = { min.x, max.y };
+}
+
+OpenGLSpritesheetTexture::~OpenGLSpritesheetTexture() = default;
 
 } // namespace Neurex

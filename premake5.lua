@@ -107,8 +107,6 @@ project "Neurex"
 		optimize "on"
 		runtime "Release"
 
-
-
 project "NXSandbox"
 	location "NXSandbox"
 	kind "ConsoleApp"

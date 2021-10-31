@@ -21,6 +21,15 @@ public:
 
 	OrthographicCamera& get_camera() { return camera; };
 
+	void set_zoom(float zoom_)
+	{
+		zoom = zoom_;
+		calculate_view();
+	}
+
+private:
+	void calculate_view();
+
 private:
 	float aspect_ratio;
 	float zoom = 1.0f;
