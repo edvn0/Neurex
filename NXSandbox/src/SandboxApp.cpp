@@ -9,6 +9,7 @@ using namespace Neurex;
 class Sandbox : public Application {
 public:
 	Sandbox()
+		: Application(WindowProps("Sandbox", 1280, 720))
 	{
 		// add_layer(make_scoped<ExampleLayer>());
 		add_layer(make_scoped<Sandbox2D>());

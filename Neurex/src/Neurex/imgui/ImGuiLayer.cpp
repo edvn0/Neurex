@@ -56,65 +56,72 @@ void ImGuiLayer::on_event(Event& event)
 {
 	NX_PROFILE_FUNCTION();
 
-	EventDispatcher dispatcher(event);
+	if (!block) {
 
-	dispatcher.dispatch_event<MouseButtonPressedEvent>([&](MouseButtonPressedEvent& e) {
-		ImGuiIO& io = ImGui::GetIO();
-		io.MouseDown[e.get_mouse_button()] = true;
-		return false;
-	});
+		auto& io = ImGui::GetIO();
+		event.get_handled() |= event.is_in_category(EventCategoryMouse) & io.WantCaptureMouse;
+		event.get_handled() |= event.is_in_category(EventCategoryKeyboard) & io.WantCaptureKeyboard;
 
-	dispatcher.dispatch_event<MouseButtonReleasedEvent>([&](MouseButtonReleasedEvent& e) {
-		ImGuiIO& io = ImGui::GetIO();
-		io.MouseDown[e.get_mouse_button()] = false;
-		return false;
-	});
+		EventDispatcher dispatcher(event);
 
-	dispatcher.dispatch_event<MouseMovedEvent>([&](MouseMovedEvent& e) {
-		ImGuiIO& io = ImGui::GetIO();
-		io.MousePos = ImVec2(e.get_x(), e.get_y());
-		return false;
-	});
+		dispatcher.dispatch_event<MouseButtonPressedEvent>([&](MouseButtonPressedEvent& e) {
+			ImGuiIO& io = ImGui::GetIO();
+			io.MouseDown[e.get_mouse_button()] = true;
+			return false;
+		});
 
-	dispatcher.dispatch_event<MouseScrolledEvent>([&](MouseScrolledEvent& e) {
-		ImGuiIO& io = ImGui::GetIO();
-		io.MouseWheel += e.get_offset_y();
-		io.MouseWheelH += e.get_offset_x();
-		return false;
-	});
+		dispatcher.dispatch_event<MouseButtonReleasedEvent>([&](MouseButtonReleasedEvent& e) {
+			ImGuiIO& io = ImGui::GetIO();
+			io.MouseDown[e.get_mouse_button()] = false;
+			return false;
+		});
 
-	dispatcher.dispatch_event<WindowResizeEvent>([&](WindowResizeEvent& e) {
-		ImGuiIO& io = ImGui::GetIO();
-		io.DisplaySize = ImVec2(e.get_width(), e.get_height());
-		io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
-		glViewport(0, 0, (int)e.get_width(), (int)e.get_height());
-		return false;
-	});
+		dispatcher.dispatch_event<MouseMovedEvent>([&](MouseMovedEvent& e) {
+			ImGuiIO& io = ImGui::GetIO();
+			io.MousePos = ImVec2(e.get_x(), e.get_y());
+			return false;
+		});
 
-	dispatcher.dispatch_event<WindowFramebufferEvent>([&](WindowFramebufferEvent& e) {
-		glViewport(0, 0, e.get_width(), e.get_height());
-		return false;
-	});
+		dispatcher.dispatch_event<MouseScrolledEvent>([&](MouseScrolledEvent& e) {
+			ImGuiIO& io = ImGui::GetIO();
+			io.MouseWheel += e.get_offset_y();
+			io.MouseWheelH += e.get_offset_x();
+			return false;
+		});
 
-	dispatcher.dispatch_event<KeyPressedEvent>([&](KeyPressedEvent& e) {
-		ImGuiIO& io = ImGui::GetIO();
-		io.KeysDown[e.get_key_code()] = true;
-		io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL] || io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
-		io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT] || io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
-		io.KeyAlt = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
-		io.KeySuper = io.KeysDown[GLFW_KEY_LEFT_SUPER] || io.KeysDown[GLFW_KEY_RIGHT_SUPER];
-		return false;
-	});
+		dispatcher.dispatch_event<WindowResizeEvent>([&](WindowResizeEvent& e) {
+			ImGuiIO& io = ImGui::GetIO();
+			io.DisplaySize = ImVec2(e.get_width(), e.get_height());
+			io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
+			glViewport(0, 0, (int)e.get_width(), (int)e.get_height());
+			return false;
+		});
 
-	dispatcher.dispatch_event<KeyTypedEvent>([&](KeyTypedEvent& e) {
-		ImGuiIO& io = ImGui::GetIO();
-		int keycode = e.get_key_code();
-		if (keycode > 0 && keycode < 0x10000) {
-			io.AddInputCharacter((unsigned short)keycode);
-		}
+		dispatcher.dispatch_event<WindowFramebufferEvent>([&](WindowFramebufferEvent& e) {
+			glViewport(0, 0, e.get_width(), e.get_height());
+			return false;
+		});
 
-		return false;
-	});
+		dispatcher.dispatch_event<KeyPressedEvent>([&](KeyPressedEvent& e) {
+			ImGuiIO& io = ImGui::GetIO();
+			io.KeysDown[e.get_key_code()] = true;
+			io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL] || io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
+			io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT] || io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
+			io.KeyAlt = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
+			io.KeySuper = io.KeysDown[GLFW_KEY_LEFT_SUPER] || io.KeysDown[GLFW_KEY_RIGHT_SUPER];
+			return false;
+		});
+
+		dispatcher.dispatch_event<KeyTypedEvent>([&](KeyTypedEvent& e) {
+			ImGuiIO& io = ImGui::GetIO();
+			int keycode = e.get_key_code();
+			if (keycode > 0 && keycode < 0x10000) {
+				io.AddInputCharacter((unsigned short)keycode);
+			}
+
+			return false;
+		});
+	}
 }
 
 void ImGuiLayer::on_imgui_render() { }

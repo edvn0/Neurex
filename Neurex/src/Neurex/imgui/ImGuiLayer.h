@@ -17,8 +17,11 @@ public:
 	void begin();
 	void end();
 
+	void block_events(bool block_) { block = block_; }
+
 private:
 	float current_time = 0.0f;
-};
 
+	bool block = true;
+};
 }

@@ -9,12 +9,12 @@ namespace Neurex {
 
 Application* Application::instance = nullptr;
 
-Application::Application()
+Application::Application(const WindowProps& props)
 {
 	NX_CORE_ASSERT(!instance, "Application already exists.");
 	instance = this;
 
-	window = std::unique_ptr<Window>(Window::create());
+	window = std::unique_ptr<Window>(Window::create(props));
 	window->set_event_callback([&](Event& event) { this->on_event(event); });
 	imgui_layer = make_scoped<ImGuiLayer>();
 
@@ -69,19 +69,15 @@ void Application::on_event(Event& event)
 
 	dispatcher.dispatch_event<WindowResizeEvent>([&](WindowResizeEvent& e) {
 		window->resize_window(e.get_width(), e.get_height());
-		return true;
-	});
-
-	dispatcher.dispatch_event<WindowFramebufferEvent>([&](WindowFramebufferEvent& e) {
 		window->resize_framebuffer(e.get_width(), e.get_height());
 		return true;
 	});
 
-	for (auto it = stack.end(); it != stack.begin();) {
-		(*--it)->on_event(event);
+	for (auto it = stack.rbegin(); it != stack.rend(); ++it) {
 		if (event) {
 			break;
 		}
+		(*it)->on_event(event);
 	}
 }
 

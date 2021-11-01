@@ -58,13 +58,11 @@ void MacOSWindow::resize_window(float w, float h) const
 	NX_PROFILE_FUNCTION();
 
 	glfwSetWindowSize(win_window, (int)w, (int)h);
-	glViewport(0, 0, w * pixel_size_x, h * pixel_size_y);
 }
 
 void MacOSWindow::resize_framebuffer(int w, int h) const
 {
 	NX_PROFILE_FUNCTION();
-
 	glViewport(0, 0, w * pixel_size_x, h * pixel_size_y);
 }
 

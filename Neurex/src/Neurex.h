@@ -11,10 +11,10 @@
 #include "Neurex/imgui/ImGuiLayer.h"
 #include "Neurex/instrumentation/Instrumentor.h"
 #include "Neurex/renderer/CameraController.h"
+#include "Neurex/renderer/Framebuffer.h"
 #include "Neurex/renderer/Renderer.h"
 #include "Neurex/renderer/Renderer2D.h"
 #include "Neurex/renderer/Texture.h"
-
 
 #include <glm/gtc/type_ptr.hpp>
 #include <imgui/imgui.h>

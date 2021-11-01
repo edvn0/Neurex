@@ -19,6 +19,8 @@ public:
 	void pop(scoped<Layer> layer);
 	void pop_overlay(scoped<Layer> overlay);
 
+	const inline scoped<Layer>& get_imgui_layer() const { return layer_stack[0]; };
+
 	stack_it begin() { return layer_stack.begin(); }
 	stack_it end() { return layer_stack.end(); }
 	stack_it_rev rbegin() { return layer_stack.rbegin(); };

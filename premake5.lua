@@ -169,3 +169,66 @@ project "NXSandbox"
 		defines "NX_DIST"
 		optimize "On"
 		runtime "Release"
+		
+project "Neutralise"
+	location "Neutralise"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "off"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files {
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp"
+	}
+
+	includedirs {
+		"%{include_dirs.spdlog}",
+		"Neurex/src",
+		"Neurex/vendor",
+		"%{include_dirs.glm}"
+	}
+
+	links {
+		"Neurex"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+
+		defines { "NX_PT_WIN" }
+
+	filter "system:macosx"
+		links {
+			"glfw3",
+			"glad",
+			"ImGui",
+			"Cocoa.framework",
+			"CoreVideo.framework",
+			"OpenGL.framework",
+			"IOKit.framework",
+		}
+
+		defines {
+			"NX_PT_OSX",
+			"GLFW_INCLUDE_NONE",
+			"_CRT_SECURE_NO_WARNINGS"	
+		}
+
+	filter "configurations:Debug"
+		defines "NX_DEBUG"
+		symbols "On"
+		runtime "Debug"
+
+	filter "configurations:Release"
+		defines "NX_RELEASE"
+		optimize "On"
+		runtime "Release"
+
+	filter "configurations:Dist"
+		defines "NX_DIST"
+		optimize "On"
+		runtime "Release"

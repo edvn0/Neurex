@@ -13,7 +13,7 @@ namespace Neurex {
 
 class Application {
 public:
-	Application();
+	Application(const WindowProps& props);
 	virtual ~Application();
 
 	void run();
@@ -26,6 +26,8 @@ public:
 	static inline Application& the() { return *instance; }
 	inline Window& get_window() { return *window; }
 	inline float get_fps() { return fps; };
+
+	const inline scoped<Layer>& get_imgui_layer() const { return stack.get_imgui_layer(); };
 
 	inline bool exit()
 	{

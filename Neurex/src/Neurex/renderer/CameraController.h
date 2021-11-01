@@ -19,6 +19,8 @@ public:
 
 	void on_event(Event& e);
 
+	void resize(uint32_t width, uint32_t height);
+
 	OrthographicCamera& get_camera() { return camera; };
 
 	void set_zoom(float zoom_)

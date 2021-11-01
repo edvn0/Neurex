@@ -47,6 +47,8 @@ public:
 
 	explicit operator bool() const { return handled; }
 
+	bool& get_handled() { return handled; }
+
 protected:
 	bool handled = false;
 };
