@@ -1,6 +1,7 @@
 #include "OpenGLFramebuffer.h"
 #include "nxpch.h"
 
+#include "Neurex/core/GPUDevice.h"
 #include <glad/glad.h>
 
 namespace Neurex {
@@ -49,7 +50,8 @@ void OpenGLFramebuffer::unbind() { glBindFramebuffer(GL_FRAMEBUFFER, 0); };
 
 void OpenGLFramebuffer::resize(uint32_t width, uint32_t height)
 {
-	if (width <= 0 || width >= 8192 || height <= 0 || height > 8192) {
+	auto [x, y] = GPUDevice::get_framebuffer_max_size();
+	if (width <= 0 || width >= x || height <= 0 || height > y) {
 		NX_CORE_WARN("Tried to resize framebuffers into {} by {}", width, height);
 		return;
 	}

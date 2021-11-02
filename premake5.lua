@@ -15,6 +15,7 @@ include_dirs["spdlog"] = "Neurex/vendor/spdlog/include"
 include_dirs["ImGui"] = "Neurex/vendor/imgui"
 include_dirs["glm"] = "Neurex/vendor/glm"
 include_dirs["stb_image"] = "Neurex/vendor/stb_image"
+include_dirs["entt"] = "Neurex/vendor/entt/include"
 
 group "Dependencies"
 	include "Neurex/vendor/glad"
@@ -53,7 +54,8 @@ project "Neurex"
 		"%{include_dirs.glad}",
 		"%{include_dirs.ImGui}",
 		"%{include_dirs.glm}",
-		"%{include_dirs.stb_image}"
+		"%{include_dirs.stb_image}",
+		"%{include_dirs.entt}"
 	}
 
 
@@ -126,7 +128,8 @@ project "NXSandbox"
 		"%{include_dirs.spdlog}",
 		"Neurex/src",
 		"Neurex/vendor",
-		"%{include_dirs.glm}"
+		"%{include_dirs.glm}",
+		"%{include_dirs.entt}"
 	}
 
 	links {
@@ -189,7 +192,8 @@ project "Neutralise"
 		"%{include_dirs.spdlog}",
 		"Neurex/src",
 		"Neurex/vendor",
-		"%{include_dirs.glm}"
+		"%{include_dirs.glm}",
+		"%{include_dirs.entt}"
 	}
 
 	links {
