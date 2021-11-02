@@ -43,11 +43,11 @@ void Sandbox2D::updated(Timestep ts)
 		Renderer2D::draw_rotated_quad({ -1.0f, 0.0f, -0.5f }, 0.0f, { 0.8f, 0.8f }, square_color);
 		Renderer2D::draw_rotated_quad(
 			{ -0.5f, -0.5f, -0.2f }, glm::radians(rotation_square), { 0.5f, 0.75f }, { 0.9f, 0.3f, 0.1f, 1.0f });
-		Renderer2D::draw_rotated_quad(
-			{ -3.0, -3.0, 0.2f }, glm::radians(-rotation_square), { 1.0f, 1.0f }, checkerboard_texture, 50.0f);
+		Renderer2D::draw_rotated_quad({ -3.0, -3.0, 0.2f }, glm::radians(-rotation_square), { 1.0f, 1.0f },
+			checkerboard_texture, glm::vec4(1.0f), 50.0f);
 		Renderer2D::draw_rotated_quad({ 0.0f, 0.0f, 0.0f }, 0.0f, { 1.0f, 1.0f }, cherno_texture);
 
-		Renderer2D::draw_rotated_sprite({ 2.0f, -1.5f, 0.0f }, 0.0f, { 1.0f, 2.0f }, weapon_zero);
+		// Renderer2D::draw_sprite({ 2.0f, -1.5f, 0.0f }, 0.0f, { 1.0f, 2.0f }, weapon_zero);
 
 		for (float x = -5.0f; x <= 5.0f; x += 0.5) {
 			for (float y = -5.0f; y <= 5.0f; y += 0.5) {

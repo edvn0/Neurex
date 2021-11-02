@@ -3,6 +3,7 @@
 
 #include "RenderCommand.h"
 #include "Shader.h"
+#include "UniformBuffer.h"
 #include "VertexArray.h"
 namespace Neurex {
 
@@ -14,6 +15,8 @@ struct QuadVertex {
 	glm::vec2 tex_coord;
 	float tex_id;
 	float tiling;
+
+	int entity_id;
 };
 
 struct RendererData {
@@ -40,6 +43,12 @@ struct RendererData {
 	static constexpr glm::vec2 vertex_coords[4]
 		= { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f } };
 
+	struct CameraData {
+		glm::mat4 view_projection;
+	};
+	CameraData camera_buffer;
+	ref<UniformBuffer> camera_uniform_buffer;
+
 	std::array<ref<Texture2D>, max_texture_slots> texture_slots;
 	uint32_t texture_slot_index = 1; // 0 is the white texture.
 };
@@ -64,7 +73,8 @@ void Renderer2D::init()
 		{ ShaderDataType::Float3, "a_Position" },
 		{ ShaderDataType::Float2, "a_TexCoord" },
 		{ ShaderDataType::Float, "a_TextureIndex" },
-		{ ShaderDataType::Float, "a_Tiling" } 
+		{ ShaderDataType::Float, "a_Tiling" },
+		{ ShaderDataType::Int, "a_EntityID" }
 	};
 	// clang-format on
 
@@ -86,6 +96,8 @@ void Renderer2D::init()
 	render_data.shader->set_int_array("u_Textures", vals, render_data.max_texture_slots);
 
 	render_data.texture_slots[0] = render_data.white_texture;
+
+	render_data.camera_uniform_buffer = UniformBuffer::create(sizeof(RendererData::CameraData), 0);
 }
 
 void Renderer2D::shut_down() { delete[] render_data.quad_vertex_buffer_base; }
@@ -100,6 +112,22 @@ void Renderer2D::begin_scene(const OrthographicCamera& cam)
 	start_batch();
 }
 
+void Renderer2D::begin_scene(const Camera& camera, const glm::mat4& transform)
+{
+	render_data.camera_buffer.view_projection = camera.get_projection() * glm::inverse(transform);
+	render_data.camera_uniform_buffer->set_data(&render_data.camera_buffer, sizeof(RendererData::CameraData));
+
+	next_batch();
+}
+
+void Renderer2D::begin_scene(const EditorCamera& camera)
+{
+	render_data.camera_buffer.view_projection = camera.get_view_projection();
+	render_data.camera_uniform_buffer->set_data(&render_data.camera_buffer, sizeof(RendererData::CameraData));
+
+	next_batch();
+}
+
 void Renderer2D::next_batch()
 {
 	flush();
@@ -110,24 +138,47 @@ void Renderer2D::draw_rotated_quad(
 	const glm::vec3& pos, float rotation_radians, const glm::vec2& size, const glm::vec4& colour)
 {
 	NX_PROFILE_FUNCTION();
+	glm::mat4 transform = glm::mat4(1.0f);
+	transform = glm::translate(transform, pos);
+	transform = glm::rotate(transform, rotation_radians, { 0, 0, 1.0f });
+	transform = glm::scale(transform, { size.x, size.y, 1.0f });
+	draw_quad(transform, colour);
+}
 
-	if (render_data.quad_index_count >= render_data.max_quads) {
-		next_batch();
-	}
-
+void Renderer2D::draw_rotated_quad(const glm::vec3& pos, float rotation_radians, const glm::vec2& size,
+	const ref<Texture2D>& texture, const glm::vec4& tint_color, float tiling_factor)
+{
+	NX_PROFILE_FUNCTION();
 	glm::mat4 transform = glm::mat4(1.0f);
 	transform = glm::translate(transform, pos);
 	transform = glm::rotate(transform, rotation_radians, { 0, 0, 1.0f });
 	transform = glm::scale(transform, { size.x, size.y, 1.0f });
 
+	draw_quad(transform, texture, tiling_factor, tint_color);
+}
+
+void Renderer2D::draw_sprite(const glm::mat4& transform, SpriteRendererComponent& src, int entity_id)
+{
+	if (src.texture) {
+		draw_quad(transform, src.texture, src.tiling_factor, src.colour, entity_id);
+	} else {
+		draw_quad(transform, src.colour, entity_id);
+	}
+}
+
+void Renderer2D::draw_quad(const glm::mat4& transform, const glm::vec4& colour, int entity_id)
+{
+	if (render_data.quad_index_count >= render_data.max_quads) {
+		next_batch();
+	}
+
 	for (int i = 0; i < 4; i++) {
-		QuadVertex quad_vertex = {
-			.color = colour,
+		QuadVertex quad_vertex = { .color = colour,
 			.position = transform * render_data.vertex_positions[i],
 			.tex_coord = render_data.vertex_coords[i],
 			.tex_id = 0.0f,
 			.tiling = 1.0f,
-		};
+			.entity_id = entity_id };
 
 		*render_data.quad_vertex_ptr = quad_vertex;
 		render_data.quad_vertex_ptr++;
@@ -135,19 +186,14 @@ void Renderer2D::draw_rotated_quad(
 
 	render_data.quad_index_count += 6;
 	render_data.stats.quads_submitted++;
-}
+};
 
-void Renderer2D::draw_rotated_quad(const glm::vec3& pos, float rotation_radians, const glm::vec2& size,
-	const ref<Texture2D>& texture, float tiling_factor)
+void Renderer2D::draw_quad(const glm::mat4& transform, const ref<Texture2D>& texture, float tiling_factor,
+	const glm::vec4& tint_colour, int entity_id)
 {
 	if (render_data.quad_index_count >= render_data.max_quads) {
 		next_batch();
 	}
-
-	glm::mat4 transform = glm::mat4(1.0f);
-	transform = glm::translate(transform, pos);
-	transform = glm::rotate(transform, rotation_radians, { 0, 0, 1.0f });
-	transform = glm::scale(transform, { size.x, size.y, 1.0f });
 
 	uint32_t tex_index = 0;
 
@@ -170,63 +216,12 @@ void Renderer2D::draw_rotated_quad(const glm::vec3& pos, float rotation_radians,
 	}
 
 	for (int i = 0; i < 4; i++) {
-		QuadVertex quad_vertex = {
-			.color = white_color,
+		QuadVertex quad_vertex = { .color = white_color,
 			.position = transform * render_data.vertex_positions[i],
 			.tex_coord = render_data.vertex_coords[i],
 			.tex_id = (float)tex_index,
 			.tiling = tiling_factor,
-		};
-
-		*render_data.quad_vertex_ptr = quad_vertex;
-		render_data.quad_vertex_ptr++;
-	}
-
-	render_data.quad_index_count += 6;
-	render_data.stats.quads_submitted++;
-}
-
-void Renderer2D::draw_rotated_sprite(const glm::vec3& pos, float rotation_radians, const glm::vec2& size,
-	const ref<SpritesheetTexture>& subtexture, float tiling_factor)
-{
-	if (render_data.quad_index_count >= render_data.max_quads) {
-		next_batch();
-	}
-
-	auto tex_coords = subtexture->get_texture_coordinates();
-
-	auto transform = glm::mat4(1.0f);
-	transform = glm::translate(transform, pos);
-	transform = glm::rotate(transform, rotation_radians, { 0, 0, 1.0f });
-	transform = glm::scale(transform, { size.x, size.y, 1.0f });
-
-	uint32_t tex_index = 0;
-	for (uint32_t i = 1; i < render_data.texture_slot_index; i++) {
-		if (*render_data.texture_slots[i] == *subtexture->get_base_texture()) {
-			tex_index = i;
-			break;
-		}
-	}
-
-	if (tex_index == 0) { // did not find this texture cached
-		tex_index = render_data.texture_slot_index;
-
-		if (tex_index >= render_data.max_texture_slots) {
-			next_batch();
-		}
-
-		render_data.texture_slots[render_data.texture_slot_index] = subtexture->get_base_texture();
-		render_data.texture_slot_index++;
-	}
-
-	for (int i = 0; i < 4; i++) {
-		QuadVertex quad_vertex = {
-			.color = white_color,
-			.position = transform * render_data.vertex_positions[i],
-			.tex_coord = tex_coords[i],
-			.tex_id = (float)tex_index,
-			.tiling = tiling_factor,
-		};
+			.entity_id = entity_id };
 
 		*render_data.quad_vertex_ptr = quad_vertex;
 		render_data.quad_vertex_ptr++;

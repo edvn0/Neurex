@@ -28,9 +28,15 @@ private:
 	ref<SpritesheetTexture> weapon_zero;
 	ref<Framebuffer> framebuffer;
 
+	ref<Scene> active_scene;
+	Entity square_entity;
+	Entity camera_entity;
+	Entity second_camera_entity;
+	EditorCamera editor_camera;
+
 	glm::vec2 viewport_size = { 0.0f, 0.0f };
 	glm::vec2 viewport_bounds[2] = { { 0.0f, 0.0f }, { 0.0f, 0.0f } };
-	bool viewport_focused, viewport_hovered;
+	bool viewport_focused = false, viewport_hovered = false;
 
 	glm::vec4 square_color = { 0.2f, 0.3f, 0.8f, 0.8f };
 };

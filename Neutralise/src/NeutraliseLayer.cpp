@@ -20,8 +20,55 @@ void NeutraliseLayer::attached()
 	FramebufferSpecification spec;
 	spec.width = 1280;
 	spec.height = 720;
-
 	framebuffer = Framebuffer::create(spec);
+
+	editor_camera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
+
+	// Entity
+	auto square = active_scene->create_entity("Green Square");
+	square.add_component<SpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
+
+	auto redSquare = active_scene->create_entity("Red Square");
+	redSquare.add_component<SpriteRendererComponent>(glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
+
+	square_entity = square;
+
+	camera_entity = active_scene->create_entity("Camera A");
+	camera_entity.add_component<CameraComponent>();
+
+	second_camera_entity = active_scene->create_entity("Camera B");
+	auto& cc = second_camera_entity.add_component<CameraComponent>();
+	cc.primary = false;
+
+	class CameraController : public ScriptableEntity {
+	public:
+		virtual void on_create() override
+		{
+			auto& translation = get_component<TransformComponent>().translation;
+			translation.x = rand() % 10 - 5.0f;
+		}
+
+		virtual void on_destroy() override { }
+
+		virtual void on_update(Timestep ts) override
+		{
+			auto& translation = get_component<TransformComponent>().translation;
+
+			float speed = 5.0f;
+
+			if (Input::is_key_pressed(NX_KC_A))
+				translation.x -= speed * ts.get_seconds();
+			if (Input::is_key_pressed(NX_KC_D))
+				translation.x += speed * ts.get_seconds();
+			if (Input::is_key_pressed(NX_KC_W))
+				translation.y += speed * ts.get_seconds();
+			if (Input::is_key_pressed(NX_KC_S))
+				translation.y -= speed * ts.get_seconds();
+		}
+	};
+
+	camera_entity.add_component<NativeScriptComponent>().bind<CameraController>();
+	second_camera_entity.add_component<NativeScriptComponent>().bind<CameraController>();
 }
 
 void NeutraliseLayer::detached() { }
@@ -50,11 +97,11 @@ void NeutraliseLayer::updated(Timestep ts)
 		Renderer2D::draw_rotated_quad({ -1.0f, 0.0f, -0.5f }, 0.0f, { 0.8f, 0.8f }, square_color);
 		Renderer2D::draw_rotated_quad(
 			{ -0.5f, -0.5f, -0.2f }, glm::radians(rotation_square), { 0.5f, 0.75f }, { 0.9f, 0.3f, 0.1f, 1.0f });
-		Renderer2D::draw_rotated_quad(
-			{ -3.0, -3.0, 0.2f }, glm::radians(-rotation_square), { 1.0f, 1.0f }, checkerboard_texture, 50.0f);
+		Renderer2D::draw_rotated_quad({ -3.0, -3.0, 0.2f }, glm::radians(-rotation_square), { 1.0f, 1.0f },
+			checkerboard_texture, glm::vec4(1.0f), 50.0f);
 		Renderer2D::draw_rotated_quad({ 0.0f, 0.0f, 0.0f }, 0.0f, { 1.0f, 1.0f }, cherno_texture);
 
-		Renderer2D::draw_rotated_sprite({ 2.0f, -1.5f, 0.0f }, 0.0f, { 1.0f, 2.0f }, weapon_zero);
+		// Renderer2D::draw_rotated_sprite({ 2.0f, -1.5f, 0.0f }, 0.0f, { 1.0f, 2.0f }, weapon_zero);
 
 		for (float x = -5.0f; x <= 5.0f; x += 0.5) {
 			for (float y = -5.0f; y <= 5.0f; y += 0.5) {

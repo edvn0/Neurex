@@ -66,6 +66,7 @@ project "Neurex"
 			"glad",
 			"ImGui",
 			"opengl32",
+			"yaml-cpp"
 		}
 
 		defines {
@@ -79,6 +80,7 @@ project "Neurex"
 			"glfw3",
 			"glad",
 			"ImGui",
+			"yaml-cpp",
 			"Cocoa.framework",
 			"CoreVideo.framework",
 			"OpenGL.framework",
@@ -146,6 +148,7 @@ project "NXSandbox"
 			"glfw3",
 			"glad",
 			"ImGui",
+			"yaml-cpp",
 			"Cocoa.framework",
 			"CoreVideo.framework",
 			"OpenGL.framework",
@@ -210,6 +213,7 @@ project "Neutralise"
 			"glfw3",
 			"glad",
 			"ImGui",
+			"yaml-cpp",
 			"Cocoa.framework",
 			"CoreVideo.framework",
 			"OpenGL.framework",
