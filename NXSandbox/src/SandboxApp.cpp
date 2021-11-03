@@ -3,9 +3,9 @@
 
 #include "Sandbox2D.h"
 
-#include <Neurex/core/EntryPoint.h>
+#include <Engine/core/EntryPoint.h>
 
-using namespace Neurex;
+using namespace Engine;
 class Sandbox : public Application {
 public:
 	Sandbox()
@@ -18,4 +18,4 @@ public:
 	~Sandbox(){};
 };
 
-Neurex::Application* Neurex::create_application() { return new Sandbox(); }
+Engine::Application* Engine::create_application() { return new Sandbox(); }

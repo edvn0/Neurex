@@ -14,8 +14,8 @@
 #include <unordered_set>
 #include <vector>
 
-#include "Neurex/core/Logger.h"
-#include "Neurex/instrumentation/Instrumentor.h"
+#include "engine/core/Logger.h"
+#include "engine/instrumentation/Instrumentor.h"
 
 #ifdef NX_PT_WIN
 #include <Windows.h>

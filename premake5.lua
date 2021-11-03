@@ -34,7 +34,7 @@ project "Neurex"
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "nxpch.h"
-	pchsource "Neurex/Neurex/src/nxpch.cpp"
+	pchsource "Neurex/src/nxpch.cpp"
 
 	files
 	{
