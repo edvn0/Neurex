@@ -2,7 +2,7 @@
 
 #include <Neurex.h>
 
-using namespace Neurex;
+using namespace Engine;
 
 class NeutraliseLayer : public Layer {
 public:

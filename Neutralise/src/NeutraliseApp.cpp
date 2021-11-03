@@ -3,9 +3,9 @@
 
 #include "NeutraliseLayer.h"
 
-#include <Neurex/core/EntryPoint.h>
+#include <engine/core/EntryPoint.h>
 
-using namespace Neurex;
+using namespace Engine;
 
 class Neutralise : public Application {
 public:
@@ -19,4 +19,4 @@ public:
 	~Neutralise(){};
 };
 
-Neurex::Application* Neurex::create_application() { return new Neutralise(); }
+Engine::Application* Engine::create_application() { return new Neutralise(); }

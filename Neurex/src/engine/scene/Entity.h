@@ -2,7 +2,7 @@
 
 #include "Scene.h"
 
-#include <entt/entt.hpp>
+#include "entt.hpp"
 
 namespace Engine {
 

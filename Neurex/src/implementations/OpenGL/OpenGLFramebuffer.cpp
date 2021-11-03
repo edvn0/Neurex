@@ -13,13 +13,13 @@ namespace Utils {
 		return multisampled ? GL_TEXTURE_2D_MULTISAMPLE : GL_TEXTURE_2D;
 	}
 
+	static void bind_texture(bool multisampled, uint32_t id) { glBindTexture(TextureTarget(multisampled), id); }
+
 	static void create_textures(bool multisampled, uint32_t* outID, uint32_t count)
 	{
 		glGenTextures(count, outID);
 		glBindTexture(TextureTarget(multisampled), *outID);
 	}
-
-	static void bind_texture(bool multisampled, uint32_t id) { glBindTexture(TextureTarget(multisampled), id); }
 
 	static void attach_color_texture(
 		uint32_t id, int samples, GLenum internalFormat, GLenum format, uint32_t width, uint32_t height, int index)
@@ -89,11 +89,13 @@ OpenGLFramebuffer::OpenGLFramebuffer(const FramebufferSpecification& spec_)
 	: spec(spec_)
 {
 	for (auto spec : spec.attachments.attachments) {
-		if (!Utils::is_depth_format(spec.texture_format))
-			color_attachment_specification.emplace_back(spec);
-		else
+		if (Utils::is_depth_format(spec.texture_format))
 			depth_attachment_spec = spec;
+		else
+			color_attachment_specification.emplace_back(spec);
 	}
+
+	invalidate();
 };
 
 OpenGLFramebuffer::~OpenGLFramebuffer()
@@ -116,14 +118,12 @@ void OpenGLFramebuffer::invalidate()
 
 	glGenFramebuffers(1, &renderer_id);
 	glBindFramebuffer(GL_FRAMEBUFFER, renderer_id);
-
 	bool multisample = spec.samples > 1;
 
 	// Attachments
 	if (color_attachment_specification.size()) {
 		color_attachments.resize(color_attachment_specification.size());
 		Utils::create_textures(multisample, color_attachments.data(), color_attachments.size());
-
 		for (size_t i = 0; i < color_attachments.size(); i++) {
 			Utils::bind_texture(multisample, color_attachments[i]);
 			switch (color_attachment_specification[i].texture_format) {

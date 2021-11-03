@@ -3,7 +3,7 @@
 
 #include "Sandbox2D.h"
 
-#include <Engine/core/EntryPoint.h>
+#include <engine/core/EntryPoint.h>
 
 using namespace Engine;
 class Sandbox : public Application {

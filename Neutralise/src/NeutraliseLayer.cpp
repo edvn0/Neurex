@@ -20,6 +20,8 @@ void NeutraliseLayer::attached()
 	FramebufferSpecification spec;
 	spec.width = 1280;
 	spec.height = 720;
+	spec.attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RED_INTEGER,
+		FramebufferTextureFormat::Depth };
 	framebuffer = Framebuffer::create(spec);
 
 	editor_camera = EditorCamera(30.0f, 1.778f, 0.1f, 1000.0f);
